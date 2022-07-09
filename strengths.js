@@ -5,4 +5,7 @@ const strengths = {
 
   'flexablity': new Strength('Flexablity', 'Strengths in multiple areas, often at the expense of excelling at either.'),
   'unity': new Strength('Unity', 'Very strong in a single area, often at the expense of being vulnerable in other areas.'),
+
+  'antidive': new Strength('Anti Dive', 'Powerfull Abilities (often stuns) that make executing a dive more difficult for the other team.'),
+  'defensive_ult': new Strength('Defensive Ultimate', 'An ultimate that can shutdown agressive plays and ultimate combos.'),
 }

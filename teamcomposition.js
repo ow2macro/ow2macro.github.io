@@ -68,6 +68,7 @@ class TeamComposition extends Descriptor {
     this.normalize();
     this.classify();
 
+    this.count();
     this.getStrengths();
     this.getWeakness();
 
@@ -136,6 +137,8 @@ class TeamComposition extends Descriptor {
       damage: {total: 0, hitscan: 0, flex: 0},
       healer: {total: 0, main: 0, off: 0},
       support: {main: 0, flex: 0},
+      antidive: 0,
+      defensiveUlt: 0,
     };
 
     for (const x of this.members) {
@@ -154,15 +157,18 @@ class TeamComposition extends Descriptor {
 
       if (x.archetypes.includes(attribute.archetype.support.main)) n.support.main++;
       if (x.archetypes.includes(attribute.archetype.support.flex)) n.support.flex++;
+
+      if (x.archetypes.includes(attribute.archetype.antidive)) n.antidive++;
+      if (x.archetypes.includes(attribute.archetype.defensiveUlt)) n.defensiveUlt++;
     }
 
-    return n;
+    this.n = n;
   }
 
   getWeakness() {
     const weakness = [];
 
-    const n = this.count();
+    const n = this.n;
 
     this.size = n.total;
     this.roles = `${n.tank.total}-${n.damage.total}-${n.healer.total}`
@@ -223,6 +229,9 @@ class TeamComposition extends Descriptor {
 
   getStrengths() {
     const result = [];
+
+    if (this.n.antidive > 1) result.push('antidive_multi');
+    if (this.n.defensiveUlt > 0) result.push('defensive_ult');
 
     if (this.primary === 'Brawl') result.push('sustain');
     if (this.primary === 'Poke') result.push('range');
