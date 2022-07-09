@@ -1,5 +1,5 @@
-const heros = {
-  ana: {
+const heros = [
+  {
     name: new Descriptor('Ana'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
@@ -11,17 +11,18 @@ const heros = {
     ],
   },
 
-  ashe: {
+  {
     name: new Descriptor('Ashe'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
     playstyle: attribute.playstyle.range,
     archetypes: [
       attribute.archetype.damage.sniper,
+      attribute.archetype.dive_target,
     ],
   },
 
-  baptiste: {
+  {
     name: new Descriptor('Baptiste', 'Bap'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
@@ -34,7 +35,7 @@ const heros = {
     ],
   },
 
-  bastion: {
+  {
     name: new Descriptor('Bastion'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
@@ -42,10 +43,11 @@ const heros = {
     archetypes: [
       attribute.archetype.damage.buster,
       attribute.archetype.damage.flanker,
+      attribute.archetype.dive_target,
     ],
   },
 
-  brigitte: {
+  {
     name: new Descriptor('Brigitte', 'Brig'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
@@ -58,7 +60,7 @@ const heros = {
     ],
   },
 
-  cassidy: {
+  {
     name: new Descriptor('Cassidy', 'Cass'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
@@ -70,7 +72,7 @@ const heros = {
     ],
   },
 
-  dva: {
+  {
     name: new Descriptor('D.Va', 'Dva'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
@@ -78,10 +80,11 @@ const heros = {
     archetypes: [
       attribute.archetype.tank.dive,
       attribute.archetype.tank.mitigation,
+      attribute.archetype.antidive,
     ],
   },
 
-  doomfist: {
+  {
     name: new Descriptor('Doomfist', 'Doom'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
@@ -91,7 +94,7 @@ const heros = {
     ],
   },
 
-  echo: {
+  {
     name: new Descriptor('Echo'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
@@ -101,7 +104,7 @@ const heros = {
     ],
   },
 
-  genji: {
+  {
     name: new Descriptor('Genji'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
@@ -111,7 +114,7 @@ const heros = {
     ],
   },
 
-  hanzo: {
+  {
     name: new Descriptor('Hanzo'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
@@ -122,7 +125,7 @@ const heros = {
     ],
   },
 
-  junkrat: {
+  {
     name: new Descriptor('Junkrat'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
@@ -133,7 +136,7 @@ const heros = {
     ],
   },
 
-  lucio: {
+  {
     name: new Descriptor('Lucio'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
@@ -145,7 +148,7 @@ const heros = {
     ],
   },
 
-  mei: {
+  {
     name: new Descriptor('Mei'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
@@ -153,10 +156,11 @@ const heros = {
     archetypes: [
       attribute.archetype.damage.brawl,
       attribute.archetype.defensiveUlt,
+      attribute.archetype.antidive,
     ],
   },
 
-  mercy: {
+  {
     name: new Descriptor('Mercy'),
     role: attribute.role.damage,
     class: attribute.class.healer.off,
@@ -166,7 +170,7 @@ const heros = {
     ],
   },
 
-  moria: {
+  {
     name: new Descriptor('Moria'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
@@ -178,7 +182,7 @@ const heros = {
     ],
   },
 
-  orisa: {
+  {
     name: new Descriptor('Orisa'),
     role: attribute.role.tank,
     class: attribute.class.tank.main,
@@ -189,7 +193,7 @@ const heros = {
     ],
   },
 
-  pharah: {
+  {
     name: new Descriptor('Pharah'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
@@ -199,7 +203,7 @@ const heros = {
     ],
   },
 
-  reaper: {
+  {
     name: new Descriptor('Reaper'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
@@ -211,7 +215,7 @@ const heros = {
     ],
   },
 
-  reinhardt: {
+  {
     name: new Descriptor('Reinhardt', 'Rein'),
     role: attribute.role.tank,
     class: attribute.class.tank.main,
@@ -223,7 +227,7 @@ const heros = {
     ],
   },
 
-  roadhog: {
+  {
     name: new Descriptor('Roadhog', 'Hog'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
@@ -235,7 +239,7 @@ const heros = {
     ],
   },
 
-  sigma: {
+  {
     name: new Descriptor('Sigma', 'Sig'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
@@ -244,10 +248,11 @@ const heros = {
       attribute.archetype.tank.poke,
       attribute.archetype.tank.dive,
       attribute.archetype.tank.mitigation,
+      attribute.archetype.dive_target,
     ],
   },
 
-  soldier76: {
+  {
     name: new Descriptor('Soldier 76', 'Soldier'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
@@ -255,10 +260,11 @@ const heros = {
     archetypes: [
       attribute.archetype.damage.buster,
       attribute.archetype.damage.flanker,
+      attribute.archetype.dive_target,
     ],
   },
 
-  sombra: {
+  {
     name: new Descriptor('Sombra'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
@@ -269,7 +275,7 @@ const heros = {
     ],
   },
 
-  symmetra: {
+  {
     name: new Descriptor('Symmetra'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
@@ -280,19 +286,7 @@ const heros = {
     ],
   },
 
-  torbjorn: {
-    name: new Descriptor('Symmetra'),
-    role: attribute.role.damage,
-    class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.sustain,
-    archetypes: [
-      attribute.archetype.damage.buster,
-      attribute.archetype.damage.hitscan,
-      attribute.archetype.antidive,
-    ],
-  },
-
-  tracer: {
+  {
     name: new Descriptor('Tracer'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
@@ -302,17 +296,18 @@ const heros = {
     ],
   },
 
-  widowmaker: {
+  {
     name: new Descriptor('Widowmaker', 'Widow'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
     playstyle: attribute.playstyle.range,
     archetypes: [
       attribute.archetype.damage.sniper,
+      attribute.archetype.dive_target,
     ],
   },
 
-  winston: {
+  {
     name: new Descriptor('Winston'),
     role: attribute.role.tank,
     class: attribute.class.tank.main,
@@ -322,7 +317,7 @@ const heros = {
     ],
   },
 
-  wreckingball: {
+  {
     name: new Descriptor('Wrecking Ball', 'Ball'),
     role: attribute.role.tank,
     class: attribute.class.tank.main,
@@ -333,7 +328,7 @@ const heros = {
     ],
   },
 
-  zarya: {
+  {
     name: new Descriptor('Zarya'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
@@ -344,7 +339,7 @@ const heros = {
     ],
   },
 
-  zenyatta: {
+  {
     name: new Descriptor('Zenyatta', 'Zen'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
@@ -353,6 +348,39 @@ const heros = {
       attribute.archetype.support.main,
       attribute.archetype.support.range,
       attribute.archetype.defensiveUlt,
+      attribute.archetype.dive_target,
     ],
   },
+]
+
+function herosByRole(pool = heros) {
+  const result = {
+    Tank: [],
+    Damage: [],
+    Support: [],
+  }
+
+  for (const hero of pool) {
+    if (hero.role === attribute.role.tank) result.Tank.push(hero);
+    if (hero.role === attribute.role.damage) result.Damage.push(hero);
+    if (hero.role === attribute.role.support) result.Support.push(hero);
+  }
+
+  return result;
 }
+
+function heroDictionary() {
+  const result = {}
+
+  for (const hero of heros) {
+    result[hero.name.full] = hero;
+  }
+
+  return result;
+}
+
+const _herodictionary = heroDictionary();
+
+function getHero(full) {
+  return _herodictionary[full];
+};

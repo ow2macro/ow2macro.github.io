@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <title>Overwatch Macro Tools</title>
+
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+
     <script type="text/javascript" src="descriptor.js"></script>
     <script type="text/javascript" src="role.js"></script>
     <script type="text/javascript" src="vulnerability.js"></script>
@@ -16,9 +22,75 @@
     <script type="text/javascript" src="strengths.js"></script>
     <script type="text/javascript" src="compare.js"></script>
     <script type="text/javascript" src="compositions.js"></script>
-    <script type="text/javascript" src="test.js"></script>
   </head>
   <body>
 
+    <div class="container">
+      <div class="row">
+        <h1>Overwatch Macro Tool</h1>
+      </div>
+      <div class="row" id="teams">
+        <section v-for="team in teams" class="col-lg">
+          <h1> {{ team.name }} - {{ team.data.composition }} </h1>
+
+          <div class="container">
+            <section>
+              <h3>Plays {{ team.matchupRole }}</h3>
+              <ul>
+                <li v-for="play in team.playstyle">
+                  <span>{{play.name}}</span>
+                  <div>{{play.details}}</div>
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h4>Strengths</h4>
+              <ul>
+                <li v-for="strength in team.data.strengths">
+                  <span>{{strength.full}}</span>
+                  <div>{{strength.details}}</div>
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h4>Vulnerabilities</h4>
+              <ul>
+                <li v-for="vulnerability in team.data.vulnerabilities">
+                  <span>{{vulnerability.full}}</span>
+                  <div>{{vulnerability.details}}</div>
+                </li>
+              </ul>
+            </section>
+          </div>
+
+          <section>
+            <h2>Roster</h2>
+            <div class="container">
+              <button type="button" @click="team.reset()" class="btn btn-danger mx-1 my-2">Clear</button>
+
+              <div>
+                <button type="button" @click="team.remove(hero)" class="btn btn-secondary mx-1 my-2" v-for="hero in team.roster">{{ hero.name.full }}</button>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Edit</h2>
+            <section class="container" v-for="(heros, role) in roles">
+              <h3>{{ role }}</h3>
+              <div>
+                <button type="button" @click="team.toggle(hero)" class="btn btn-primary mx-1 my-2" v-for="hero in heros">{{ hero.name.full }}</button>
+              </div>
+            </section>
+          </section>
+
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script type="text/javascript" src="main.js"></script>
   </body>
 </html>

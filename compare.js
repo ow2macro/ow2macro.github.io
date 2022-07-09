@@ -27,12 +27,11 @@ const compositionPlays = {
     },
 
     'Dive': {
-      'peel': 'Focus pressure and abilities on threatened allies. Save Anti Dive cooldowns to aid in punishing dive attempts. Avoid demanding resources while an ally is threatened by a dive.',
+      'peel': 'Focus pressure and abilities on threatened allies. Save antidive cooldowns to aid in punishing dive attempts.',
       'kite': 'Back up when backline is threatened to further isolate the enemy dive, allowing the use of nataral cover and distance to make peeling safer.',
     },
 
     'Poke': {
-      'kite': 'Use natural cover and strong resource regeneration to recover before pushing.',
       'path': 'Use natural cover to avoid long sight lines and aid shields in blocking off angles.',
     },
   },
@@ -48,7 +47,7 @@ const compositionPlays = {
 
     'Dive': {
       'poke': 'Force out enemy dives during staging, preventing them from getting a clean engage.',
-      'peel': 'Focus pressure and abilities on threatened allies. Save Anti Dive cooldowns to punish dive attempts.',
+      'peel': 'Focus pressure and abilities on threatened allies. Save antidive cooldowns to punish dive attempts.',
     },
   },
 
@@ -111,12 +110,12 @@ function compareTeamsOrdered(angles, frontline) {
   return [
     {
       team: angles,
-      matchupRole: 'angles',
+      matchupRole: 'Angles',
       plays: selectPlays(matchups.angles, angles, frontline),
     },
     {
       team: frontline,
-      matchupRole: 'frontline',
+      matchupRole: 'Frontline',
       plays: selectPlays(matchups.frontline, frontline, angles),
     }
   ];
@@ -127,20 +126,20 @@ function mirrorMatchup(team1, team2) {
   return [
     {
       team: team1,
-      matchupRole: 'mirror',
+      matchupRole: 'Mirror',
       plays: selectPlays(mirror, team1, team2),
     },
     {
       team: team2,
-      matchupRole: 'mirror',
+      matchupRole: 'Mirror',
       plays: selectPlays(mirror, team2, team1),
     }
   ];
 }
 
-function compareTeams(team1, team2) {
+function analyzeMatchup(team1, team2) {
 
-  if (team1.mobility - team2.mobility < epsilon) return mirrorMatchup(team1, team2);
+  if (Math.abs(team1.mobility - team2.mobility) < epsilon) return mirrorMatchup(team1, team2);
 
   if (team1.mobility > team2.mobility) {
     return compareTeamsOrdered(team1, team2);

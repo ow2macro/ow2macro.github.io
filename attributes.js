@@ -57,7 +57,8 @@ const attribute = {
       flex: new HeroArchetype('Flex Support'),
     },
 
-    antidive: new HeroArchetype('Anti Dive'),
+    antidive: new HeroArchetype('Antidive'),
+    dive_target: new HeroArchetype('Dive Target'),
     defensiveUlt: new HeroArchetype('Defensive Ult'),
   },
 }

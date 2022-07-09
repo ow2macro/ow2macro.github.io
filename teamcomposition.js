@@ -1,5 +1,5 @@
 class TeamComposition extends Descriptor {
-  // team compostion member heros
+  // team composition member heros
   members;
 
   // modern classifcation score
@@ -71,8 +71,6 @@ class TeamComposition extends Descriptor {
     this.count();
     this.getStrengths();
     this.getWeakness();
-
-    console.log(this.full, this.inspect());
   }
 
   normalize() {
@@ -138,6 +136,7 @@ class TeamComposition extends Descriptor {
       healer: {total: 0, main: 0, off: 0},
       support: {main: 0, flex: 0},
       antidive: 0,
+      dive_target: 0,
       defensiveUlt: 0,
     };
 
@@ -159,6 +158,7 @@ class TeamComposition extends Descriptor {
       if (x.archetypes.includes(attribute.archetype.support.flex)) n.support.flex++;
 
       if (x.archetypes.includes(attribute.archetype.antidive)) n.antidive++;
+      if (x.archetypes.includes(attribute.archetype.dive_target)) n.dive_target++;
       if (x.archetypes.includes(attribute.archetype.defensiveUlt)) n.defensiveUlt++;
     }
 
@@ -222,6 +222,9 @@ class TeamComposition extends Descriptor {
     if (this.mobility < 25) weakness.push('low_mobility');
     else weakness.push('low_frontline');
 
+    // dive target + no anti dive
+    if (n.dive_target > n.antidive) weakness.push('diveable');
+
     const expandWeakness = (x) => vulnerabilities[x];
 
     this.vulnerabilities = weakness.reverse().map(expandWeakness);
@@ -230,7 +233,8 @@ class TeamComposition extends Descriptor {
   getStrengths() {
     const result = [];
 
-    if (this.n.antidive > 1) result.push('antidive_multi');
+    if (this.n.antidive > 2) result.push('antidive_multi');
+    else if (this.n.antidive > 1) result.push('antidive');
     if (this.n.defensiveUlt > 0) result.push('defensive_ult');
 
     if (this.primary === 'Brawl') result.push('sustain');
@@ -238,11 +242,10 @@ class TeamComposition extends Descriptor {
     if (this.primary === 'Dive') result.push('mobility');
 
     if (this.hybrid) {
-      if (this.hybrid === 'Brawl') result.push('sustain');
-      if (this.hybrid === 'Poke') result.push('range');
-      if (this.hybrid === 'Dive') result.push('mobility');
-      result.push('flexablity');
-    } else result.push('unity');
+      if (this.hybrid === 'Brawl') result.push('sustain_hybrid');
+      if (this.hybrid === 'Poke') result.push('range_hybrid');
+      if (this.hybrid === 'Dive') result.push('mobility_hybrid');
+    }
 
     const expandStrength = (x) => strengths[x];
 
