@@ -1,6 +1,7 @@
 class TeamView {
   name;
-  data = {};
+  enable;
+  data;
   matchupRole;
   enemyComp;
 
@@ -47,7 +48,10 @@ class TeamView {
   }
 
   renderTeam(team) {
-    this.data = team.inspect();
+    if (this.roster.length > 2) {
+      this.data = team.inspect();
+      this.enable = true;
+    }
   }
 
   render(result, enemy) {
@@ -62,25 +66,35 @@ class TeamView {
   }
 
   resetView() {
+    this.enable = false;
     this.matchupRole = '...';
     this.enemyComp = '...';
     this.data = {};
+    this.data.scores = {};
     this.data.composition = '...';
     this.data.mobility = 0;
+    this.data.scores.mobility = 0;
+    this.data.scores.power = 0;
+    this.data.brawl = 0;
+    this.data.poke = 0;
+    this.data.dive = 0;
+    this.data.sustain = 0;
+    this.data.range = 0;
+    this.data.mobile = 0;
     this.playstyle = [];
 
-    if (this.roster.length > 2) this.renderTeam(this.build());
+    this.renderTeam(this.build());
   }
 }
 
 function render() {
-  if (team1.roster.length > 2 && team2.roster.length > 2) {
+  team1.resetView();
+  team2.resetView();
+  
+  if (team1.roster.length > 1 && team2.roster.length > 1) {
     const result = analyzeMatchup(team1.build(), team2.build());
     team1.render(result[0], result[1]);
     team2.render(result[1], result[0]);
-  } else {
-    team1.resetView();
-    team2.resetView();
   }
 }
 

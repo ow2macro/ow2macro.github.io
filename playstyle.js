@@ -3,10 +3,6 @@ class Playstyle extends Descriptor {
   range;
   mobile;
 
-  brawl;
-  poke;
-  dive;
-
   flags;
 
   constructor(name, sustain, range, mobile, ...flags) {
@@ -16,10 +12,6 @@ class Playstyle extends Descriptor {
     this.range = range;
     this.mobile = mobile;
 
-    this.brawl = sustain;
-    this.poke = range;
-    this.dive = mobile;
-
     this.flags = [flags].flat(Infinity);
 
     this.normalize();
@@ -27,9 +19,8 @@ class Playstyle extends Descriptor {
 
   normalize() {
     const characteristics = [this.sustain, this.range, this.mobile];
-    const bias = Math.min(...characteristics);
     const factor = characteristics.reduce((acc, a) => acc + a, 0);
-    [this.sustain, this.range, this.mobile] = characteristics.map(x=>(x-bias)/factor);
+    [this.sustain, this.range, this.mobile] = characteristics.map(x=>x/factor);
   }
 
   arr() {

@@ -29,6 +29,20 @@ const attribute = {
     pokebrawl: new Playstyle('Poke-Brawl', 1, 1, 0),
     brawldive: new Playstyle('Brawl-Dive', 1, 0, 1),
 
+    pokedive_2x1: new Playstyle('Poke-Dive 2:1', 0, 2, 1),
+    pokebrawl_2x1: new Playstyle('Poke-Brawl 2:1', 1, 2, 0),
+    brawldive_2x1: new Playstyle('Brawl-Dive 2:1', 2, 0, 1),
+    brawlpoke_2x1: new Playstyle('Brawl-Poke 2:1', 2, 1, 0),
+    divebrawl_2x1: new Playstyle('Dive-Brawl 2:1', 1, 0, 2),
+    divepoke_2x1: new Playstyle('Dive-Poke 2:1', 0, 1, 2),
+
+    pokedive_3x1: new Playstyle('Poke-Dive 3:1', 0, 3, 1),
+    pokebrawl_3x1: new Playstyle('Poke-Brawl 3:1', 1, 3, 0),
+    brawldive_3x1: new Playstyle('Brawl-Dive 3:1', 3, 0, 1),
+    brawlpoke_3x1: new Playstyle('Brawl-Poke 3:1', 3, 1, 0),
+    divebrawl_3x1: new Playstyle('Dive-Brawl 3:1', 1, 0, 3),
+    divepoke_3x1: new Playstyle('Dive-Poke 3:1', 0, 1, 3),
+
     rush: new Playstyle('Rush', 1, 0, 1, 'brawl_to_rush'),
     spam: new Playstyle('Range', 0, 1, 0, 'poke_to_spam'),
   },
@@ -43,7 +57,6 @@ const attribute = {
 
     damage: {
       sniper: new HeroArchetype('Sniper DPS', 'Sniper'),
-      range: new HeroArchetype('Ranged DPS', 'Ranged'),
       flanker: new HeroArchetype('Flanker DPS', 'Flanker'),
       buster: new HeroArchetype('Shield/Tank Buster DPS', 'Shield/Tank Buster'),
       brawl: new HeroArchetype('Brawl DPS'),
@@ -51,7 +64,7 @@ const attribute = {
 
     support: {
       range: new HeroArchetype('Ranged Support'),
-      area: new HeroArchetype('Area Of Effect Support', 'AOE Support'),
+      area: new HeroArchetype('Area of Effect Support', 'AOE Support'),
 
       main: new HeroArchetype('Main Support'),
       flex: new HeroArchetype('Flex Support'),

@@ -4,6 +4,9 @@ class TeamComposition extends Descriptor {
 
   // modern classifcation score
   mobility;
+  // mobility vs power scores
+  scores;
+
   // classic Brawl/Poke/Dive classifcation
   composition;
 
@@ -50,15 +53,17 @@ class TeamComposition extends Descriptor {
     this.flags = [];
     this.archetypes = new Set();
 
+    this.scores = {}
+
     for (const x of members) {
       const playstyle = x.playstyle;
       this.sustain += playstyle.sustain;
       this.range += playstyle.range;
       this.mobile += playstyle.mobile;
 
-      this.brawl += playstyle.brawl;
-      this.poke  += playstyle.poke;
-      this.dive  += playstyle.dive;
+      this.brawl += playstyle.sustain;
+      this.poke  += playstyle.range;
+      this.dive  += playstyle.mobile;
 
       this.flags = [this.flags, playstyle.flags].flat();
 
@@ -79,13 +84,19 @@ class TeamComposition extends Descriptor {
     this.mobile /= this.members.length;
 
     const total = this.brawl + this.poke + this.dive;
-    this.brawl = Math.round(this.brawl/total * 100);
-    this.poke = Math.round(this.poke/total * 100);
-    this.dive = Math.round(this.dive/total * 100);
+    this.brawl = Math.round(this.sustain * 100);
+    this.poke = Math.round(this.range * 100);
+    this.dive = Math.round(this.mobile * 100);
   }
 
   classify() {
-    this.mobility = Math.round(100 * (this.mobile - this.sustain));
+    this.mobility = 100 * (this.mobile - this.sustain);
+
+    this.scores = {
+      score: this.mobility/2 + 50,
+      mobility: Math.max(this.mobility, 0),
+      power: Math.max(-1*this.mobility, 0),
+    }
 
     const weights = this.weights = [
       {name: 'Poke', score: this.poke},
@@ -95,8 +106,9 @@ class TeamComposition extends Descriptor {
 
     weights.sort((a,b)=>b.score - a.score);
 
-    this.strength = weights[0].score;
+    // const strength = this.strength = weights[0].score;
     const focus = this.focus = Math.round(weights[0].score/1 + weights[1].score/2);
+    const strength = this.strength = Math.round(weights[0].score/1 + weights[1].score/2 - weights[2].score/3);
 
     let primary = weights[0].name;
     let secondary = weights[1].name;
@@ -105,7 +117,7 @@ class TeamComposition extends Descriptor {
     this.hybrid = false;
 
     if (focus >= 60 && focus <= 75) this.hybrid = secondary;
-    if (focus < 50) this.primary = 'hybrid';
+    if (focus < 60) this.primary = 'Hybrid';
 
     if (this.flags.includes('brawl_to_rush') && primary === 'Brawl') this.flags.push('rush');
     if (this.flags.includes('poke_to_spam') && primary === 'Poke') this.flags.push('spam');
@@ -266,11 +278,30 @@ class TeamComposition extends Descriptor {
       hybrid: this.hybrid,
       roles: this.roles,
       flags: this.flags,
+
+      brawl: this.brawl/100,
+      poke: this.poke/100,
+      dive: this.dive/100,
+
+      sustain: this.sustain,
+      range: this.range,
+      mobile: this.mobile,
+
+      scores: this.scores,
+
       weights: {
         primary: this.weights[0],
         secondary: this.weights[1],
         tertiary: this.weights[2],
       },
     }
+  }
+
+  equals(team) {
+    if (this.members.length != team.members.length) return false;
+    for (const hero of this.members) {
+      if (!team.members.includes(hero)) return false;
+    }
+    return true;
   }
 }

@@ -3,7 +3,7 @@ const vulnerabilities = {
   'low_frontline': new Vulnerability('Weak Frontline', 'Loses fights when stacking main against stronger teams.'),
   'no_defensive_ult': new Vulnerability('No Defensive Ult', 'No Defensive Ult to negate aggressive plays or ult combos.'),
 
-  'no_aoe_support_brawl': new Vulnerability('No AOE Healing', 'Without Area of Effect Healing, A Brawl team will have less sustain.'),
+  'no_aoe_support_brawl': new Vulnerability('No AOE Healing', 'Without Area of Effect healing, A Brawl team will have less sustain.'),
   'no_anti_dive_poke': new Vulnerability('No Antidive', 'Poke team compositions without antidive abilities are especially vulneralbe to Dive heros.'),
   'no_ranged_support_dive': new Vulnerability('No Ranged Healing', 'No Ranged Support to heal Divers.'),
 

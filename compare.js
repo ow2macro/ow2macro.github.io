@@ -1,21 +1,26 @@
-const epsilon = 0.1;
+const epsilon = 1;
 
 const matchups = {
   'angles':
-    ['map_control', 'kite', 'disrupt'],
+    ['map_control', 'kite', 'disrupt', 'utilize_angles'],
 
   'frontline':
-    ['objective', 'peel', 'poke', 'kite', 'path', 'deny_angles'],
+    ['objective', 'deny_angles', 'path', 'pokedives', 'peel', 'utilize_frontline'],
+
+  'mirror':
+    ['objective', 'map_control', 'kite', 'path', 'peel', 'deny_angles', 'pokedives'],
 }
 
 
 const playNames = {
+  'utilize_frontline': 'Utilize Sustain',
+  'utilize_angles': 'Utilize Mobility and Range',
   'map_control': 'Map Control',
   'deny_angles': 'Deny Angles',
   'objective': 'Force Objective',
   'kite': 'Kite Aggression',
   'peel': 'Peel',
-  'poke': 'Poke',
+  'pokedives': 'Poke Staging',
   'path': 'Path',
   'disrupt': 'Disrupt',
 }
@@ -34,6 +39,9 @@ const compositionPlays = {
     'Poke': {
       'path': 'Use natural cover to avoid long sight lines and aid shields in blocking off angles.',
     },
+
+    'Hybrid': {
+    },
   },
 
   'Poke': {
@@ -46,8 +54,11 @@ const compositionPlays = {
     },
 
     'Dive': {
-      'poke': 'Force out enemy dives during staging, preventing them from getting a clean engage.',
+      'pokedives': 'Force out enemy dives during staging, preventing them from getting a clean engage.',
       'peel': 'Focus pressure and abilities on threatened allies. Save antidive cooldowns to punish dive attempts.',
+    },
+
+    'Hybrid': {
     },
   },
 
@@ -64,46 +75,94 @@ const compositionPlays = {
     'Poke': {
       // 'counter': 'Dive tradtionally wins this matchup by default.',
     },
+
+    'Hybrid': {
+    },
+  },
+
+  'Hybrid': {
+    'win_condition': {
+      'utilize_angles': 'Utilize range and mobility. Win map control by setting up multiple angles to circumvent damage mitigation and cover.',
+      'utilize_frontline': 'Utilize sustain. Deny angles, flanks, and map control, and then win the frontline fight by default.',
+    },
+
+    'Brawl': {
+    },
+
+    'Poke': {
+    },
+
+    'Dive': {
+    },
   },
 
   'Mirror': {
-    'map_control': 'Utilize range and mobility. Win map control by setting up multiple angles to circumvent damage mitigation and cover.',
-    'deny_angles': 'Utilize sustain. Deny angles, flanks, and map control, and then win the frontline fight by default.',
-  }
+    'utilize_angles': 'Utilize range and mobility. Win map control by setting up multiple angles to circumvent damage mitigation and cover.',
+    'utilize_frontline': 'Utilize sustain. Deny angles, flanks, and map control, and then win the frontline fight by default.',
+  },
 }
 
 function getMatchupPlays(a, b) {
-  if (a === b) return compositionPlays.Mirror;
-  return compositionPlays[a][b];
+  if (a === b) return createMatchupPlays(compositionPlays.Mirror, a, b, false, true);
+  return createMatchupPlays(compositionPlays[a][b], a, b);
+}
+
+function getWinCondition(a) {
+  return createMatchupPlays(compositionPlays[a].win_condition, a, 'Win Condition', true);
+}
+
+function createMatchupPlays(plays, src, dst, isWinCondition=false, isMirror=false) {
+  return {
+    plays,
+    src,
+    dst,
+    isWinCondition,
+    isMirror,
+  };
+}
+
+function renderMatchupPlay(set, x) {
+  return {
+    name: playNames[x],
+    details: set.plays[x],
+    rule:
+      set.isMirror
+      ? `Mirror (${set.src} vs ${set.dst})`
+      : (
+        set.isWinCondition
+        ? `${set.src} Win Condtion`
+        : `${set.src} vs ${set.dst}`
+      ),
+  }
 }
 
 function selectPlays(pool, team, enemy) {
   const result = [];
+  const resultAlt = [];
   const validMatchups = [];
 
-  // select options based on team comps
-  validMatchups.push(compositionPlays[team.primary].win_condition);
-
+  // select options based on team comps (in order of importance)
+  validMatchups.push(getWinCondition(team.primary));
   validMatchups.push(getMatchupPlays(team.primary, enemy.primary));
 
+  if (team.hybrid) validMatchups.push(getWinCondition(team.hybrid));
   if (enemy.hybrid) validMatchups.push(getMatchupPlays(team.primary, enemy.hybrid));
-
-  if (team.hybrid) {
-    validMatchups.push(compositionPlays[team.hybrid].win_condition);
-    if (enemy.hybrid) validMatchups.push(getMatchupPlays(team.hybrid, enemy.hybrid));
-  }
+  if (team.hybrid) validMatchups.push(getMatchupPlays(team.hybrid, enemy.primary));
+  if (team.hybrid && enemy.hybrid) validMatchups.push(getMatchupPlays(team.hybrid, enemy.hybrid));
 
   // select the intersection of options and pool
+  let target;
   for (const x of pool) {
-    for (const options of validMatchups) {
-      if (options.hasOwnProperty(x)) result.push({
-        name: playNames[x],
-        details: options[x]
-      });
+    target = result;
+    for (const set of validMatchups) {
+      if (set.plays.hasOwnProperty(x)) {
+        target.push(renderMatchupPlay(set, x, !!team.hybrid));
+        target = resultAlt;
+      }
     }
   }
 
-  return result;
+  return [result, resultAlt].flat();
 }
 
 function compareTeamsOrdered(angles, frontline) {
@@ -122,22 +181,23 @@ function compareTeamsOrdered(angles, frontline) {
 }
 
 function mirrorMatchup(team1, team2) {
-  const mirror = [matchups.angles, matchups.frontline].flat();
   return [
     {
       team: team1,
       matchupRole: 'Mirror',
-      plays: selectPlays(mirror, team1, team2),
+      plays: selectPlays(matchups.mirror, team1, team2),
     },
     {
       team: team2,
       matchupRole: 'Mirror',
-      plays: selectPlays(mirror, team2, team1),
+      plays: selectPlays(matchups.mirror, team2, team1),
     }
   ];
 }
 
 function analyzeMatchup(team1, team2) {
+
+  if (team1.equals(team2)) return mirrorMatchup(team1, team2);
 
   if (Math.abs(team1.mobility - team2.mobility) < epsilon) return mirrorMatchup(team1, team2);
 

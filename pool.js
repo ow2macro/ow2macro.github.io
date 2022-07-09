@@ -3,7 +3,7 @@ const heros = [
     name: new Descriptor('Ana'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
-    playstyle: attribute.playstyle.pokedive,
+    playstyle: attribute.playstyle.pokedive_2x1,
     archetypes: [
       attribute.archetype.support.flex,
       attribute.archetype.support.range,
@@ -26,7 +26,7 @@ const heros = [
     name: new Descriptor('Baptiste', 'Bap'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
-    playstyle: attribute.playstyle.sustain,
+    playstyle: attribute.playstyle.brawlpoke_2x1,
     archetypes: [
       attribute.archetype.support.flex,
       attribute.archetype.support.main,
@@ -51,7 +51,7 @@ const heros = [
     name: new Descriptor('Brigitte', 'Brig'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.sustain,
+    playstyle: attribute.playstyle.brawlpoke_3x1,
     archetypes: [
       attribute.archetype.support.main,
       attribute.archetype.support.area,
@@ -64,7 +64,7 @@ const heros = [
     name: new Descriptor('Cassidy', 'Cass'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.pokebrawl,
+    playstyle: attribute.playstyle.brawlpoke_2x1,
     archetypes: [
       attribute.archetype.damage.buster,
       attribute.archetype.damage.brawl,
@@ -88,7 +88,7 @@ const heros = [
     name: new Descriptor('Doomfist', 'Doom'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
-    playstyle: attribute.playstyle.mobile,
+    playstyle: attribute.playstyle.divebrawl_2x1,
     archetypes: [
       attribute.archetype.tank.brawl,
     ],
@@ -98,7 +98,7 @@ const heros = [
     name: new Descriptor('Echo'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
-    playstyle: attribute.playstyle.mobile,
+    playstyle: attribute.playstyle.divepoke_3x1,
     archetypes: [
       attribute.archetype.damage.flanker,
     ],
@@ -108,7 +108,7 @@ const heros = [
     name: new Descriptor('Genji'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
-    playstyle: attribute.playstyle.mobile,
+    playstyle: attribute.playstyle.divepoke_3x1,
     archetypes: [
       attribute.archetype.damage.flanker,
     ],
@@ -118,7 +118,7 @@ const heros = [
     name: new Descriptor('Hanzo'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
-    playstyle: attribute.playstyle.range,
+    playstyle: attribute.playstyle.pokedive_3x1,
     archetypes: [
       attribute.archetype.damage.sniper,
       attribute.archetype.damage.buster,
@@ -164,7 +164,7 @@ const heros = [
     name: new Descriptor('Mercy'),
     role: attribute.role.damage,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.pokedive,
+    playstyle: attribute.playstyle.pokedive_2x1,
     archetypes: [
       attribute.archetype.support.main,
     ],
@@ -186,7 +186,7 @@ const heros = [
     name: new Descriptor('Orisa'),
     role: attribute.role.tank,
     class: attribute.class.tank.main,
-    playstyle: attribute.playstyle.range,
+    playstyle: attribute.playstyle.pokebrawl,
     archetypes: [
       attribute.archetype.tank.poke,
       attribute.archetype.tank.mitigation,
@@ -197,7 +197,7 @@ const heros = [
     name: new Descriptor('Pharah'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.mobile,
+    playstyle: attribute.playstyle.divepoke_2x1,
     archetypes: [
       attribute.archetype.damage.flanker,
     ],
@@ -207,7 +207,7 @@ const heros = [
     name: new Descriptor('Reaper'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.range,
+    playstyle: attribute.playstyle.brawldive,
     archetypes: [
       attribute.archetype.damage.buster,
       attribute.archetype.damage.hitscan,
@@ -231,7 +231,7 @@ const heros = [
     name: new Descriptor('Roadhog', 'Hog'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
-    playstyle: attribute.playstyle.pokebrawl,
+    playstyle: attribute.playstyle.brawlpoke_2x1,
     archetypes: [
       attribute.archetype.tank.brawl,
       attribute.archetype.tank.poke,
@@ -256,7 +256,7 @@ const heros = [
     name: new Descriptor('Soldier 76', 'Soldier'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.pokedive,
+    playstyle: attribute.playstyle.pokedive_2x1,
     archetypes: [
       attribute.archetype.damage.buster,
       attribute.archetype.damage.flanker,
@@ -287,10 +287,21 @@ const heros = [
   },
 
   {
+    name: new Descriptor('Torbjorn'),
+    role: attribute.role.damage,
+    class: attribute.class.damage.hitscan,
+    playstyle: attribute.playstyle.pokebrawl,
+    archetypes: [
+      attribute.archetype.damage.buster,
+      attribute.archetype.antidive,
+    ],
+  },
+
+  {
     name: new Descriptor('Tracer'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.mobile,
+    playstyle: attribute.playstyle.divebrawl_3x1,
     archetypes: [
       attribute.archetype.damage.flanker,
     ],
@@ -311,7 +322,7 @@ const heros = [
     name: new Descriptor('Winston'),
     role: attribute.role.tank,
     class: attribute.class.tank.main,
-    playstyle: attribute.playstyle.mobile,
+    playstyle: attribute.playstyle.divebrawl_2x1,
     archetypes: [
       attribute.archetype.tank.dive,
     ],
@@ -321,7 +332,7 @@ const heros = [
     name: new Descriptor('Wrecking Ball', 'Ball'),
     role: attribute.role.tank,
     class: attribute.class.tank.main,
-    playstyle: attribute.playstyle.pokedive,
+    playstyle: attribute.playstyle.divepoke_3x1,
     archetypes: [
       attribute.archetype.tank.dive,
       attribute.archetype.tank.mitigation,
@@ -343,7 +354,7 @@ const heros = [
     name: new Descriptor('Zenyatta', 'Zen'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.pokedive,
+    playstyle: attribute.playstyle.pokedive_2x1,
     archetypes: [
       attribute.archetype.support.main,
       attribute.archetype.support.range,
@@ -384,3 +395,44 @@ const _herodictionary = heroDictionary();
 function getHero(full) {
   return _herodictionary[full];
 };
+
+const hero = {
+  ana: _herodictionary['Ana'],
+  ashe: _herodictionary['Ashe'],
+  baptiste: _herodictionary['Baptiste'],
+  bap: _herodictionary['Baptiste'],
+  bastion: _herodictionary['Bastion'],
+  brigitte: _herodictionary['Brigitte'],
+  brig: _herodictionary['Brigitte'],
+  cassidy: _herodictionary['Cassidy'],
+  dva: _herodictionary['D.Va'],
+  doomfist: _herodictionary['Doomfist'],
+  echo: _herodictionary['Echo'],
+  genji: _herodictionary['Genji'],
+  hanzo: _herodictionary['Hanzo'],
+  junkrat: _herodictionary['Junkrat'],
+  lucio: _herodictionary['Lucio'],
+  mei: _herodictionary['Mei'],
+  mercy: _herodictionary['Mercy'],
+  moria: _herodictionary['Moria'],
+  orisa: _herodictionary['Orisa'],
+  pharah: _herodictionary['Pharah'],
+  reaper: _herodictionary['Reaper'],
+  reinhardt: _herodictionary['Reinhardt'],
+  roadhog: _herodictionary['Roadhog'],
+  hog: _herodictionary['Roadhog'],
+  sigma: _herodictionary['Sigma'],
+  soldier76: _herodictionary['Soldier76'],
+  soldier: _herodictionary['Soldier76'],
+  sombra: _herodictionary['Sombra'],
+  symmetra: _herodictionary['Symmetra'],
+  torbjorn: _herodictionary['Torbjorn'],
+  tracer: _herodictionary['Tracer'],
+  widowmaker: _herodictionary['Widowmaker'],
+  winston: _herodictionary['Winston'],
+  wreckingball: _herodictionary['Wrecking Ball'],
+  ball: _herodictionary['Wrecking Ball'],
+  zarya: _herodictionary['Zarya'],
+  zenyatta: _herodictionary['Zenyatta'],
+  zen: _herodictionary['Zenyatta'],
+}
