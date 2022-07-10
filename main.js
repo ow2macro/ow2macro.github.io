@@ -40,11 +40,13 @@ class TeamView {
   }
 
   preset(team) {
-    this.reset();
+    this.members.clear();
+    this.name = this.defaultName;
     this.name = team.full;
     for (const hero of team.members) {
-      this.add(hero)
+      this.members.add(hero);
     }
+    this.updateRoster();
   }
 
   updateRoster() {
@@ -128,8 +130,7 @@ ready(()=>{
   const data = {
     teams,
     roles: herosByRole(),
-    teamCompositionPresets5v5,
-    teamCompositionPresets6v6,
+    teamCompositionSets,
   };
 
   var app = new Vue({

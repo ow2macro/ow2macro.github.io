@@ -52,8 +52,8 @@ const attribute = {
 
     hybrid_221: new Playstyle('Hybrid 2:2:1', 2, 2, 1),
 
-    rush: new Playstyle('Rush', 1, 0, 1, 'brawl_to_rush'),
-    spam: new Playstyle('Range', 0, 1, 0, 'poke_to_spam'),
+    rush: new Playstyle('Rush', 1, 0, 1),
+    spam: new Playstyle('Range', 0, 1, 0),
   },
 
   archetype: {
@@ -79,6 +79,8 @@ const attribute = {
       flex: new HeroArchetype('Flex Support'),
     },
 
+    spam: new HeroArchetype('Spam DPS', 'Spam'),
+    rush: new HeroArchetype('Rush'),
     antidive: new HeroArchetype('Antidive'),
     dive_target: new HeroArchetype('Dive Target'),
     defensiveUlt: new HeroArchetype('Defensive Ult'),

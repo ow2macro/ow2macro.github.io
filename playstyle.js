@@ -1,18 +1,17 @@
 class Playstyle extends Descriptor {
+  // high surviablity
   sustain;
+  // far from enemy
   range;
+  // anywhere
   mobile;
 
-  flags;
-
-  constructor(name, sustain, range, mobile, ...flags) {
+  constructor(name, sustain, range, mobile) {
     super(name);
 
     this.sustain = sustain;
     this.range = range;
     this.mobile = mobile;
-
-    this.flags = [flags].flat(Infinity);
 
     this.normalize();
   }
@@ -25,5 +24,9 @@ class Playstyle extends Descriptor {
 
   arr() {
     return [this.sustain, this.range, this.mobile];
+  }
+
+  measure() {
+    return this.mobile - this.sustain;
   }
 }

@@ -3,7 +3,8 @@ const heros = [
     name: new Descriptor('Ana'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
-    playstyle: attribute.playstyle.pokedive_2x1,
+    playstyle: attribute.playstyle.range,
+    healing: attribute.playstyle.mobile,
     archetypes: [
       attribute.archetype.support.flex,
       attribute.archetype.support.range,
@@ -26,7 +27,8 @@ const heros = [
     name: new Descriptor('Baptiste', 'Bap'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
-    playstyle: attribute.playstyle.brawlpoke_2x1,
+    playstyle: attribute.playstyle.pokebrawl,
+    healing: attribute.playstyle.sustain,
     archetypes: [
       attribute.archetype.support.flex,
       attribute.archetype.support.main,
@@ -41,6 +43,7 @@ const heros = [
     class: attribute.class.damage.hitscan,
     playstyle: attribute.playstyle.range,
     archetypes: [
+      attribute.archetype.spam,
       attribute.archetype.damage.buster,
       attribute.archetype.damage.flanker,
       attribute.archetype.dive_target,
@@ -51,7 +54,8 @@ const heros = [
     name: new Descriptor('Brigitte', 'Brig'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.brawldive_3x1,
+    playstyle: attribute.playstyle.sustain,
+    healing: attribute.playstyle.sustain,
     archetypes: [
       attribute.archetype.support.main,
       attribute.archetype.support.area,
@@ -61,7 +65,7 @@ const heros = [
   },
 
   {
-    name: new Descriptor('Cassidy', 'Cass'),
+    name: new Descriptor('Cassidy'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
     playstyle: attribute.playstyle.brawlpoke_2x1,
@@ -73,7 +77,7 @@ const heros = [
   },
 
   {
-    name: new Descriptor('D.Va', 'Dva'),
+    name: new Descriptor('D.Va'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
     playstyle: attribute.playstyle.mobile,
@@ -131,6 +135,7 @@ const heros = [
     class: attribute.class.damage.flex,
     playstyle: attribute.playstyle.hybrid_221,
     archetypes: [
+      attribute.archetype.spam,
       attribute.archetype.damage.buster,
       attribute.archetype.antidive,
     ],
@@ -140,8 +145,10 @@ const heros = [
     name: new Descriptor('Lucio'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.rush,
+    playstyle: attribute.playstyle.mobile,
+    healing: attribute.playstyle.sustain,
     archetypes: [
+      attribute.archetype.rush,
       attribute.archetype.support.main,
       attribute.archetype.support.area,
       attribute.archetype.defensiveUlt,
@@ -164,7 +171,8 @@ const heros = [
     name: new Descriptor('Mercy'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.pokedive_2x1,
+    playstyle: attribute.playstyle.range,
+    healing: attribute.playstyle.mobile,
     archetypes: [
       attribute.archetype.support.main,
     ],
@@ -174,7 +182,8 @@ const heros = [
     name: new Descriptor('Moria'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
-    playstyle: attribute.playstyle.sustain,
+    playstyle: attribute.playstyle.rush,
+    healing: attribute.playstyle.sustain,
     archetypes: [
       attribute.archetype.support.flex,
       attribute.archetype.support.area,
@@ -256,7 +265,7 @@ const heros = [
     name: new Descriptor('Soldier 76', 'Soldier'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.pokedive_2x1,
+    playstyle: attribute.playstyle.pokedive_3x1,
     archetypes: [
       attribute.archetype.damage.buster,
       attribute.archetype.damage.flanker,
@@ -354,7 +363,8 @@ const heros = [
     name: new Descriptor('Zenyatta', 'Zen'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.pokedive_4x1,
+    playstyle: attribute.playstyle.range,
+    healing: attribute.playstyle.mobile,
     archetypes: [
       attribute.archetype.support.main,
       attribute.archetype.support.range,

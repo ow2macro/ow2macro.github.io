@@ -141,14 +141,19 @@ function selectPlays(pool, team, enemy) {
   const resultAlt = [];
   const validMatchups = [];
 
-  // select options based on team comps (in order of importance)
-  validMatchups.push(getWinCondition(team.primary));
-  validMatchups.push(getMatchupPlays(team.primary, enemy.primary));
+  // special case for hybrid vs hybrid
+  if (team.primary === 'Hybrid' && enemy.primary === 'Hybrid') {
+    validMatchups.push(getWinCondition(team.primary));
+  } else {
+    // select options based on team comps (in order of importance)
+    validMatchups.push(getWinCondition(team.primary));
+    validMatchups.push(getMatchupPlays(team.primary, enemy.primary));
 
-  if (team.hybrid) validMatchups.push(getWinCondition(team.hybrid));
-  if (enemy.hybrid) validMatchups.push(getMatchupPlays(team.primary, enemy.hybrid));
-  if (team.hybrid) validMatchups.push(getMatchupPlays(team.hybrid, enemy.primary));
-  if (team.hybrid && enemy.hybrid) validMatchups.push(getMatchupPlays(team.hybrid, enemy.hybrid));
+    if (team.hybrid) validMatchups.push(getWinCondition(team.hybrid));
+    if (enemy.hybrid) validMatchups.push(getMatchupPlays(team.primary, enemy.hybrid));
+    if (team.hybrid) validMatchups.push(getMatchupPlays(team.hybrid, enemy.primary));
+    if (team.hybrid && enemy.hybrid) validMatchups.push(getMatchupPlays(team.hybrid, enemy.hybrid));
+  }
 
   // select the intersection of options and pool
   let target;
