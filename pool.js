@@ -145,7 +145,7 @@ const heros = [
     name: new Descriptor('Lucio'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.mobile,
+    playstyle: attribute.playstyle.divebrawl_2x1,
     healing: attribute.playstyle.sustain,
     archetypes: [
       attribute.archetype.rush,
@@ -182,7 +182,7 @@ const heros = [
     name: new Descriptor('Moria'),
     role: attribute.role.support,
     class: attribute.class.healer.main,
-    playstyle: attribute.playstyle.rush,
+    playstyle: attribute.playstyle.sustain,
     healing: attribute.playstyle.sustain,
     archetypes: [
       attribute.archetype.support.flex,

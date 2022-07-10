@@ -127,7 +127,7 @@ function renderMatchupPlay(set, x) {
     details: set.plays[x],
     rule:
       set.isMirror
-      ? `Mirror (${set.src} vs ${set.dst})`
+      ? `${set.src} vs ${set.dst}`
       : (
         set.isWinCondition
         ? `${set.src} Win Condtion`
