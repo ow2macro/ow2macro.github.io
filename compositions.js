@@ -1,5 +1,23 @@
-const teamCompositions = {
-  goats: new TeamComposition('GOATS (3-0-3)', [
+const teamCompositionPresets5v5 = [
+  new TeamComposition('Rush', [
+    hero.reinhardt,
+    hero.cassidy,
+    hero.mei,
+    hero.moria,
+    hero.lucio,
+  ]),
+
+  new TeamComposition('Poke Dive', [
+    hero.wreckingball,
+    hero.tracer,
+    hero.echo,
+    hero.brigitte,
+    hero.zen,
+  ]),
+];
+
+const teamCompositionPresets6v6 = [
+  new TeamComposition('GOATS', [
     hero.reinhardt,
     hero.zarya,
     hero.dva,
@@ -8,7 +26,16 @@ const teamCompositions = {
     hero.brigitte,
   ]),
 
-  rush: new TeamComposition('Rush (2-2-2)', [
+  new TeamComposition('GOATS+', [
+    hero.reinhardt,
+    hero.zarya,
+    hero.dva,
+    hero.zenyatta,
+    hero.lucio,
+    hero.brigitte,
+  ]),
+
+  new TeamComposition('Rein Zarya', [
     hero.reinhardt,
     hero.zarya,
     hero.cassidy,
@@ -17,43 +44,52 @@ const teamCompositions = {
     hero.lucio,
   ]),
 
-  sustainBrawl: new TeamComposition('Sustain Brawl (2-2-2)', [
+  new TeamComposition('Hog Zarya', [
+    hero.roadhog,
+    hero.zarya,
+    hero.ashe,
+    hero.sombra,
+    hero.ana,
+    hero.mercy,
+  ]),
+
+  new TeamComposition('RZ Hackfist', [
     hero.reinhardt,
     hero.zarya,
-    hero.symmetra,
-    hero.mei,
-    hero.baptiste,
-    hero.moria,
-  ]),
-
-  doubleShield: new TeamComposition('Double Shield (2-2-2)', [
-    hero.orisa,
-    hero.sigma,
-    hero.ashe,
-    hero.echo,
-    hero.baptiste,
-    hero.brigitte,
-  ]),
-
-  dive: new TeamComposition('Dive (2-2-2)', [
-    hero.winston,
-    hero.dva,
-    hero.tracer,
-    hero.genji,
+    hero.sombra,
+    hero.doomfist,
     hero.lucio,
-    hero.zenyatta,
+    hero.ana,
   ]),
 
-  doubleBubble: new TeamComposition('Double Bubble (2-2-2)', [
+  new TeamComposition('Double Bubble', [
     hero.winston,
     hero.zarya,
     hero.sombra,
     hero.genji,
     hero.ana,
-    hero.brigitte,
+    hero.brig,
   ]),
 
-  pokeDive: new TeamComposition('Poke Dive (2-2-2)', [
+  new TeamComposition('Classic Dive', [
+    hero.winston,
+    hero.dva,
+    hero.tracer,
+    hero.genji,
+    hero.lucio,
+    hero.zen,
+  ]),
+
+  new TeamComposition('Disruption Dive', [
+    hero.wreckingball,
+    hero.dva,
+    hero.sombra,
+    hero.doomfist,
+    hero.lucio,
+    hero.ana,
+  ]),
+
+  new TeamComposition('Poke Dive', [
     hero.wreckingball,
     hero.sigma,
     hero.tracer,
@@ -62,11 +98,66 @@ const teamCompositions = {
     hero.brigitte,
   ]),
 
-  pirateShip: new TeamComposition('Pirate Ship', [
+  new TeamComposition('Double Shield', [
     hero.orisa,
-    hero.bastion,
+    hero.sigma,
+    hero.widowmaker,
     hero.hanzo,
+    hero.brig,
+    hero.zen,
+  ]),
+
+  new TeamComposition('Cheese', [
+    hero.orisa,
+    hero.dva,
+    hero.bastion,
+    hero.pharah,
     hero.baptiste,
+    hero.mercy,
+  ]),
+
+  new TeamComposition('Pulled Pork', [
+    hero.orisa,
+    hero.roadhog,
+    hero.widowmaker,
+    hero.hanzo,
+    hero.mercy,
     hero.zenyatta,
   ]),
-};
+
+  new TeamComposition('Classic Pirate Ship', [
+    hero.orisa,
+    hero.roadhog,
+    hero.bastion,
+    hero.hanzo,
+    hero.mercy,
+    hero.zenyatta,
+  ]),
+
+  new TeamComposition('Double Shield Pirate Ship', [
+    hero.orisa,
+    hero.sigma,
+    hero.bastion,
+    hero.hanzo,
+    hero.brig,
+    hero.zenyatta,
+  ]),
+
+  new TeamComposition('Hog & Ball Torture', [
+    hero.wreckingball,
+    hero.roadhog,
+    hero.widowmaker,
+    hero.tracer,
+    hero.brigitte,
+    hero.zenyatta,
+  ]),
+
+  new TeamComposition('Sig Hog', [
+    hero.roadhog,
+    hero.sigma,
+    hero.soldier,
+    hero.hanzo,
+    hero.ana,
+    hero.mercy,
+  ]),
+];

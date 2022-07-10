@@ -1,4 +1,4 @@
-const epsilon = 1;
+const epsilon = 0.5;
 
 const matchups = {
   'angles':
@@ -13,16 +13,16 @@ const matchups = {
 
 
 const playNames = {
-  'utilize_frontline': 'Utilize Sustain',
-  'utilize_angles': 'Utilize Mobility and Range',
-  'map_control': 'Map Control',
-  'deny_angles': 'Deny Angles',
+  'utilize_frontline': 'Utilize Higher Sustain',
+  'utilize_angles': 'Utilize Higher Mobility/Range',
+  'map_control': 'Map Control & Angles',
+  'deny_angles': 'Deny Angles and Flankers',
   'objective': 'Force Objective',
   'kite': 'Kite Aggression',
-  'peel': 'Peel',
-  'pokedives': 'Poke Staging',
-  'path': 'Path',
-  'disrupt': 'Disrupt',
+  'peel': 'Peel for allies',
+  'pokedives': 'Poke out Dives during staging',
+  'path': 'Path behind cover',
+  'disrupt': 'Disrupt Aggression',
 }
 
 const compositionPlays = {
@@ -195,11 +195,28 @@ function mirrorMatchup(team1, team2) {
   ];
 }
 
+function symetricalMatchup(team1, team2) {
+  return [
+    {
+      team: team1,
+      matchupRole: 'Symetrical',
+      plays: selectPlays(matchups.mirror, team1, team2),
+    },
+    {
+      team: team2,
+      matchupRole: 'Symetrical',
+      plays: selectPlays(matchups.mirror, team2, team1),
+    }
+  ];
+}
+
 function analyzeMatchup(team1, team2) {
 
   if (team1.equals(team2)) return mirrorMatchup(team1, team2);
 
-  if (Math.abs(team1.mobility - team2.mobility) < epsilon) return mirrorMatchup(team1, team2);
+  if (Math.abs(team1.mobility - team2.mobility) < epsilon) {
+    return symetricalMatchup(team1, team2);
+  }
 
   if (team1.mobility > team2.mobility) {
     return compareTeamsOrdered(team1, team2);

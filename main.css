@@ -1,3 +1,8 @@
+/* evil, fix later */
+button {
+  transform: skewX(-7.5deg);
+}
+
 .hero-roster {
   min-height: 3em;
 }
@@ -26,6 +31,10 @@
 .normal-bar {
   height: 2em;
   margin: 2em;
+}
+
+.progress {
+  user-select: none;
 }
 
 .hover-tooltip {
@@ -80,6 +89,10 @@
   display: block;
 }
 
-button {
-  transform: skewX(-6deg);
+.hover-parent {}
+.hover-parent .hover {
+  display: none;
+}
+.hover-parent:hover .hover {
+  display: inherit;
 }

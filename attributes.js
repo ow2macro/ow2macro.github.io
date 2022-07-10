@@ -43,6 +43,15 @@ const attribute = {
     divebrawl_3x1: new Playstyle('Dive-Brawl 3:1', 1, 0, 3),
     divepoke_3x1: new Playstyle('Dive-Poke 3:1', 0, 1, 3),
 
+    pokedive_4x1: new Playstyle('Poke-Dive 4:1', 0, 4, 1),
+    pokebrawl_4x1: new Playstyle('Poke-Brawl 4:1', 1, 4, 0),
+    brawldive_4x1: new Playstyle('Brawl-Dive 4:1', 4, 0, 1),
+    brawlpoke_4x1: new Playstyle('Brawl-Poke 4:1', 4, 1, 0),
+    divebrawl_4x1: new Playstyle('Dive-Brawl 4:1', 1, 0, 4),
+    divepoke_4x1: new Playstyle('Dive-Poke 4:1', 0, 1, 4),
+
+    hybrid_221: new Playstyle('Hybrid 2:2:1', 2, 2, 1),
+
     rush: new Playstyle('Rush', 1, 0, 1, 'brawl_to_rush'),
     spam: new Playstyle('Range', 0, 1, 0, 'poke_to_spam'),
   },

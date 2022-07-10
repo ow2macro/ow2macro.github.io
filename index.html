@@ -20,99 +20,124 @@
     <script type="text/javascript" src="pool.js"></script>
     <script type="text/javascript" src="vulnerabilities.js"></script>
     <script type="text/javascript" src="strengths.js"></script>
-    <script type="text/javascript" src="compare.js"></script>
     <script type="text/javascript" src="compositions.js"></script>
+    <script type="text/javascript" src="compare.js"></script>
   </head>
   <body>
 
     <div class="container-fluid px-5"  id="teams">
 
       <div class="row">
-        <h1 class="display-4">Overwatch Macro Tool</h1>
-      </div>
+        <div class="col-sm-1"></div>
+        <div class="col-lg">
 
-      <div class="row">
-        <section v-for="team in teams" class="col-lg">
-          <h1> {{ team.name }} - <strong> {{ team.data.composition }} </strong></h1>
-
-          <div class="container">
-            <div class="hero-roster">
-              <button type="button" @click="team.remove(hero)" class="btn btn-secondary m-1" v-for="hero in team.roster"> {{ hero.name.full }} </button>
-              <button type="button" @click="team.reset()" class="btn btn-danger m-1">Clear</button></h2>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div class="row">
-        <section v-for="team in teams" class="col-lg">
-          <div>
-            <div class="progress focus-bar">
-              <div class="progress-bar sustain" role="progressbar" :style="{width: `${100 * team.data.sustain}%`}" :aria-valuenow="100-team.data.scores.score" aria-valuemin="0" aria-valuemax="100">{{ team.enable && team.data.sustain>0.05 ? "Sustain" : "" }}</div>
-              <div class="progress-bar range" role="progressbar" :style="{width: `${100 * team.data.range}%`}" aria-valuemin="0" aria-valuemax="100">{{ team.enable && team.data.range>0.05 ? "Range" : "" }}</div>
-              <div class="progress-bar mobility" role="progressbar" :style="{width: `${100 * team.data.mobile}%`}" aria-valuemin="0" aria-valuemax="100">{{ team.enable && team.data.mobile>0.05 ? "Mobility" : "" }}</div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div class="row">
-        <section v-for="team in teams" class="col-lg">
-          <h3>Plays <strong> {{ team.matchupRole }} </strong></h3>
-          <div class="container list-section">
-            <ul class="list-unstyled">
-              <li v-for="play in team.playstyle">
-                <span class="hover-tooltip" :data-text="play.details">{{play.name}} <small class="text-muted"><em> {{ play.rule }} </em></small> </span>
-              </li>
-            </ul>
-          </div>
-        </section>
-      </div>
-
-      <div class="row">
-        <section v-for="team in teams" class="col-lg">
           <div class="row">
-            <div class="col-lg">
-              <h6>Vulnerabilities</h6>
-              <div class="container list-section text-danger">
+            <h1 class="display-4">Overwatch Macro Tool</h1>
+          </div>
+
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
+              <h1> <strong> {{ team.data.composition }} </strong> <small style="font-size: 0.5em;" class="text-weak font-italic"> {{ team.name }} </small> </h1>
+
+              <div class="container">
+                <div class="hero-roster">
+                  <button type="button" @click="team.remove(hero)" class="btn btn-secondary m-1" v-for="hero in team.roster"> {{ hero.name.full }} </button>
+                  <button type="button" @click="team.reset()" class="btn btn-danger m-1">Clear</button></h2>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
+              <div>
+                <div class="progress focus-bar">
+                  <div class="progress-bar sustain" role="progressbar" :style="{width: `${100 * team.data.sustain}%`}" :aria-valuenow="100-team.data.scores.score" aria-valuemin="0" aria-valuemax="100">{{ team.enable && team.data.sustain>0.05 ? "Sustain" : "" }}</div>
+                  <div class="progress-bar range" role="progressbar" :style="{width: `${100 * team.data.range}%`}" aria-valuemin="0" aria-valuemax="100">{{ team.enable && team.data.range>0.05 ? "Range" : "" }}</div>
+                  <div class="progress-bar mobility" role="progressbar" :style="{width: `${100 * team.data.mobile}%`}" aria-valuemin="0" aria-valuemax="100">{{ team.enable && team.data.mobile>0.05 ? "Mobility" : "" }}</div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
+              <h3><small style="font-size: 0.5em;" class="text-weak font-italic">Prefers</small> <strong> {{ team.matchupRole }} </strong> <small style="font-size: 0.5em;" class="text-weak font-italic"> against {{ team.enemyComp }} </small></h3>
+              <div class="container list-section">
                 <ul class="list-unstyled">
-                  <li v-for="vulnerability in team.data.vulnerabilities">
-                    <span class="hover-tooltip" :data-text="vulnerability.details"><strong><em>{{vulnerability.full}}</em></strong></span>
+                  <li v-for="play in team.playstyle">
+                    <span class="hover-tooltip hover-parent" :data-text="play.details"> <em> {{play.name}} </em>  ⓘ <small class="text-muted hover"><em> {{ play.rule }} </em></small> </span>
                   </li>
                 </ul>
               </div>
-            </div>
-            <div class="col-lg">
-              <h6>Strengths</h6>
-              <div class="container list-section text-success">
-                <ul class="list-unstyled">
-                  <li v-for="strength in team.data.strengths">
-                    <span class="hover-tooltip" :data-text="strength.details"><strong><em>{{strength.full}}</em></strong></span>
-                  </li>
-                </ul>
+            </section>
+          </div>
+
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
+              <div class="row">
+                <div class="col-lg">
+                  <h6>Vulnerabilities</h6>
+                  <div class="container list-section text-danger">
+                    <ul class="list-unstyled">
+                      <li v-for="vulnerability in team.data.vulnerabilities">
+                        <span class="hover-tooltip" :data-text="vulnerability.details"> <em> {{vulnerability.full}} </em> ⓘ </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-lg">
+                  <h6>Strengths</h6>
+                  <div class="container list-section text-success">
+                    <ul class="list-unstyled">
+                      <li v-for="strength in team.data.strengths">
+                        <span class="hover-tooltip" :data-text="strength.details"> <em> {{strength.full}} </em> ⓘ </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
           </div>
-        </section>
-      </div>
 
-      <div class="row">
-        <section v-for="team in teams" class="col-lg">
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
 
-        </section>
-      </div>
-
-      <div class="row">
-        <section v-for="team in teams" class="col-lg">
-          <div v-for="(heros, role) in roles">
-            <h3>{{ role }}</h3>
-            <div class="container">
-              <button type="button" @click="team.toggle(hero)" class="btn btn-primary m-1" v-for="hero in heros">{{ hero.name.full }}</button>
-            </div>
+            </section>
           </div>
-        </section>
-      </div>
 
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
+              <div v-for="(heros, role) in roles">
+                <h3>{{ role }}</h3>
+                <div class="container">
+                  <button type="button" @click="team.toggle(hero)" class="btn btn-primary m-1" v-for="hero in heros">{{ hero.name.full }}</button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
+              <h3>5v5</h3>
+              <div class="container">
+                <button type="button" @click="team.preset(teamcomp)" class="btn-sm btn-secondary m-1" v-for="teamcomp in teamCompositionPresets5v5">{{ teamcomp.full }}</button>
+              </div>
+            </section>
+          </div>
+
+          <div class="row">
+            <section v-for="team in teams" class="col-lg">
+              <h3>6v6</h3>
+              <div class="container">
+                <button type="button" @click="team.preset(teamcomp)" class="btn-sm btn-secondary m-1" v-for="teamcomp in teamCompositionPresets6v6">{{ teamcomp.full }}</button>
+              </div>
+            </section>
+          </div>
+
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

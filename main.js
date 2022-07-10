@@ -14,6 +14,7 @@ class TeamView {
 
   constructor(name) {
     this.name = name;
+    this.defaultName = name;
     this.resetView();
   }
 
@@ -34,7 +35,16 @@ class TeamView {
 
   reset() {
     this.members.clear();
+    this.name = this.defaultName;
     this.updateRoster();
+  }
+
+  preset(team) {
+    this.reset();
+    this.name = team.full;
+    for (const hero of team.members) {
+      this.add(hero)
+    }
   }
 
   updateRoster() {
@@ -90,7 +100,7 @@ class TeamView {
 function render() {
   team1.resetView();
   team2.resetView();
-  
+
   if (team1.roster.length > 1 && team2.roster.length > 1) {
     const result = analyzeMatchup(team1.build(), team2.build());
     team1.render(result[0], result[1]);
@@ -106,12 +116,24 @@ team2.opponent = team1;
 
 const teams = [team1, team2];
 
-const data = {
-  teams,
-  roles: herosByRole(),
-};
+function ready(fn) {
+  if (document.readyState !== 'loading'){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
 
-var app = new Vue({
-  el: '#teams',
-  data,
+ready(()=>{
+  const data = {
+    teams,
+    roles: herosByRole(),
+    teamCompositionPresets5v5,
+    teamCompositionPresets6v6,
+  };
+
+  var app = new Vue({
+    el: '#teams',
+    data,
+  });
 });

@@ -51,7 +51,7 @@ const heros = [
     name: new Descriptor('Brigitte', 'Brig'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.brawlpoke_3x1,
+    playstyle: attribute.playstyle.brawldive_3x1,
     archetypes: [
       attribute.archetype.support.main,
       attribute.archetype.support.area,
@@ -129,7 +129,7 @@ const heros = [
     name: new Descriptor('Junkrat'),
     role: attribute.role.damage,
     class: attribute.class.damage.flex,
-    playstyle: attribute.playstyle.range,
+    playstyle: attribute.playstyle.hybrid_221,
     archetypes: [
       attribute.archetype.damage.buster,
       attribute.archetype.antidive,
@@ -162,7 +162,7 @@ const heros = [
 
   {
     name: new Descriptor('Mercy'),
-    role: attribute.role.damage,
+    role: attribute.role.support,
     class: attribute.class.healer.off,
     playstyle: attribute.playstyle.pokedive_2x1,
     archetypes: [
@@ -197,7 +197,7 @@ const heros = [
     name: new Descriptor('Pharah'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.divepoke_2x1,
+    playstyle: attribute.playstyle.divepoke_3x1,
     archetypes: [
       attribute.archetype.damage.flanker,
     ],
@@ -243,7 +243,7 @@ const heros = [
     name: new Descriptor('Sigma', 'Sig'),
     role: attribute.role.tank,
     class: attribute.class.tank.off,
-    playstyle: attribute.playstyle.pokedive,
+    playstyle: attribute.playstyle.pokedive_2x1,
     archetypes: [
       attribute.archetype.tank.poke,
       attribute.archetype.tank.dive,
@@ -301,7 +301,7 @@ const heros = [
     name: new Descriptor('Tracer'),
     role: attribute.role.damage,
     class: attribute.class.damage.hitscan,
-    playstyle: attribute.playstyle.divebrawl_3x1,
+    playstyle: attribute.playstyle.divebrawl_4x1,
     archetypes: [
       attribute.archetype.damage.flanker,
     ],
@@ -354,7 +354,7 @@ const heros = [
     name: new Descriptor('Zenyatta', 'Zen'),
     role: attribute.role.support,
     class: attribute.class.healer.off,
-    playstyle: attribute.playstyle.pokedive_2x1,
+    playstyle: attribute.playstyle.pokedive_4x1,
     archetypes: [
       attribute.archetype.support.main,
       attribute.archetype.support.range,
@@ -422,8 +422,8 @@ const hero = {
   roadhog: _herodictionary['Roadhog'],
   hog: _herodictionary['Roadhog'],
   sigma: _herodictionary['Sigma'],
-  soldier76: _herodictionary['Soldier76'],
-  soldier: _herodictionary['Soldier76'],
+  soldier76: _herodictionary['Soldier 76'],
+  soldier: _herodictionary['Soldier 76'],
   sombra: _herodictionary['Sombra'],
   symmetra: _herodictionary['Symmetra'],
   torbjorn: _herodictionary['Torbjorn'],
