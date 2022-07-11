@@ -1,44 +1,47 @@
 class TeamComposition extends Descriptor {
-  // team composition member heros
+  name;
   members;
 
-  // modern classifcation score
+  // overall composition name
+  compositionName;
+
+  // composition component names
+  composition = [];
+
+  // overall metric of sustain(negative) vs mobility(positive)
   mobility;
-  // mobility vs power scores
-  scores;
 
-  // classic Brawl/Poke/Dive classifcation
-  composition;
-
-  // the primary team composition
-  primary;
-  // the secondary team composition in a hybrid composition
-  hybrid;
-  // variations on team compositions
-  flags;
-
-  // modern scores
+  // individual metrics
   sustain;
   range;
   mobile;
 
-  // scores for each team composition
+  // rounded percents of sustain, range, and mobile
   brawl;
   poke;
   dive;
 
-  strengths;
-  vulnerabilities;
+  // members by role
+  roleMembers = {
+    [attribute.role.tank]: [],
+    [attribute.role.damage]: [],
+    [attribute.role.support]: [],
+  }
 
-  weights;
+  // members by class
+  classMembers = {
+    [attribute.class.tank.main]: [],
+    [attribute.class.tank.off]: [],
 
+    [attribute.class.damage.hitscan]: [],
+    [attribute.class.damage.flex]: [],
+
+    [attribute.class.support.utility]: [],
+    [attribute.class.support.healing]: [],
+  }
+
+  // other
   archetypes;
-
-  size;
-  roles;
-  mode;
-
-  roleMembers;
 
   constructor(name, members) {
     super(name);
@@ -48,45 +51,54 @@ class TeamComposition extends Descriptor {
     this.range = 0;
     this.mobile = 0;
 
+    if (members.length === 0) return;
+
     this.flags = [];
     this.archetypes = new Set();
 
-    this.scores = {};
-
-    const roleMembers = this.roleMembers = {
-      Tank: [],
-      Damage: [],
-      Support: [],
-    };
+    let total = 0;
 
     for (const [i, member] of members.entries()) {
-      const x = member;
-      if (!x || x === undefined || !x.playstyle) console.warn('member', i, 'of', name, x, 'in', members);
+      // warn problematic member
+      if (!member || member === undefined || !member.playstyle || !member.healing) console.warn('member', i, 'of', name, 'in', members);
 
-      roleMembers[member.role.full].push(member);
-      this.sustain += member.playstyle.sustain;
-      this.range += member.playstyle.range;
-      this.mobile += member.playstyle.mobile;
+      // add member to lookup tables
+      this.roleMembers[member.role].push(member);
+      this.classMembers[member.class].push(member);
 
-      for (const archetype of x.archetypes) this.archetypes.add(archetype);
+      // weights for how much the playstyle and healing-playstyle impact the team stats
+      const playstyleWeight = TeamComposition.weights.playstyle[member.class];
+      const healingWeight = TeamComposition.weights.healing[member.class];
+
+      this.sustain += member.playstyle.sustain * playstyleWeight;
+      this.range += member.playstyle.range * playstyleWeight;
+      this.mobile += member.playstyle.mobile * playstyleWeight;
+
+      this.sustain += member.healing.sustain * healingWeight;
+      this.range += member.healing.range * healingWeight;
+      this.mobile += member.healing.mobile * healingWeight;
+
+      // add archetypes
+      for (const archetype of member.archetypes) this.archetypes.add(archetype);
+
+      total += playstyleWeight + healingWeight;
     }
 
-    this.sustain /= this.members.length;
-    this.range /= this.members.length;
-    this.mobile /= this.members.length;
+    this.sustain /= total;
+    this.range /= total;
+    this.mobile /= total;
+
 
     this.brawl = Math.round(this.sustain * 100);
     this.poke = Math.round(this.range * 100);
     this.dive = Math.round(this.mobile * 100);
 
     this.classify();
-
-    this.count();
-    this.getStrengths();
-    this.getWeakness();
+    this.compositionName = this.getTeamCompName();
   }
 
   classify() {
+    this.composition = [];
     this.mobility = 100 * (this.mobile - this.sustain);
 
     const weights = this.weights = [
@@ -97,211 +109,33 @@ class TeamComposition extends Descriptor {
 
     weights.sort((a,b)=>b.score - a.score);
 
-    const total = weights[0].score + weights[1].score + weights[2].score;
+    // normalize for saftey
+    const total = util.sumArray(weights.map(x=>x.score));
 
-    // helper functions
-    const add = (acc, a) => acc + a;
-    const calcFocus = (n) => {
-      /**
-       * TODO: clarify
-       * compare [0...n]/total & (n+1)/(n+2)
-       * ie [1]/3 & 2/3, [1+2]/3 & 3/4
-       */
-      const selected = weights.slice(0, n).map(x=>x.score).reduce(add, 0)/total;
+    let n = 0;
+    let acc = 0;
+    let focus;
+
+    // select team composition
+    for (const weight of weights) {
+      n++;
+      this.composition.push(weight.name);
+      acc += weight.score/total;
       const ratio = (n+1)/(n+2);
-      return selected-ratio;
+      if (util.is.approximately.greaterThan(acc, ratio, TeamComposition.significance)) break;
     }
-
-    let primary = weights[0].name;
-    let secondary = weights[1].name;
-
-    this.focus = calcFocus(1);
-    this.focusSecondary = calcFocus(2);
-
-    this.primary = primary;
-    if (this.focus > 0) this.hybrid = false;
-    else if (this.focusSecondary > 0) this.hybrid = secondary;
-    else {
-      this.primary = 'Hybrid';
-      this.hybrid = false
-    };
-
-    if (this.archetypes.has(attribute.archetype.rush) && this.primary === 'Brawl') this.flags.push('rush');
-    if (this.archetypes.has(attribute.archetype.spam) && this.primary === 'Poke') this.flags.push('spam');
-
-    this.composition = this.getTeamCompName();
   }
 
   getTeamCompName() {
-    let result = [];
+    let composition = this.composition.map(x=>{
+      if (this.archetypes.has(attribute.archetype.rush) && x === 'Brawl') return 'Rush';
+      if (this.archetypes.has(attribute.archetype.rush) && x === 'Poke') return 'Spam';
+      return x;
+    });
 
-    let primary = this.primary;
-    let hybrid = this.hybrid;
-
-    if (this.flags.includes('rush')) primary = 'Rush';
-    if (this.flags.includes('spam')) primary = 'Spam';
-
-    if (this.hybrid) result.push(`${primary}-${hybrid} Hybrid`);
-    else result.push(primary);
-
-    return result.join(' ');
-  }
-
-  count() {
-    const n = {
-      total: 0,
-      tank: {total: 0, main: 0, off: 0},
-      damage: {total: 0, hitscan: 0, flex: 0},
-      healer: {total: 0, main: 0, off: 0},
-      support: {main: 0, flex: 0},
-      antidive: 0,
-      dive_target: 0,
-      defensiveUlt: 0,
-    };
-
-    for (const x of this.members) {
-      n.total++;
-      if (x.role === attribute.role.tank) n.tank.total++;
-      if (x.class === attribute.class.tank.main) n.tank.main++;
-      if (x.class === attribute.class.tank.off) n.tank.off++;
-
-      if (x.role === attribute.role.damage) n.damage.total++;
-      if (x.class === attribute.class.damage.hitscan) n.damage.hitscan++;
-      if (x.class === attribute.class.damage.flex) n.damage.flex++;
-
-      if (x.role === attribute.role.support) n.healer.total++;
-      if (x.class === attribute.class.healer.main) n.healer.main++;
-      if (x.class === attribute.class.healer.off) n.healer.off++;
-
-      if (x.archetypes.includes(attribute.archetype.support.main)) n.support.main++;
-      if (x.archetypes.includes(attribute.archetype.support.flex)) n.support.flex++;
-
-      if (x.archetypes.includes(attribute.archetype.antidive)) n.antidive++;
-      if (x.archetypes.includes(attribute.archetype.dive_target)) n.dive_target++;
-      if (x.archetypes.includes(attribute.archetype.defensiveUlt)) n.defensiveUlt++;
-    }
-
-    this.n = n;
-  }
-
-  getWeakness() {
-    const weakness = [];
-
-    const n = this.n;
-
-    this.size = n.total;
-    this.roles = `${n.tank.total}-${n.damage.total}-${n.healer.total}`
-
-    if (this.roles === '2-2-2' || this.roles === '1-2-2') this.mode = 'Role Queue';
-    else this.mode = 'Open Queue';
-
-    // tank weakness
-    if (n.tank.total < 1) weakness.push('no_tank');
-    else if (this.size === 6) {
-      if (n.tank.main < 1) weakness.push('no_main_tank');
-      if (n.tank.off < 1) weakness.push('no_off_tank');
-    }
-    if (!this.archetypes.has(attribute.archetype.tank.mitigation)) weakness.push('low_mitigation');
-
-    // damage weakness
-    if (n.damage.hitscan < 1) weakness.push('no_hitscan_dps');
-    if (n.damage.total > 1) {
-      if (n.damage.flex < 1) weakness.push('no_flex_dps');
-    }
-
-    // support weakness
-    if (n.healer.total < 2) weakness.push('low_support');
-    else {
-      if (n.healer.total < 3) {
-        if (n.healer.main < 1) weakness.push('no_main_healer');
-      }
-
-      if (n.support.main < 1) weakness.push('no_main_support');
-    }
-
-    // brawl weakness
-    if (this.primary === 'Brawl' && !this.hybrid) {
-      if (!this.archetypes.has(attribute.archetype.support.area)) weakness.push('no_aoe_support_brawl');
-    }
-
-    // dive weakness
-    if (this.primary === 'Dive' && !this.hybrid) {
-      if (!this.archetypes.has(attribute.archetype.support.range)) weakness.push('no_ranged_support_dive');
-    }
-
-    // poke weakness
-    if (this.primary === 'Poke' && !this.hybrid) {
-      if (!this.archetypes.has(attribute.archetype.antidive)) weakness.push('no_anti_dive_poke');
-    }
-
-    // ult weakness
-    if (!this.archetypes.has(attribute.archetype.defensiveUlt)) weakness.push('no_defensive_ult');
-
-    // mobility/frontline weakness
-    if (this.mobility < 0) weakness.push('low_mobility');
-    else weakness.push('low_frontline');
-
-    // dive target + no anti dive
-    if (n.dive_target > n.antidive+1) weakness.push('diveable');
-
-    const expandWeakness = (x) => vulnerabilities[x];
-
-    this.vulnerabilities = weakness.reverse().map(expandWeakness);
-  }
-
-  getStrengths() {
-    const result = [];
-
-    if (this.n.antidive > 2) result.push('antidive_multi');
-    else if (this.n.antidive > 1) result.push('antidive');
-    if (this.n.defensiveUlt > 0) result.push('defensive_ult');
-
-    if (this.hybrid) {
-      if (this.hybrid === 'Brawl') result.push('sustain_hybrid');
-      if (this.hybrid === 'Poke') result.push('range_hybrid');
-      if (this.hybrid === 'Dive') result.push('mobility_hybrid');
-    }
-
-    if (this.primary === 'Brawl') result.push('sustain');
-    if (this.primary === 'Poke') result.push('range');
-    if (this.primary === 'Dive') result.push('mobility');
-
-    const expandStrength = (x) => strengths[x];
-
-    this.strengths = result.reverse().map(expandStrength);
-  }
-
-  inspect() {
-    return {
-      composition: this.composition,
-      mobility: this.mobility,
-      focus: this.focus,
-      strengths: this.strengths,
-      vulnerabilities: this.vulnerabilities,
-      members: this.members.map(d=>d.name.full),
-
-      strength: this.strength,
-      primary: this.primary,
-      hybrid: this.hybrid,
-      roles: this.roles,
-      flags: this.flags,
-
-      brawl: this.brawl/100,
-      poke: this.poke/100,
-      dive: this.dive/100,
-
-      sustain: this.sustain,
-      range: this.range,
-      mobile: this.mobile,
-
-      scores: this.scores,
-
-      weights: {
-        primary: this.weights[0],
-        secondary: this.weights[1],
-        tertiary: this.weights[2],
-      },
-    }
+    if (composition[2]) return 'Hybrid'
+    if (composition[1]) return `${composition[0]}-${composition[1]} Hybrid`;
+    return composition[0];
   }
 
   equals(team) {
@@ -311,4 +145,30 @@ class TeamComposition extends Descriptor {
     }
     return true;
   }
+
+  static weights = {
+    playstyle: {
+      [attribute.class.tank.main]: 3,
+      [attribute.class.tank.off]: 3,
+
+      [attribute.class.damage.hitscan]: 2,
+      [attribute.class.damage.flex]: 3,
+
+      [attribute.class.support.utility]: 3,
+      [attribute.class.support.healing]: 1,
+    },
+
+    healing: {
+      [attribute.class.tank.main]: 0,
+      [attribute.class.tank.off]: 0,
+
+      [attribute.class.damage.hitscan]: 0,
+      [attribute.class.damage.flex]: 0,
+
+      [attribute.class.support.utility]: 1,
+      [attribute.class.support.healing]: 1,
+    },
+  }
+
+  static significance = -6;
 }

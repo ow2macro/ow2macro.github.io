@@ -9,32 +9,48 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
 
+    <script type="text/javascript" src="util.js"></script>
+
     <script type="text/javascript" src="descriptor.js"></script>
     <script type="text/javascript" src="role.js"></script>
     <script type="text/javascript" src="vulnerability.js"></script>
     <script type="text/javascript" src="strength.js"></script>
     <script type="text/javascript" src="playstyle.js"></script>
     <script type="text/javascript" src="archetype.js"></script>
-    <script type="text/javascript" src="teamcomposition.js"></script>
     <script type="text/javascript" src="attributes.js"></script>
-    <script type="text/javascript" src="pool.js"></script>
+
+    <script type="text/javascript" src="rule.js"></script>
+
+    <script type="text/javascript" src="matchups/brawl.js"></script>
+    <script type="text/javascript" src="matchups/poke.js"></script>
+    <script type="text/javascript" src="matchups/dive.js"></script>
+    <script type="text/javascript" src="matchups/kite.js"></script>
+    <script type="text/javascript" src="matchups/pathing.js"></script>
+    <script type="text/javascript" src="matchups/peel.js"></script>
+
+    <script type="text/javascript" src="teamcomposition.js"></script>
+
+    <script type="text/javascript" src="pools/pools.js"></script>
+    <script type="text/javascript" src="pools/overwatch_1/heros.js"></script>
+    <script type="text/javascript" src="pools/overwatch_1/compositions.js"></script>
+
     <script type="text/javascript" src="vulnerabilities.js"></script>
     <script type="text/javascript" src="strengths.js"></script>
-    <script type="text/javascript" src="compositions.js"></script>
+
     <script type="text/javascript" src="compare.js"></script>
   </head>
   <body>
     <div class="container-xxl"  id="teams">
 
       <div class="row">
-        <h1 class="display-4">Overwatch Macro Tool</h1>
+        <h1 class="display-4">Overwatch Macro Tool <small class="fs-6 fst-italic text-muted">{{ version }}</small></h1>
       </div>
 
       <div class="row">
         <section v-for="team in teams" class="col">
           <h1>
-            <strong> {{ team.data.composition }} </strong>
-            <small style="font-size: 0.5em;" class="text-weak font-italic">
+            <strong> {{ team.data.compositionName }} </strong>
+            <small class="fs-4 fst-italic text-muted">
               {{ team.name }}
             </small>
           </h1>
@@ -70,7 +86,7 @@
                 aria-valuemin="0"
                 aria-valuemax="100"
               >
-                {{ team.enable && team.data.sustain>0.05 ? "Sustain" : "" }}
+                {{ team.enable && team.data.sustain>0.1 ? "Sustain" : "" }}
               </div>
               <div
                 class="progress-bar range"
@@ -80,7 +96,7 @@
                 aria-valuemin="0"
                 aria-valuemax="100"
               >
-                  {{ team.enable && team.data.range>0.05 ? "Range" : "" }}
+                  {{ team.enable && team.data.range>0.1 ? "Range" : "" }}
               </div>
               <div
                 class="progress-bar mobility"
@@ -90,7 +106,7 @@
                 aria-valuemin="0"
                 aria-valuemax="100"
               >
-                {{ team.enable && team.data.mobile>0.05 ? "Mobility" : "" }}
+                {{ team.enable && team.data.mobile>0.1 ? "Mobility" : "" }}
               </div>
             </div>
           </div>
@@ -100,22 +116,25 @@
       <div class="row">
         <section v-for="team in teams" class="col">
           <h3>
-            <small style="font-size: 0.5em;" class="text-weak font-italic">
+            <small class="fs-6 fst-italic text-muted">
               Prefers
             </small>
             <strong> {{ team.matchupRole }} </strong>
-            <small style="font-size: 0.5em;" class="text-weak font-italic">
+            <small class="fs-6 fst-italic text-muted">
               against {{ team.enemyComp }}
             </small>
           </h3>
           <div class="container list-section">
             <ul class="list-unstyled">
               <li v-for="play in team.playstyle">
-                <span class="hover-tooltip hover-parent" :data-text="play.details">
-                  <em> {{play.name}} </em>  ⓘ
+                <span>
+                  <strong> {{play.name}} </strong>
                   <small class="text-muted text-italic hover">
                     {{ play.rule }}
                   </small>
+                  <ul>
+                    <li v-for="item in play.details"> <em> {{ item }} </em> </li>
+                  </ul>
                 </span>
               </li>
             </ul>
@@ -128,7 +147,7 @@
           <div class="row">
 
             <div class="col">
-              <h6>Vulnerabilities</h6>
+              <h6 class="fs-6 fst-italic text-muted">Vulnerabilities</h6>
               <div class="container list-section text-danger">
                 <ul class="list-unstyled">
                   <li v-for="vulnerability in team.data.vulnerabilities">
@@ -141,7 +160,7 @@
             </div>
 
             <div class="col">
-              <h6>Strengths</h6>
+              <h6 class="fs-6 fst-italic text-muted">Strengths</h6>
               <div class="container list-section text-success">
                 <ul class="list-unstyled">
                   <li v-for="strength in team.data.strengths">
@@ -163,12 +182,12 @@
       <div class="row">
         <section v-for="team in teams" class="col">
           <div v-for="(heros, role) in roles">
-            <h5 class="text-weak font-italic"> {{ role }} </h5>
+            <h5 class="fs-6 fst-italic text-muted"> {{ role }} </h5>
             <div class="container">
               <button
                 type="button"
                 @click="team.toggle(hero)"
-                class="btn btn-primary m-1"
+                class="btn-sm btn-primary m-1"
                 v-for="hero in heros"
               > {{ hero.name.short }} </button>
             </div>
@@ -176,9 +195,9 @@
         </section>
       </div>
 
-      <div class="row" v-for="(teamCompositionSet, name) in teamCompositionSets">
+      <div class="row" v-for="(teamCompositionSet, name) in compositionSets">
         <section v-for="team in teams" class="col">
-          <h5> {{ name }} </h5>
+          <h5 class="fs-6 fst-italic text-muted"> {{ name }} </h5>
           <div class="container">
             <button
               type="button"
@@ -192,6 +211,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script type="text/javascript" src="version.js"></script>
+    <script type="text/javascript" src="teamvue.js"></script>
     <script type="text/javascript" src="main.js"></script>
   </body>
 </html>

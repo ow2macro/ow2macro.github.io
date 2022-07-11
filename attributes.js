@@ -14,9 +14,9 @@ const attribute = {
       hitscan: new Role('Hitscan DPS', 'Hitscan'),
       flex: new Role('Flex DPS', 'Projectile'),
     },
-    healer: {
-      main: new Role('Main Healer'),
-      off: new Role('Off Healer'),
+    support: {
+      utility: new Role('Utility Support'),
+      healing: new Role('Healing Support'),
     },
   },
 
@@ -50,10 +50,7 @@ const attribute = {
     divebrawl_4x1: new Playstyle('Dive-Brawl 4:1', 1, 0, 4),
     divepoke_4x1: new Playstyle('Dive-Poke 4:1', 0, 1, 4),
 
-    hybrid_221: new Playstyle('Hybrid 2:2:1', 2, 2, 1),
-
-    rush: new Playstyle('Rush', 1, 0, 1),
-    spam: new Playstyle('Range', 0, 1, 0),
+    null: new Playstyle('Null', 0, 0, 0),
   },
 
   archetype: {

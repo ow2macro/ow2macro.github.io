@@ -19,7 +19,9 @@ class Playstyle extends Descriptor {
   normalize() {
     const characteristics = [this.sustain, this.range, this.mobile];
     const factor = characteristics.reduce((acc, a) => acc + a, 0);
-    [this.sustain, this.range, this.mobile] = characteristics.map(x=>x/factor);
+    if (factor > 0) {
+      [this.sustain, this.range, this.mobile] = characteristics.map(x=>x/factor);
+    }
   }
 
   arr() {
