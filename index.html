@@ -27,6 +27,7 @@
     <script type="text/javascript" src="matchups/kite.js"></script>
     <script type="text/javascript" src="matchups/pathing.js"></script>
     <script type="text/javascript" src="matchups/peel.js"></script>
+    <script type="text/javascript" src="matchups/counterdive.js"></script>
 
     <script type="text/javascript" src="teamcomposition.js"></script>
 
@@ -43,12 +44,12 @@
     <div class="container-xxl"  id="teams">
 
       <div class="row">
-        <h1 class="display-4">Overwatch Macro Tool <small class="fs-6 fst-italic text-muted">{{ version }}</small></h1>
+        <h1 class="display-4 no-select">Overwatch Macro Tool <small class="fs-6 fst-italic text-muted">{{ version }}</small></h1>
       </div>
 
       <div class="row">
         <section v-for="team in teams" class="col">
-          <h1>
+          <h1 class="no-select">
             <strong> {{ team.data.compositionName }} </strong>
             <small class="fs-4 fst-italic text-muted">
               {{ team.name }}
@@ -115,7 +116,7 @@
 
       <div class="row">
         <section v-for="team in teams" class="col">
-          <h3>
+          <h3 class="no-select">
             <small class="fs-6 fst-italic text-muted">
               Prefers
             </small>
@@ -147,7 +148,7 @@
           <div class="row">
 
             <div class="col">
-              <h6 class="fs-6 fst-italic text-muted">Vulnerabilities</h6>
+              <h6 class="fs-6 fst-italic text-muted no-select">Vulnerabilities</h6>
               <div class="container list-section text-danger">
                 <ul class="list-unstyled">
                   <li v-for="vulnerability in team.data.vulnerabilities">
@@ -160,7 +161,7 @@
             </div>
 
             <div class="col">
-              <h6 class="fs-6 fst-italic text-muted">Strengths</h6>
+              <h6 class="fs-6 fst-italic text-muted no-select">Strengths</h6>
               <div class="container list-section text-success">
                 <ul class="list-unstyled">
                   <li v-for="strength in team.data.strengths">
@@ -182,13 +183,14 @@
       <div class="row">
         <section v-for="team in teams" class="col">
           <div v-for="(heros, role) in roles">
-            <h5 class="fs-6 fst-italic text-muted"> {{ role }} </h5>
+            <h5 class="fs-6 fst-italic text-muted no-select"> {{ role }} </h5>
             <div class="container">
               <button
                 type="button"
                 @click="team.toggle(hero)"
-                class="btn-sm btn-primary m-1"
+                class="btn-sm m-1"
                 v-for="hero in heros"
+                :style="team.heroButtonStyles[hero.id]"
               > {{ hero.name.short }} </button>
             </div>
           </div>
@@ -197,7 +199,7 @@
 
       <div class="row" v-for="(teamCompositionSet, name) in compositionSets">
         <section v-for="team in teams" class="col">
-          <h5 class="fs-6 fst-italic text-muted"> {{ name }} </h5>
+          <h5 class="fs-6 fst-italic text-muted no-select"> {{ name }} </h5>
           <div class="container">
             <button
               type="button"

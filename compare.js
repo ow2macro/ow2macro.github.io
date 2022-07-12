@@ -44,7 +44,6 @@ function symetricalMatchup(team1, team2) {
 }
 
 function analyzeMatchup(team1, team2) {
-
   if (team1.equals(team2)) return mirrorMatchup(team1, team2);
   if (util.is.approximately.equal(team1.mobility, team2.mobility)) return symetricalMatchup(team1, team2);
 

@@ -2,6 +2,8 @@ class TeamVue {
   name;
   enable;
   data = {};
+  heroButtonStyles = {};
+
   matchupRole;
   enemyComp;
 
@@ -9,6 +11,7 @@ class TeamVue {
 
   members = new Set();
   roster = [];
+
 
   opponent;
 
@@ -60,9 +63,45 @@ class TeamVue {
   }
 
   renderTeam(team) {
+    this.genHeroStyles(team, window.appData? window.appData.heros : []);
+
     if (this.roster.length > 2) {
       this.data = team;
       this.enable = true;
+    }
+  }
+
+  genHeroStyles(team, heros) {
+    const primary = 240;
+    const secondary = 120;
+    const tertiary = 42;
+
+    const value = 0;
+    const grey = (primary+secondary+tertiary)/3 - value;
+    const shade = 3;
+
+    for (const hero of heros) {
+
+      let r = tertiary;
+      let g = secondary;
+      let b = primary;
+
+      if (this.roster.length >= 1) {
+        const x = team.measure(hero);
+
+        r = util.linear(grey, tertiary, x);
+        g = util.linear(grey, secondary, x);
+        b = util.linear(grey, primary, x);
+      }
+
+      const color = `rgb(${r}, ${g}, ${b})`;
+
+      this.heroButtonStyles[hero.id] = {
+        color: 'white',
+        backgroundColor: color,
+        borderColor: color,
+        fontWeight: 600,
+      }
     }
   }
 
@@ -87,6 +126,7 @@ class TeamVue {
     this.data.mobility = 0;
     this.data.scores.mobility = 0;
     this.data.scores.power = 0;
+    this.data.heroWeights = {};
     this.data.brawl = 0;
     this.data.poke = 0;
     this.data.dive = 0;
@@ -94,6 +134,7 @@ class TeamVue {
     this.data.range = 0;
     this.data.mobile = 0;
     this.playstyle = [];
+    this.heroButtonStyles = {};
 
     this.renderTeam(this.build());
   }

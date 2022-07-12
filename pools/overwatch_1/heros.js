@@ -168,7 +168,7 @@ function load() {
       id: 'lucio',
       role: attribute.role.support,
       class: attribute.class.support.utility,
-      playstyle: attribute.playstyle.divebrawl_2x1,
+      playstyle: attribute.playstyle.divebrawl_3x1,
       healing: attribute.playstyle.sustain,
       archetypes: [
         attribute.archetype.rush,
@@ -358,7 +358,7 @@ function load() {
       id: 'tracer',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.mobile,
+      playstyle: attribute.playstyle.divebrawl_2x1,
       healing: attribute.playstyle.null,
       archetypes: [
         attribute.archetype.damage.flanker,

@@ -41,3 +41,12 @@ matchups.push(new Rule(
     'Lower value from forcing resources than getting kills.',
   ],
 ))
+
+matchups.push(new Rule(
+  'Dive Mirror',
+  'Play Aggressive',
+  (team, enemy, role) => rules.pure.dive(team) && rules.pure.dive(enemy) && role === 'angles',
+  [
+    'Peel is low in dive mirrors, look to secure the first kill.',
+  ],
+))

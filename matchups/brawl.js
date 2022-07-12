@@ -55,3 +55,21 @@ matchups.push(new Rule(
     'Dive targets should stay in range of anti dive heros.',
   ],
 ))
+
+matchups.push(new Rule(
+  'Brawl Mirror',
+  'Deny Angles',
+  (team, enemy, role) => rules.sustain(team) && rules.sustain(enemy) && role === 'frontline',
+  [
+    'Deny flanks and angles, then win with superior sustain.',
+  ],
+))
+
+matchups.push(new Rule(
+  'Brawl Mirror',
+  'Play Angles',
+  (team, enemy, role) => rules.brawl(team) && rules.brawl(enemy) && role === 'angles',
+  [
+    'Flank and take angles. Use range and mobility advantage to circumvent damage mitigation and cover.',
+  ],
+))

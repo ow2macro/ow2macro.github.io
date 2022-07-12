@@ -48,4 +48,8 @@ const util = {
     const add = (a, b) => a+b;
     return arr.reduce(add, 0);
   },
+
+  linear(a,b,t) {
+    return (a*(1-t)) + (b*t);
+  }
 }

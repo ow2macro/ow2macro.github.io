@@ -44,3 +44,21 @@ matchups.push(new Rule(
     'Dive targets should stay in line of sight and the effective range of allies. (i.e. snipers should not be close to eachother)',
   ],
 ))
+
+matchups.push(new Rule(
+  'Poke Mirror',
+  'Deny Angles',
+  (team, enemy, role) => rules.sustain(team) && rules.sustain(enemy) && role === 'frontline',
+  [
+    'Deny flanks and angles, then win with superior sustain.',
+  ],
+))
+
+matchups.push(new Rule(
+  'Poke Mirror',
+  'Poke Angles',
+  (team, enemy, role) => rules.poke(team) && rules.poke(enemy) && role === 'angles',
+  [
+    'Flank and take angles. Use extra range and mobility to take and abuse angles.',
+  ],
+))

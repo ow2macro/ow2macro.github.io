@@ -42,6 +42,8 @@ class TeamComposition extends Descriptor {
 
   // other
   archetypes;
+  count;
+  heroWeights;
 
   constructor(name, members) {
     super(name);
@@ -55,6 +57,7 @@ class TeamComposition extends Descriptor {
 
     this.flags = [];
     this.archetypes = new Set();
+    this.count = {};
 
     let total = 0;
 
@@ -65,6 +68,9 @@ class TeamComposition extends Descriptor {
       // add member to lookup tables
       this.roleMembers[member.role].push(member);
       this.classMembers[member.class].push(member);
+
+      this.count[member.role] = (this.count[member.role] || 0) + 1;
+      this.count[member.class] = (this.count[member.class] || 0) + 1;
 
       // weights for how much the playstyle and healing-playstyle impact the team stats
       const playstyleWeight = TeamComposition.weights.playstyle[member.class];
@@ -78,16 +84,18 @@ class TeamComposition extends Descriptor {
       this.range += member.healing.range * healingWeight;
       this.mobile += member.healing.mobile * healingWeight;
 
-      // add archetypes
-      for (const archetype of member.archetypes) this.archetypes.add(archetype);
-
       total += playstyleWeight + healingWeight;
+
+      // add archetypes
+      for (const archetype of member.archetypes) {
+        this.archetypes.add(archetype);
+        this.count[archetype] = (this.count[archetype] || 0) + 1;
+      }
     }
 
     this.sustain /= total;
     this.range /= total;
     this.mobile /= total;
-
 
     this.brawl = Math.round(this.sustain * 100);
     this.poke = Math.round(this.range * 100);
@@ -99,7 +107,7 @@ class TeamComposition extends Descriptor {
 
   classify() {
     this.composition = [];
-    this.mobility = 100 * (this.mobile - this.sustain);
+    this.mobility = this.mobile - this.sustain;
 
     const weights = this.weights = [
       {name: 'Brawl', score: this.sustain},
@@ -146,16 +154,31 @@ class TeamComposition extends Descriptor {
     return true;
   }
 
+  measure(hero) {
+    if (hero.role === attribute.role.support) {
+      const utility = this.measurePlaystyle(hero.playstyle);
+      const healing = this.measurePlaystyle(hero.healing);
+      return Math.max(utility, healing);
+    }
+
+    return this.measurePlaystyle(hero.playstyle);
+  }
+
+  measurePlaystyle(playstyle) {
+    const delta = Math.abs(this.mobility - playstyle.measure());
+    return 1 - (delta)/2;
+  }
+
   static weights = {
     playstyle: {
-      [attribute.class.tank.main]: 3,
-      [attribute.class.tank.off]: 3,
+      [attribute.class.tank.main]: 1,
+      [attribute.class.tank.off]: 1,
 
-      [attribute.class.damage.hitscan]: 2,
-      [attribute.class.damage.flex]: 3,
+      [attribute.class.damage.hitscan]: 1,
+      [attribute.class.damage.flex]: 1,
 
-      [attribute.class.support.utility]: 3,
-      [attribute.class.support.healing]: 1,
+      [attribute.class.support.utility]: 1,
+      [attribute.class.support.healing]: 0,
     },
 
     healing: {
@@ -165,7 +188,7 @@ class TeamComposition extends Descriptor {
       [attribute.class.damage.hitscan]: 0,
       [attribute.class.damage.flex]: 0,
 
-      [attribute.class.support.utility]: 1,
+      [attribute.class.support.utility]: 0,
       [attribute.class.support.healing]: 1,
     },
   }

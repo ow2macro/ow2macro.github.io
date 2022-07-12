@@ -151,7 +151,7 @@ function load(hero) {
         hero.ana,
       ]),
 
-      new TeamComposition('Hog & Ball Torture', [
+      new TeamComposition('Hog Ball Torture', [
         hero.wreckingball,
         hero.roadhog,
         hero.widowmaker,
