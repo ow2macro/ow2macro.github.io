@@ -31,8 +31,8 @@ function ready(fn) {
 
 ready(()=>{
   const teams = window.teams = [
-    new TeamVue('Team 1'),
-    new TeamVue('Team 2'),
+    new TeamVue('Team 1', 0),
+    new TeamVue('Team 2', 1),
   ];
 
   teams[0].opponent = teams[1];

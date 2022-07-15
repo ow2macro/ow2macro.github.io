@@ -1,5 +1,4 @@
 class TeamComposition extends Descriptor {
-  name;
   members;
 
   // overall composition name
@@ -16,109 +15,103 @@ class TeamComposition extends Descriptor {
   range;
   mobile;
 
-  // rounded percents of sustain, range, and mobile
-  brawl;
-  poke;
-  dive;
-
   // members by role
-  roleMembers = {
-    [attribute.role.tank]: [],
-    [attribute.role.damage]: [],
-    [attribute.role.support]: [],
-  }
+  roleMembers = {};
 
   // members by class
-  classMembers = {
-    [attribute.class.tank.main]: [],
-    [attribute.class.tank.off]: [],
-
-    [attribute.class.damage.hitscan]: [],
-    [attribute.class.damage.flex]: [],
-
-    [attribute.class.support.utility]: [],
-    [attribute.class.support.healing]: [],
-  }
+  classMembers = {};
 
   // other
   archetypes;
   count;
   heroWeights;
 
+  /**
+   * @param {string} name
+   * @param {Array | Set} members
+   */
   constructor(name, members) {
     super(name);
-    this.members = members;
+    this.members = new Set(members);
+    this.update();
+  }
 
-    this.sustain = 0;
-    this.range = 0;
-    this.mobile = 0;
+  reset() {
+    this.members = new Set();
+    this.update();
+  }
 
-    if (members.length === 0) return;
+  add(hero) {
+    this.members.add(hero);
+    this.update();
+  }
 
-    this.flags = [];
-    this.archetypes = new Set();
-    this.count = {};
+  remove(hero) {
+    this.members.remove(hero);
+    this.update();
+  }
+
+  update() {
+    this.#reset();
+    if (this.members.length === 0) return;
 
     let total = 0;
 
-    for (const [i, member] of members.entries()) {
-      // warn problematic member
-      if (!member || member === undefined || !member.playstyle || !member.healing) console.warn('member', i, 'of', name, 'in', members);
-
+    for (const member of this.members) {
       // add member to lookup tables
       this.roleMembers[member.role].push(member);
       this.classMembers[member.class].push(member);
 
-      this.count[member.role] = (this.count[member.role] || 0) + 1;
-      this.count[member.class] = (this.count[member.class] || 0) + 1;
+      this.count[member.role] ??= 0;
+      this.count[member.role]++;
+
+      this.count[member.class] ??= 0;
+      this.count[member.class]++;
 
       // weights for how much the playstyle and healing-playstyle impact the team stats
-      const playstyleWeight = TeamComposition.weights.playstyle[member.class];
-      const healingWeight = TeamComposition.weights.healing[member.class];
+      const playstyleWeight = TeamComposition.weights.playstyle[member.class] * member.playstyle.factor();
+      const utilityWeight = TeamComposition.weights.utility[member.class] * member.utility.factor();
+      const healingWeight = TeamComposition.weights.healing[member.class] * member.healing.factor();
 
+      // increment totals by playstyle
       this.sustain += member.playstyle.sustain * playstyleWeight;
       this.range += member.playstyle.range * playstyleWeight;
       this.mobile += member.playstyle.mobile * playstyleWeight;
 
+      // increment totals by healing
+      this.sustain += member.utility.sustain * utilityWeight;
+      this.range += member.utility.range * utilityWeight;
+      this.mobile += member.utility.mobile * utilityWeight;
+
+      // increment totals by healing
       this.sustain += member.healing.sustain * healingWeight;
       this.range += member.healing.range * healingWeight;
       this.mobile += member.healing.mobile * healingWeight;
 
-      total += playstyleWeight + healingWeight;
+      // total for normalizing later
+      total += playstyleWeight + healingWeight + utilityWeight;
 
       // add archetypes
       for (const archetype of member.archetypes) {
         this.archetypes.add(archetype);
-        this.count[archetype] = (this.count[archetype] || 0) + 1;
+        this.count[archetype] ??= 0;
+        this.count[archetype]++;
       }
     }
 
+    // normalize so sum of sustain range and mobile is 1
     this.sustain /= total;
     this.range /= total;
     this.mobile /= total;
 
-    this.brawl = Math.round(this.sustain * 100);
-    this.poke = Math.round(this.range * 100);
-    this.dive = Math.round(this.mobile * 100);
-
-    this.classify();
-    this.compositionName = this.getTeamCompName();
-  }
-
-  classify() {
-    this.composition = [];
+    // calculate mobility score
     this.mobility = this.mobile - this.sustain;
 
-    const weights = this.weights = [
-      {name: 'Brawl', score: this.sustain},
-      {name: 'Poke', score: this.range},
-      {name: 'Dive', score: this.mobile},
-    ];
-
-    weights.sort((a,b)=>b.score - a.score);
-
-    // normalize for saftey
-    const total = util.sumArray(weights.map(x=>x.score));
+    const weights = _.sortBy(_.toPairs({
+      sustain: this.sustain,
+      range: this.range,
+      mobile: this.mobile,
+    }), x=>x[1]).reverse();
 
     let n = 0;
     let acc = 0;
@@ -127,17 +120,75 @@ class TeamComposition extends Descriptor {
     // select team composition
     for (const weight of weights) {
       n++;
-      this.composition.push(weight.name);
-      acc += weight.score/total;
+      this.composition.push(weight[0]);
+      acc += weight[1];
       const ratio = (n+1)/(n+2);
       if (util.is.approximately.greaterThan(acc, ratio, TeamComposition.significance)) break;
     }
+
+    this.compositionName = this.#getCompositionName();
   }
 
-  getTeamCompName() {
+  #reset() {
+    this.sustain = 0;
+    this.range = 0;
+    this.mobile = 0;
+
+    this.brawl = 0;
+    this.poke = 0;
+    this.dive = 0;
+
+    this.composition = [];
+    this.compositionName = '';
+
+    this.weights = [];
+
+    this.roleMembers = {
+      [attribute.role.tank]: [],
+      [attribute.role.damage]: [],
+      [attribute.role.support]: [],
+    }
+
+    this.classMembers = {
+      [attribute.class.tank.main]: [],
+      [attribute.class.tank.off]: [],
+
+      [attribute.class.damage.hitscan]: [],
+      [attribute.class.damage.flex]: [],
+
+      [attribute.class.support.utility]: [],
+      [attribute.class.support.healing]: [],
+    }
+
+    this.flags = [];
+    this.archetypes = new Set();
+    this.count = {};
+  }
+
+  #getCompositionName() {
     let composition = this.composition.map(x=>{
-      if (this.archetypes.has(attribute.archetype.rush) && x === 'Brawl') return 'Rush';
-      if (this.archetypes.has(attribute.archetype.rush) && x === 'Poke') return 'Spam';
+
+      if (x === 'sustain') {
+        if (this.archetypes.has(attribute.archetype.rush))
+          return 'Rush';
+        else
+          return 'Brawl';
+      }
+
+      if (x === 'range') {
+        if (this.archetypes.has(attribute.archetype.rush))
+          return 'Spam';
+        else
+          return 'Poke';
+      }
+
+      if (x === 'mobile') {
+        if (this.archetypes.has(attribute.archetype.dive))
+          return 'Dive';
+        else
+          return 'Mobility';
+      }
+
       return x;
     });
 
@@ -146,30 +197,129 @@ class TeamComposition extends Descriptor {
     return composition[0];
   }
 
+  normalizedMetrics() {
+    const max = Math.max(
+      this.sustain,
+      this.range,
+      this.mobile,
+    );
+
+    return {
+      sustain: this.sustain/max,
+      range: this.range/max,
+      mobile: this.mobile/max,
+    }
+  }
+
+  normalizedCappedMetrics(at = 0.9) {
+    const normal = this.normalizedMetrics();
+    return {
+      sustain: Math.min(normal.sustain/at, 1),
+      range: Math.min(normal.range/at, 1),
+      mobile: Math.min(normal.mobile/at, 1),
+    }
+  }
+
+  utility(playstyle) {
+    return this.rotate(this, playstyle);
+  }
+
+  rotate(pairing, playstyle) {
+    return Math.max(
+      pairing.range * playstyle.sustain,
+      pairing.sustain * playstyle.mobile,
+      pairing.mobile * playstyle.range,
+    );
+  }
+
+  similarity(pairing, playstyle) {
+    return Math.max(
+      pairing.sustain * playstyle.sustain,
+      pairing.range * playstyle.range,
+      pairing.mobile * playstyle.mobile,
+    );
+  }
+
+  without(hero) {
+    const members = new Set(this.members);
+    members.delete(hero);
+    return new TeamComposition(this.name+'-without:'+hero.name.full, members);
+  }
+
+  measureSynergy(hero) {
+    if (this.members.size < 1) return 1;
+    const team = this.without(hero);
+    if (team.members.size < 1) return 1;
+
+    return team.measure(hero);
+  }
+
+  measureHeroOption(hero) {
+    if (this.members.has(hero)) return true;
+    else return this.measureSynergy(hero);
+  }
+
+  measure(hero) {
+    const normalized = this.normalizedMetrics();
+    const capped = this.normalizedCappedMetrics();
+
+    const playstyleWeight = TeamComposition.measure.playstyle[hero.class] * hero.playstyle.factor();
+    const utilityWeight = TeamComposition.measure.utility[hero.class] * hero.utility.factor();
+    const healingWeight = TeamComposition.measure.healing[hero.class] * hero.healing.factor();
+
+    const playstyle = this.similarity(normalized, hero.playstyle) * playstyleWeight;
+    const utility = this.rotate(capped, hero.utility) * utilityWeight;
+    const healing = this.similarity(normalized, hero.healing) * healingWeight;
+
+    const scores = [playstyle, utility, healing].sort().reverse().map((x,i)=>x**(i+1));
+
+    return scores.reduce(util.add);
+  }
+
   equals(team) {
     if (this.members.length != team.members.length) return false;
     for (const hero of this.members) {
-      if (!team.members.includes(hero)) return false;
+      if (!team.members.has(hero)) return false;
     }
     return true;
   }
 
-  measure(hero) {
-    if (hero.role === attribute.role.support) {
-      const utility = this.measurePlaystyle(hero.playstyle);
-      const healing = this.measurePlaystyle(hero.healing);
-      return Math.max(utility, healing);
-    }
-
-    return this.measurePlaystyle(hero.playstyle);
-  }
-
-  measurePlaystyle(playstyle) {
-    const delta = Math.abs(this.mobility - playstyle.measure());
-    return 1 - (delta)/2;
-  }
-
   static weights = {
+    playstyle: {
+      [attribute.class.tank.main]: 10,
+      [attribute.class.tank.off]: 8,
+
+      [attribute.class.damage.hitscan]: 8,
+      [attribute.class.damage.flex]: 8,
+
+      [attribute.class.support.utility]: 1,
+      [attribute.class.support.healing]: 1,
+    },
+
+    healing: {
+      [attribute.class.tank.main]: 0,
+      [attribute.class.tank.off]: 0,
+
+      [attribute.class.damage.hitscan]: 0,
+      [attribute.class.damage.flex]: 0,
+
+      [attribute.class.support.utility]: 1,
+      [attribute.class.support.healing]: 4,
+    },
+
+    utility: {
+      [attribute.class.tank.main]: 0,
+      [attribute.class.tank.off]: 0,
+
+      [attribute.class.damage.hitscan]: 1,
+      [attribute.class.damage.flex]: 1,
+
+      [attribute.class.support.utility]: 6,
+      [attribute.class.support.healing]: 1,
+    },
+  }
+
+  static measure = {
     playstyle: {
       [attribute.class.tank.main]: 1,
       [attribute.class.tank.off]: 1,
@@ -178,7 +328,7 @@ class TeamComposition extends Descriptor {
       [attribute.class.damage.flex]: 1,
 
       [attribute.class.support.utility]: 1,
-      [attribute.class.support.healing]: 0,
+      [attribute.class.support.healing]: 1,
     },
 
     healing: {
@@ -190,6 +340,17 @@ class TeamComposition extends Descriptor {
 
       [attribute.class.support.utility]: 0,
       [attribute.class.support.healing]: 1,
+    },
+
+    utility: {
+      [attribute.class.tank.main]: 0,
+      [attribute.class.tank.off]: 0,
+
+      [attribute.class.damage.hitscan]: 0,
+      [attribute.class.damage.flex]: 0,
+
+      [attribute.class.support.utility]: 1,
+      [attribute.class.support.healing]: 0,
     },
   }
 

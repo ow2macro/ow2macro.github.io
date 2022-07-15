@@ -55,9 +55,6 @@ const attribute = {
 
   archetype: {
     tank: {
-      brawl: new HeroArchetype('Brawl Tank'),
-      poke: new HeroArchetype('Poke Tank'),
-      dive: new HeroArchetype('Dive Tank'),
       mitigation: new HeroArchetype('Damage mitigation'),
     },
 
@@ -76,8 +73,11 @@ const attribute = {
       flex: new HeroArchetype('Flex Support'),
     },
 
-    spam: new HeroArchetype('Spam DPS', 'Spam'),
+    spam: new HeroArchetype('Spam'),
+    pick: new HeroArchetype('Pick'),
     rush: new HeroArchetype('Rush'),
+    dive: new HeroArchetype('Dive'),
+
     antidive: new HeroArchetype('Antidive'),
     dive_target: new HeroArchetype('Dive Target'),
     defensiveUlt: new HeroArchetype('Defensive Ult'),

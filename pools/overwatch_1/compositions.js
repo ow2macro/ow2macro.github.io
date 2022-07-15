@@ -1,24 +1,6 @@
 function load(hero) {
   return {
     'Brawl': [
-      new TeamComposition('GOATS', [
-        hero.reinhardt,
-        hero.zarya,
-        hero.dva,
-        hero.moria,
-        hero.lucio,
-        hero.brigitte,
-      ]),
-
-      new TeamComposition('GOATS+', [
-        hero.reinhardt,
-        hero.zarya,
-        hero.dva,
-        hero.zenyatta,
-        hero.lucio,
-        hero.brigitte,
-      ]),
-
       new TeamComposition('Rein Zarya Rush', [
         hero.reinhardt,
         hero.zarya,
@@ -28,6 +10,15 @@ function load(hero) {
         hero.lucio,
       ]),
 
+      new TeamComposition('GOATS', [
+        hero.reinhardt,
+        hero.zarya,
+        hero.dva,
+        hero.moria,
+        hero.lucio,
+        hero.brigitte,
+      ]),
+
       new TeamComposition('Rein Zarya Sustain', [
         hero.reinhardt,
         hero.zarya,
@@ -35,6 +26,15 @@ function load(hero) {
         hero.symmetra,
         hero.baptiste,
         hero.moria,
+      ]),
+
+      new TeamComposition('Zen GOATS', [
+        hero.reinhardt,
+        hero.zarya,
+        hero.dva,
+        hero.zenyatta,
+        hero.lucio,
+        hero.brigitte,
       ]),
     ],
 
@@ -100,7 +100,7 @@ function load(hero) {
         hero.sigma,
         hero.soldier,
         hero.hanzo,
-        hero.ana,
+        hero.baptiste,
         hero.mercy,
       ]),
 
@@ -129,7 +129,7 @@ function load(hero) {
         hero.zarya,
         hero.ashe,
         hero.sombra,
-        hero.ana,
+        hero.baptiste,
         hero.mercy,
       ]),
 

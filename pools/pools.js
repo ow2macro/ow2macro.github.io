@@ -3,7 +3,7 @@ const pools = {
     id: 1,
     version: {
       major: 2,
-      minor: 1,
+      minor: 2,
       patch: 0,
       tag: 'a',
     }

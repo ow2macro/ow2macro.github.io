@@ -17,10 +17,10 @@ class Playstyle extends Descriptor {
   }
 
   normalize() {
-    const characteristics = [this.sustain, this.range, this.mobile];
-    const factor = characteristics.reduce((acc, a) => acc + a, 0);
+    const factor = this.factor();
     if (factor > 0) {
-      [this.sustain, this.range, this.mobile] = characteristics.map(x=>x/factor);
+      [this.sustain, this.range, this.mobile] =
+        [this.sustain, this.range, this.mobile].map(x=>x/factor);
     }
   }
 
@@ -30,5 +30,9 @@ class Playstyle extends Descriptor {
 
   measure() {
     return this.mobile - this.sustain;
+  }
+
+  factor() {
+    return [this.sustain, this.range, this.mobile].reduce((acc, a) => acc + a, 0);
   }
 }

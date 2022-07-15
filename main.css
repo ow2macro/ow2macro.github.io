@@ -1,5 +1,4 @@
-/* evil, fix later */
-button {
+.skew {
   transform: skewX(-7.5deg);
 }
 
@@ -7,12 +6,14 @@ button {
   user-select: none;
 }
 
-.hero-roster {
-  min-height: 3em;
+.list-section-height {
+  min-height: 360px;
 }
 
-.list-section {
-  min-height: 3em;
+.list-section-scroll {
+  max-height: 256px;
+  overflow: auto;
+  overflow-y: auto;
 }
 
 .sustain {
@@ -32,71 +33,23 @@ button {
   margin: 2em;
 }
 
-.normal-bar {
-  height: 2em;
-  margin: 2em;
-}
-
 .progress {
   user-select: none;
 }
 
-.hover-tooltip {
-  position: relative;
+.card-header .collapsed .fa {
+  transform: rotate(90deg);
 }
 
-.hover-tooltip:before {
-  content: attr(data-text); /* here's the magic */
-  position: absolute;
-
-  /* vertically center */
-  top: 50%;
-  transform: translateY(-50%);
-
-  /* move to right */
-  left: 100%;
-  margin-left: 15px; /* and add a small left margin */
-
-  /* basic styles */
-  width: 320px;
-  padding: 10px;
-  border-radius: 10px;
-  background: #000;
-  color: #fff;
-  text-align: center;
-
-  display: none; /* hide by default */
-
-  z-index: 1;
+.roster {
+  width: 100%;
 }
 
-.hover-tooltip:after {
-  content: "";
-  position: absolute;
-
-  /* position tooltip correctly */
-  left: 100%;
-  margin-left: -5px;
-
-  /* vertically center */
-  top: 50%;
-  transform: translateY(-50%);
-
-  /* the arrow */
-  border: 10px solid #000;
-  border-color: transparent black transparent transparent;
-
-  display: none;
+.roster .btn-remove:hover {
+  border-color: var(--bs-danger);
+  background-color: var(--bs-danger);
 }
 
-.hover-tooltip:hover:before, .hover-tooltip:hover:after  {
-  display: block;
-}
-
-.hover-parent {}
-.hover-parent .hover {
-  display: none;
-}
-.hover-parent:hover .hover {
-  display: inherit;
+.roster .btn-clear {
+  max-width: 64px;
 }

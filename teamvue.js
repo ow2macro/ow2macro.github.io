@@ -12,13 +12,13 @@ class TeamVue {
   members = new Set();
   roster = [];
 
-
   opponent;
 
-  constructor(name) {
+  constructor(name, id) {
     this.name = name;
     this.defaultName = name;
     this.resetView();
+    this.id = id;
   }
 
   toggle(hero) {
@@ -72,11 +72,11 @@ class TeamVue {
   }
 
   genHeroStyles(team, heros) {
-    const primary = 240;
+    const primary = 255;
     const secondary = 120;
     const tertiary = 42;
 
-    const value = 0;
+    const value = 66;
     const grey = (primary+secondary+tertiary)/3 - value;
     const shade = 3;
 
@@ -87,11 +87,17 @@ class TeamVue {
       let b = primary;
 
       if (this.roster.length >= 1) {
-        const x = team.measure(hero);
+        const x = team.measureHeroOption(hero);
 
-        r = util.linear(grey, tertiary, x);
-        g = util.linear(grey, secondary, x);
-        b = util.linear(grey, primary, x);
+        if (x === true) {
+          r = tertiary;
+          g = primary - value;
+          b = primary - value;
+        } else {
+          r = util.linear(grey, tertiary, x);
+          g = util.linear(grey, secondary, x);
+          b = util.linear(grey, primary, x);
+        }
       }
 
       const color = `rgb(${r}, ${g}, ${b})`;
