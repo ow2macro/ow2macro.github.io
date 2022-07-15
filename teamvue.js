@@ -14,6 +14,8 @@ class TeamVue {
 
   opponent;
 
+  stats = [];
+
   constructor(name, id) {
     this.name = name;
     this.defaultName = name;
@@ -63,9 +65,26 @@ class TeamVue {
   }
 
   renderTeam(team) {
-    this.genHeroStyles(team, window.appData? window.appData.heros : []);
+    const heroPool = window.appData? window.appData.heros : [];
+
+    this.genHeroStyles(team, heroPool);
+    const n = team.normalizedMetrics();
+    const order = [n.sustain, n.range, n.mobile].sort().reverse();
+
+    this.stats = [{name: 'Cohesion', value: 0}, {name: 'Balance', value: 0}];
 
     if (this.roster.length > 2) {
+      this.stats = [
+        {
+          name: 'Cohesion',
+          value: team.measurePool(team.members),
+        },
+        {
+          name: 'Balance',
+          value: order.map((x,i)=>x*(i/2)).reduce(util.add),
+        }
+      ];
+
       this.data = team;
       this.enable = true;
     }

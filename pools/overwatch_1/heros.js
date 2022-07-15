@@ -1,7 +1,7 @@
 function load() {
   return [
-    {
-      name: new Descriptor('Ana'),
+    new Hero({
+      name: 'Ana',
       id: 'ana',
       role: attribute.role.support,
       class: attribute.class.support.healing,
@@ -13,10 +13,10 @@ function load() {
         attribute.archetype.support.range,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Ashe'),
+    new Hero({
+      name: 'Ashe',
       id: 'ashe',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -27,10 +27,11 @@ function load() {
         attribute.archetype.damage.sniper,
         attribute.archetype.dive_target,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Baptiste', 'Bap'),
+    new Hero({
+      name: 'Baptiste',
+      short: 'Bap',
       id: 'baptiste',
       role: attribute.role.support,
       class: attribute.class.support.healing,
@@ -43,10 +44,10 @@ function load() {
         attribute.archetype.support.area,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Bastion'),
+    new Hero({
+      name: 'Bastion',
       id: 'bastion',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -59,10 +60,11 @@ function load() {
         attribute.archetype.damage.flanker,
         attribute.archetype.dive_target,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Brigitte', 'Brig'),
+    new Hero({
+      name: 'Brigitte',
+      short: 'Brig',
       id: 'brigitte',
       role: attribute.role.support,
       class: attribute.class.support.utility,
@@ -75,10 +77,10 @@ function load() {
         attribute.archetype.antidive,
         attribute.archetype.defensiveUlt,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Cassidy'),
+    new Hero({
+      name: 'Cassidy',
       id: 'cassidy',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -90,10 +92,10 @@ function load() {
         attribute.archetype.damage.brawl,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('D.Va'),
+    new Hero({
+      name: 'D.Va',
       id: 'dva',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
@@ -104,10 +106,11 @@ function load() {
         attribute.archetype.tank.mitigation,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Doomfist', 'Doom'),
+    new Hero({
+      name: 'Doomfist',
+      short: 'Doom',
       id: 'doomfist',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
@@ -117,10 +120,10 @@ function load() {
       archetypes: [
         attribute.archetype.dive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Echo'),
+    new Hero({
+      name: 'Echo',
       id: 'echo',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
@@ -131,10 +134,10 @@ function load() {
         attribute.archetype.dive,
         attribute.archetype.damage.flanker,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Genji'),
+    new Hero({
+      name: 'Genji',
       id: 'genji',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
@@ -145,10 +148,10 @@ function load() {
         attribute.archetype.dive,
         attribute.archetype.damage.flanker,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Hanzo'),
+    new Hero({
+      name: 'Hanzo',
       id: 'hanzo',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
@@ -159,10 +162,10 @@ function load() {
         attribute.archetype.damage.sniper,
         attribute.archetype.damage.buster,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Junkrat'),
+    new Hero({
+      name: 'Junkrat',
       id: 'junkrat',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
@@ -174,10 +177,10 @@ function load() {
         attribute.archetype.damage.buster,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Lucio'),
+    new Hero({
+      name: 'Lucio',
       id: 'lucio',
       role: attribute.role.support,
       class: attribute.class.support.utility,
@@ -190,10 +193,10 @@ function load() {
         attribute.archetype.support.area,
         attribute.archetype.defensiveUlt,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Mei'),
+    new Hero({
+      name: 'Mei',
       id: 'mei',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
@@ -205,10 +208,10 @@ function load() {
         attribute.archetype.defensiveUlt,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Mercy'),
+    new Hero({
+      name: 'Mercy',
       id: 'mercy',
       role: attribute.role.support,
       class: attribute.class.support.healing,
@@ -218,10 +221,10 @@ function load() {
       archetypes: [
         attribute.archetype.support.main,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Moria'),
+    new Hero({
+      name: 'Moria',
       id: 'moria',
       role: attribute.role.support,
       class: attribute.class.support.healing,
@@ -233,10 +236,10 @@ function load() {
         attribute.archetype.support.area,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Orisa'),
+    new Hero({
+      name: 'Orisa',
       id: 'orisa',
       role: attribute.role.tank,
       class: attribute.class.tank.main,
@@ -247,10 +250,10 @@ function load() {
         attribute.archetype.tank.poke,
         attribute.archetype.tank.mitigation,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Pharah'),
+    new Hero({
+      name: 'Pharah',
       id: 'pharah',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -261,10 +264,10 @@ function load() {
         attribute.archetype.dive,
         attribute.archetype.damage.flanker,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Reaper'),
+    new Hero({
+      name: 'Reaper',
       id: 'reaper',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -276,10 +279,11 @@ function load() {
         attribute.archetype.damage.hitscan,
         attribute.archetype.damage.flanker,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Reinhardt', 'Rein'),
+    new Hero({
+      name: 'Reinhardt',
+      short: 'Rein',
       id: 'reinhardt',
       role: attribute.role.tank,
       class: attribute.class.tank.main,
@@ -291,10 +295,11 @@ function load() {
         attribute.archetype.antidive,
         attribute.archetype.tank.mitigation,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Roadhog', 'Hog'),
+    new Hero({
+      name: 'Roadhog',
+      short: 'Hog',
       id: 'roadhog',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
@@ -306,10 +311,11 @@ function load() {
         attribute.archetype.tank.poke,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Sigma', 'Sig'),
+    new Hero({
+      name: 'Sigma',
+      short: 'Sig',
       id: 'sigma',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
@@ -322,10 +328,11 @@ function load() {
         attribute.archetype.tank.mitigation,
         attribute.archetype.dive_target,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Soldier 76', 'Soldier'),
+    new Hero({
+      name: 'Soldier 76',
+      short: 'Soldier',
       id: 'soldier',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -337,25 +344,25 @@ function load() {
         attribute.archetype.damage.flanker,
         attribute.archetype.dive_target,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Sombra'),
+    new Hero({
+      name: 'Sombra',
       id: 'sombra',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
       playstyle: attribute.playstyle.divepoke_2x1,
       healing: attribute.playstyle.null,
-      utility: attribute.playstyle.null,
+      utility: attribute.playstyle.sustain,
       archetypes: [
         attribute.archetype.dive,
         attribute.archetype.damage.flanker,
         attribute.archetype.defensiveUlt,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Symmetra'),
+    new Hero({
+      name: 'Symmetra',
       id: 'symmetra',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
@@ -366,10 +373,11 @@ function load() {
         attribute.archetype.damage.buster,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Torbjorn'),
+    new Hero({
+      name: 'Torbjorn',
+      short: 'Torb',
       id: 'torbjorn',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -380,10 +388,10 @@ function load() {
         attribute.archetype.damage.buster,
         attribute.archetype.antidive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Tracer'),
+    new Hero({
+      name: 'Tracer',
       id: 'tracer',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -394,10 +402,11 @@ function load() {
         attribute.archetype.dive,
         attribute.archetype.damage.flanker,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Widowmaker', 'Widow'),
+    new Hero({
+      name: 'Widowmaker',
+      short: 'Widow',
       id: 'widowmaker',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
@@ -408,10 +417,10 @@ function load() {
         attribute.archetype.damage.sniper,
         attribute.archetype.dive_target,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Winston'),
+    new Hero({
+      name: 'Winston',
       id: 'winston',
       role: attribute.role.tank,
       class: attribute.class.tank.main,
@@ -421,10 +430,11 @@ function load() {
       archetypes: [
         attribute.archetype.tank.dive,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Wrecking Ball', 'Ball'),
+    new Hero({
+      name: 'Wrecking Ball',
+      short: 'Ball',
       id: 'wreckingball',
       role: attribute.role.tank,
       class: attribute.class.tank.main,
@@ -435,10 +445,10 @@ function load() {
         attribute.archetype.tank.dive,
         attribute.archetype.tank.mitigation,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Zarya'),
+    new Hero({
+      name: 'Zarya',
       id: 'zarya',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
@@ -449,10 +459,11 @@ function load() {
         attribute.archetype.tank.brawl,
         attribute.archetype.tank.mitigation,
       ],
-    },
+    }),
 
-    {
-      name: new Descriptor('Zenyatta', 'Zen'),
+    new Hero({
+      name: 'Zenyatta',
+      short: 'Zen',
       id: 'zenyatta',
       role: attribute.role.support,
       class: attribute.class.support.utility,
@@ -465,7 +476,7 @@ function load() {
         attribute.archetype.defensiveUlt,
         attribute.archetype.dive_target,
       ],
-    },
+    }),
   ];
 }
 

@@ -36,6 +36,7 @@
 
     <script type="text/javascript" src="teamcomposition.js"></script>
 
+    <script type="text/javascript" src="pools/hero.js"></script>
     <script type="text/javascript" src="pools/pools.js"></script>
     <script type="text/javascript" src="pools/overwatch_1/heros.js"></script>
     <script type="text/javascript" src="pools/overwatch_1/compositions.js"></script>
@@ -69,7 +70,7 @@
                 class="btn btn-outline-secondary btn-remove"
                 v-for="hero in team.roster"
               >
-                {{ hero.name.short }}
+                {{ hero.short }}
               </button>
               <button
                 v-if="team.roster.length"
@@ -83,38 +84,36 @@
 
       <div class="row">
         <section v-for="team in teams" class="col">
-          <div>
-            <div class="progress focus-bar">
-              <div
-                class="progress-bar sustain"
-                role="progressbar"
-                :style="{width: `${100 * team.data.sustain}%`}"
-                :aria-valuenow="100 * team.data.sustain"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
-                {{ team.enable && team.data.sustain>0.1 ? "Sustain" : "" }}
-              </div>
-              <div
-                class="progress-bar range"
-                role="progressbar"
-                :style="{width: `${100 * team.data.range}%`}"
-                :aria-valuenow="100 * team.data.range"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
-                  {{ team.enable && team.data.range>0.1 ? "Range" : "" }}
-              </div>
-              <div
-                class="progress-bar mobility"
-                role="progressbar"
-                :style="{width: `${100 * team.data.mobile}%`}"
-                :aria-valuenow="100 * team.data.mobile"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
-                {{ team.enable && team.data.mobile>0.1 ? "Mobility" : "" }}
-              </div>
+          <div class="progress focus-bar">
+            <div
+              class="progress-bar sustain"
+              role="progressbar"
+              :style="{width: `${100 * team.data.sustain}%`}"
+              :aria-valuenow="100 * team.data.sustain"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ team.enable && team.data.sustain>0.1 ? "Sustain" : "" }}
+            </div>
+            <div
+              class="progress-bar range"
+              role="progressbar"
+              :style="{width: `${100 * team.data.range}%`}"
+              :aria-valuenow="100 * team.data.range"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+                {{ team.enable && team.data.range>0.1 ? "Range" : "" }}
+            </div>
+            <div
+              class="progress-bar mobility"
+              role="progressbar"
+              :style="{width: `${100 * team.data.mobile}%`}"
+              :aria-valuenow="100 * team.data.mobile"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ team.enable && team.data.mobile>0.1 ? "Mobility" : "" }}
             </div>
           </div>
         </section>
@@ -176,7 +175,7 @@
                 class="btn-sm m-1 skew"
                 v-for="hero in heros"
                 :style="team.heroButtonStyles[hero.id]"
-              > {{ hero.name.short }} </button>
+              > {{ hero.short }} </button>
             </div>
           </div>
 
@@ -203,6 +202,48 @@
             </div>
           </div>
 
+        </section>
+      </div>
+
+      <div class="row">
+        <section v-for="team in teams" class="col">
+          <hr>
+        </section>
+      </div>
+
+      <div class="row">
+        <section v-for="team in teams" class="col">
+
+          <template v-for="stat in team.stats">
+            <h6 class="text-muted fst-italic">{{ stat.name }}</h6>
+            <p>
+              <div class="progress normal-bar">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  :style="{width: `${100 * stat.value}%`}"
+                  :aria-valuenow="100 * stat.value"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </p>
+          </template>
+        </section>
+      </div>
+
+      <div class="row">
+        <section v-for="team in teams" class="col">
+          <hr>
+        </section>
+      </div>
+
+      <div class="row">
+        <section v-for="team in teams" class="col">
+          <label :for="team.id+' name'">Name</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" v-model="team.name" :name="team.id+' name'">
+          </div>
         </section>
       </div>
 

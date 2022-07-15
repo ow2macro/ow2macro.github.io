@@ -7,11 +7,11 @@
 }
 
 .list-section-height {
-  min-height: 360px;
+  min-height: 450px;
 }
 
 .list-section-scroll {
-  max-height: 256px;
+  max-height: 360px;
   overflow: auto;
   overflow-y: auto;
 }

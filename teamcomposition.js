@@ -176,7 +176,7 @@ class TeamComposition extends Descriptor {
       }
 
       if (x === 'range') {
-        if (this.archetypes.has(attribute.archetype.rush))
+        if (this.archetypes.has(attribute.archetype.spam))
           return 'Spam';
         else
           return 'Poke';
@@ -195,6 +195,15 @@ class TeamComposition extends Descriptor {
     if (composition[2]) return 'Hybrid'
     if (composition[1]) return `${composition[0]}-${composition[1]} Hybrid`;
     return composition[0];
+  }
+
+  measurePool(pool) {
+    pool = Array.from(pool);
+    let result = 0;
+    for (const hero of pool) {
+      result += Math.min(this.measureSynergy(hero), 1);
+    }
+    return result / pool.length;
   }
 
   normalizedMetrics() {
@@ -243,7 +252,7 @@ class TeamComposition extends Descriptor {
   without(hero) {
     const members = new Set(this.members);
     members.delete(hero);
-    return new TeamComposition(this.name+'-without:'+hero.name.full, members);
+    return new TeamComposition(this.name+'-without:'+hero.name, members);
   }
 
   measureSynergy(hero) {
@@ -271,7 +280,7 @@ class TeamComposition extends Descriptor {
     const utility = this.rotate(capped, hero.utility) * utilityWeight;
     const healing = this.similarity(normalized, hero.healing) * healingWeight;
 
-    const scores = [playstyle, utility, healing].sort().reverse().map((x,i)=>x**(i+1));
+    const scores = [playstyle, utility, healing].sort().reverse().map((x,i)=>Math.min(1, x**(i+1)));
 
     return scores.reduce(util.add);
   }
@@ -350,7 +359,7 @@ class TeamComposition extends Descriptor {
       [attribute.class.damage.flex]: 0,
 
       [attribute.class.support.utility]: 1,
-      [attribute.class.support.healing]: 0,
+      [attribute.class.support.healing]: 0.5,
     },
   }
 

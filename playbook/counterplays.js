@@ -25,7 +25,7 @@ playbook.add(new Play(
   [
     `Focus fire divers and flankers threatening allies.`,
     `Squishies should stay near tanks & allies with antidive abilities, especially during rotations.`,
-    `Allies should stay in eachothers effective ranges.`,
+    `Allies needing peel should stay in their teammates effective ranges. i.e. Close to melee heros, far from snipers.`,
     `Save antidive abilities until they are needed.`,
   ],
 ));
