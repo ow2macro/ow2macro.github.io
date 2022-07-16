@@ -1,7 +1,7 @@
 matchups.push(new Rule({
   name: 'mobile',
   focus: 'mobile',
-  role: 'any',
+  role: 'angles',
   team: TeamCompositionSelector.mobile,
   enemy: [
     TeamCompositionSelector.sustain,
@@ -10,7 +10,7 @@ matchups.push(new Rule({
   plays: [
     playbook.get('Burst Targets'),
     playbook.get('Disrupt Rotations'),
-  ]
+  ],
 }));
 
 matchups.push(new Rule({
