@@ -51,14 +51,23 @@
     <script type="text/javascript" src="compare.js"></script>
   </head>
   <body>
-    <div class="container-xxl"  id="teams">
+    <div class="container-fluid"  id="teams">
 
       <div class="row">
-        <h1 class="display-4 no-select">Overwatch Macro Tool <small class="fs-6 fst-italic text-muted">{{ version }}</small></h1>
+        <div class="col-1 d-none d-xl-block"></div>
+
+        <div class="col">
+          <h1 class="display-4 no-select"><span>Overwatch Macro Tool</span><small class="fs-6 fst-italic text-muted">{{ version }}</small></h1>
+        </div>
+
+        <div class="col-1 d-none d-xl-block"></div>
       </div>
 
-      <div class="row">
-        <section v-for="team in teams" class="col">
+      <div class="row d-flex align-items-stretch">
+
+        <div class="col-1 d-none d-xl-block"></div>
+
+        <section v-for="team in teams" class="col h-100">
           <h1 class="no-select">
             <strong> {{ team.data.compositionName ?? '...' }} </strong>
             <small class="fs-4 fst-italic text-muted">
@@ -83,12 +92,7 @@
                 class="btn btn-danger btn-clear"> Clear </button>
             </div>
           </div>
-        </section>
-      </div>
 
-      <div class="row">
-
-        <section v-for="team in teams" class="col">
           <div class="progress focus-bar">
             <div
               class="progress-bar sustain"
@@ -121,130 +125,150 @@
               {{ team.enable && team.data.mobile>0.1 ? "Mobility" : "" }}
             </div>
           </div>
+
         </section>
+
+        <div class="col-1 d-none d-xl-block"></div>
+
       </div>
 
-      <div class="row my-2 mb-4">
-        <section v-for="team in teams" class="col">
-          <div class="card shadow">
+      <div class="row">
 
-            <div class="card-body p-0">
+        <ul class="nav border-bottom shadow-sm mt-1 mb-3 px-2" role="tablist">
+          <li class="col-1 d-none d-xl-block"></li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link text-sm-center text-muted active"
+              id="#heros`"
+              data-bs-toggle="tab"
+              href="#heros"
+              type="button"
+              role="tab"
+            >
+              Heros
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link text-sm-center text-muted"
+              id="#playstyle"
+              data-bs-toggle="tab"
+              href="#playstyle"
+              type="button"
+              role="tab"
+            >
+              Matchup
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link text-sm-center text-muted"
+              id="#synergy"
+              data-bs-toggle="tab"
+              href="#synergy"
+              type="button"
+              role="tab"
+            >
+              Synergy
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link text-sm-center text-muted"
+              id="#stats"
+              data-bs-toggle="tab"
+              href="#stats"
+              type="button"
+              role="tab"
+            >
+              Stats
+            </a>
+          </li>
+          <li class="col-1 d-none d-xl-block"></li>
+        </ul>
 
-              <ul class="nav border-bottom shadow-sm mt-3 mb-3" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <a
-                    class="nav-link text-sm-center text-muted active"
-                    :id="`#heros-tab-t${team.id}`"
-                    data-bs-toggle="tab"
-                    :href="`#heros-t${team.id}`"
-                    type="button"
-                    role="tab"
-                  >
-                    Heros
-                  </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a
-                    class="nav-link text-sm-center text-muted"
-                    :id="`#playstyle-tab-t${team.id}`"
-                    data-bs-toggle="tab"
-                    :href="`#playstyle-t${team.id}`"
-                    type="button"
-                    role="tab"
-                  >
-                    Matchup
-                  </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a
-                    class="nav-link text-sm-center text-muted"
-                    :id="`#synergy-tab-t${team.id}`"
-                    data-bs-toggle="tab"
-                    :href="`#synergy-t${team.id}`"
-                    type="button"
-                    role="tab"
-                  >
-                    Synergy
-                  </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a
-                    class="nav-link text-sm-center text-muted"
-                    :id="`#stats-tab-t${team.id}`"
-                    data-bs-toggle="tab"
-                    :href="`#stats-t${team.id}`"
-                    type="button"
-                    role="tab"
-                  >
-                    Stats
-                  </a>
-                </li>
-              </ul>
+      </div>
 
-              <div class="tab-content">
-
-                <div
-                  class="tab-pane active"
-                  :id="`heros-t${team.id}`"
-                  role="tabpanel"
-                ><div class="p-3 pt-1">
-
-                  <div>
-                    <h6 class="text-muted fst-italic"><label :for="team.id+' name'">Name</label></h6>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" v-model="team.name" :name="team.id+' name'">
+      <div class="flex-row d-flex justify-content-center align-items-stretch mb-3">
+        <div class="col-1 d-none d-xl-block"></div>
+        <div class="col-xl w-100">
+          <div class="tab-content">
+  
+            <div
+              class="tab-pane active"
+              id="heros"
+              role="tabpanel"
+            >
+    
+              <div class="flex-row d-flex align-items-stretch">
+                <section v-for="team in teams" class="col mx-1 my-2">
+                  <div class="card shadow h-100">
+                    <div class="card-body">
+    
+                      <div>
+                        <h6 class="text-muted fst-italic"><label :for="team.id+' name'">Name</label></h6>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" v-model="team.name" :name="team.id+' name'">
+                        </div>
+                      </div>
+          
+                      <hr>
+          
+                      <div v-for="(heros, role) in datapool.roles">
+                        <h5 class="fs-6 fst-italic text-muted no-select"> {{ role }} </h5>
+                        <div class="container">
+                          <button
+                            type="button"
+                            @click="team.toggle(hero)"
+                            class="btn-sm m-1 skew"
+                            v-for="hero in heros"
+                            :style="team.heroButtonStyles[hero.id]"
+                          > {{ hero.short }} </button>
+                        </div>
+                      </div>
+          
+                      <hr>
+          
+                      <div v-for="(teamCompositionSet, name) in datapool.compositionSets">
+                        <h5 class="fs-6 fst-italic text-muted no-select"> {{ name }} </h5>
+                        <div class="container">
+                          <button
+                            type="button"
+                            @click="team.preset(teamcomp)"
+                            class="btn-sm btn-secondary m-1 skew"
+                            v-for="teamcomp in teamCompositionSet"
+                          > {{ teamcomp.full }} </button>
+                        </div>
+                      </div>
+    
                     </div>
                   </div>
-
-                  <hr>
-
-                  <div v-for="(heros, role) in datapool.roles">
-                    <h5 class="fs-6 fst-italic text-muted no-select"> {{ role }} </h5>
-                    <div class="container">
-                      <button
-                        type="button"
-                        @click="team.toggle(hero)"
-                        class="btn-sm m-1 skew"
-                        v-for="hero in heros"
-                        :style="team.heroButtonStyles[hero.id]"
-                      > {{ hero.short }} </button>
+                </section>
+              </div>
+            </div>
+    
+            <div
+              class="tab-pane"
+              id="playstyle"
+              role="tabpanel"
+            >
+    
+              <div class="flex-row d-flex align-items-stretch">
+                <section v-for="team in teams" class="col mx-1 my-2">
+                  <div class="card shadow h-100">
+    
+                    <div class="card-body">
+                      <h4 class="no-select">
+                        <small class="fs-6 fst-italic text-muted">
+                          Prefers
+                        </small>
+                        <strong> {{ team.matchupRole }} </strong>
+                        <small class="fs-6 fst-italic text-muted">
+                          against {{ team.enemyComp }}
+                        </small>
+                      </h4>
                     </div>
-                  </div>
-
-                  <hr>
-
-                  <div v-for="(teamCompositionSet, name) in datapool.compositionSets">
-                    <h5 class="fs-6 fst-italic text-muted no-select"> {{ name }} </h5>
-                    <div class="container">
-                      <button
-                        type="button"
-                        @click="team.preset(teamcomp)"
-                        class="btn-sm btn-secondary m-1 skew"
-                        v-for="teamcomp in teamCompositionSet"> {{ teamcomp.full }} </button>
-                    </div>
-                  </div>
-
-                </div></div>
-
-                <div
-                  class="tab-pane"
-                  :id="`playstyle-t${team.id}`"
-                  role="tabpanel"
-                ><div class="list-group list-group-flush pb-1">
-
-                  <div class="list-group-item">
-                    <h4 class="no-select">
-                      <small class="fs-6 fst-italic text-muted">
-                        Prefers
-                      </small>
-                      <strong> {{ team.matchupRole }} </strong>
-                      <small class="fs-6 fst-italic text-muted">
-                        against {{ team.enemyComp }}
-                      </small>
-                    </h4>
-                  </div>
-
-                  <div class="list-group-item p-0">
+    
                     <div class="list-group list-group-flush">
                       <template v-for="(rules, group) in team.playstyle"><template v-for="rule in rules">
                         <a
@@ -271,59 +295,89 @@
                         </a>
                       </template></template>
                     </div>
+                    
+                    <div class="card-body h-100"></div>
+
                   </div>
-
-                </div></div>
-
-                <div
-                  class="tab-pane"
-                  :id="`synergy-t${team.id}`"
-                  role="tabpanel"
-                ><div class="list-group list-group-flush pb-1">
-                  <div
-                    v-for="(bin, name) in team.data.interactionBins"
-                    class="list-group-item"
-                    >
-                    <div class="text-primary">
-                      <strong> {{ name }} </strong>
-                    </div>
-                    <ul>
-                      <li class="text-muted" v-for="interaction in bin"><em> {{ interaction.description }} </em></li>
-                    </ul>
-                  </div>
-                </div></div>
-
-                <div
-                  class="tab-pane"
-                  :id="`stats-t${team.id}`"
-                  role="tabpanel"
-                ><div class="p-3 pt-1">
-                  <template v-for="stat in team.stats">
-                    <h6 class="text-muted fst-italic">{{ stat.name }}</h6>
-                    <p>
-                      <div class="progress normal-bar">
-                        <div
-                          class="progress-bar"
-                          role="progressbar"
-                          :style="{width: `${100 * stat.value}%`}"
-                          :aria-valuenow="100 * stat.value"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                    </p>
-                  </template>
-                </div></div>
-
+                </section>
               </div>
+    
+            </div>
+    
+            <div
+              class="tab-pane"
+              id="synergy"
+              role="tabpanel"
+            >
+    
+              <div class="flex-row d-flex justify-content-center align-items-stretch">
+                <section v-for="team in teams" class="col mx-1 my-2">
+                  <div class="card shadow h-100">
+                    <div class="card-body">
+                      <h5>Synergy</h5>
+                    </div>
+                    <div class="list-group list-group-flush pb-1">
+                      <div
+                        v-for="(bin, name) in team.data.interactionBins"
+                        class="list-group-item"
+                      >
+                      
+                        <div class="text-primary">
+                          <strong> {{ name }} </strong>
+                        </div>
+                        <ul>
+                          <li class="text-muted" v-for="interaction in bin"><em> {{ interaction.description }} </em></li>
+                        </ul>
+    
+                      </div>
+                    </div>
+                    <div class="card-body h-100"></div>
+                  </div>
+                </section>
+              </div>
+    
+            </div>
+    
+            <div
+              class="tab-pane"
+              id="stats"
+              role="tabpanel"
+            >
+    
+              <div class="flex-row d-flex justify-content-center align-items-stretch">
+                <section v-for="team in teams" class="col mx-1 my-2">
+
+                  <div class="card shadow h-100">
+                    <div class="card-body mt-2">
+                      <template v-for="stat in team.stats">
+                        <h6 class="text-muted fst-italic">{{ stat.name }}</h6>
+                        <p>
+                          <div class="progress normal-bar">
+                            <div
+                              class="progress-bar"
+                              role="progressbar"
+                              :style="{width: `${100 * stat.value}%`}"
+                              :aria-valuenow="100 * stat.value"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            ></div>
+                          </div>
+                        </p>
+                      </template>
+                    </div>
+                    <div class="card-body h-100"></div>
+                  </div>
+    
+                </section>
+              </div>
+    
             </div>
           </div>
+        </div>
 
-        </section>
+        <div class="col-1 d-none d-xl-block"></div>
+
       </div>
-    </div>
-
-    <div class="row">
 
     </div>
 
