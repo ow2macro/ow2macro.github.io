@@ -69,7 +69,6 @@ class TeamVue {
 
     this.genHeroStyles(team, heroPool);
     const n = team.normalizedMetrics();
-    const order = [n.sustain, n.range, n.mobile].sort().reverse();
 
     this.stats = [{name: 'Cohesion', value: 0}, {name: 'Balance', value: 0}];
 
@@ -81,7 +80,7 @@ class TeamVue {
         },
         {
           name: 'Balance',
-          value: order.map((x,i)=>x*(i/2)).reduce(util.add),
+          value: util.unlinear(1/2, 1, util.rms([n.sustain, n.range, n.mobile])),
         }
       ];
 

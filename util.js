@@ -53,6 +53,42 @@ const util = {
     return (a*(1-t)) + (b*t);
   },
 
+  unlinear(min,max, x) {
+    return (x-min) / (max-min);
+  },
+
+  order(values) {
+    return Array.from(values).sort().reverse();
+  },
+
+  positionalsum(values, power=1, factor=1) {
+    return util.order(values).map((x, i)=>x**(power+(factor*i))).reduce(util.add);
+  },
+
+  positionalmean(values, power=1, factor=1) {
+    return util.positionalsum(values, power, factor)/values.length;
+  },
+
+  meansquare(values) {
+    return util.positionalmean(values, 2, 0);
+  },
+
+  rms(values) {
+    return Math.sqrt(util.meansquare(values));
+  },
+
+  rootpositionalmean(values, power=1, factor=1) {
+    return Math.sqrt(util.positionalmean(values, power, factor));
+  },
+
+  rootSum(mean, values) {
+    return mean(values) * Math.sqrt(values.length);
+  },
+
+  clamp(x, min=0, max=1) {
+    return Math.min(max, Math.max(min, x));
+  },
+
   add(a,b) {
     return a+b;
   },

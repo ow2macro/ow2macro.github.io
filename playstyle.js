@@ -20,7 +20,7 @@ class Playstyle extends Descriptor {
     const factor = this.factor();
     if (factor > 0) {
       [this.sustain, this.range, this.mobile] =
-        [this.sustain, this.range, this.mobile].map(x=>x/factor);
+        this.arr().map(x=>x/factor);
     }
   }
 
@@ -32,7 +32,16 @@ class Playstyle extends Descriptor {
     return this.mobile - this.sustain;
   }
 
+  normalizedMetrics() {
+    const max = Math.max(...this.arr()) || Infinity;
+    return {
+      sustain: this.sustain / max,
+      range: this.range / max,
+      mobile: this.mobile / max,
+    }
+  }
+
   factor() {
-    return [this.sustain, this.range, this.mobile].reduce((acc, a) => acc + a, 0);
+    return this.arr().reduce((acc, a) => acc + a, 0);
   }
 }

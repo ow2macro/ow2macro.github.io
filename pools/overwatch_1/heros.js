@@ -216,7 +216,7 @@ function load() {
       role: attribute.role.support,
       class: attribute.class.support.healing,
       playstyle: attribute.playstyle.null,
-      healing: attribute.playstyle.range,
+      healing: attribute.playstyle.mobile,
       utility: attribute.playstyle.range,
       archetypes: [
         attribute.archetype.support.main,

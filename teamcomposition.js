@@ -233,20 +233,20 @@ class TeamComposition extends Descriptor {
     return this.rotate(this, playstyle);
   }
 
-  rotate(pairing, playstyle) {
-    return Math.max(
-      pairing.range * playstyle.sustain,
-      pairing.sustain * playstyle.mobile,
-      pairing.mobile * playstyle.range,
-    );
+  rotate(playstyle) {
+    return {
+      range: playstyle.sustain,
+      sustain: playstyle.mobile,
+      mobile: playstyle.range,
+    }
   }
 
   similarity(pairing, playstyle) {
-    return Math.max(
+    return util.rootSum(util.rms, [
       pairing.sustain * playstyle.sustain,
       pairing.range * playstyle.range,
       pairing.mobile * playstyle.mobile,
-    );
+    ]);
   }
 
   without(hero) {
@@ -276,13 +276,13 @@ class TeamComposition extends Descriptor {
     const utilityWeight = TeamComposition.measure.utility[hero.class] * hero.utility.factor();
     const healingWeight = TeamComposition.measure.healing[hero.class] * hero.healing.factor();
 
-    const playstyle = this.similarity(normalized, hero.playstyle) * playstyleWeight;
-    const utility = this.rotate(capped, hero.utility) * utilityWeight;
-    const healing = this.similarity(normalized, hero.healing) * healingWeight;
+    const playstyle = this.similarity(normalized, hero.playstyle.normalizedMetrics()) * playstyleWeight;
+    const utility = this.similarity(normalized, this.rotate(hero.utility.normalizedMetrics())) * utilityWeight;
+    const healing = this.similarity(normalized, hero.healing.normalizedMetrics()) * healingWeight;
 
-    const scores = [playstyle, utility, healing].sort().reverse().map((x,i)=>Math.min(1, x**(i+1)));
+    const scores = [playstyle, utility, healing];
 
-    return scores.reduce(util.add);
+    return util.rootSum(util.rms, scores);
   }
 
   equals(team) {

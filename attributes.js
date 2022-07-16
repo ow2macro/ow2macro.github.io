@@ -82,4 +82,11 @@ const attribute = {
     dive_target: new HeroArchetype('Dive Target'),
     defensiveUlt: new HeroArchetype('Defensive Ult'),
   },
+
+  interaction: {
+    counter: new InteractionArchetype('Counter'),
+    synergy: new InteractionArchetype('Synergy'),
+    combo: new InteractionArchetype('Combo'),
+    null: new InteractionArchetype('Null'),
+  }
 }
