@@ -143,6 +143,11 @@ class TeamVue {
 
   resetView() {
     this.enable = false;
+    this.data = {
+      mobile: 0,
+      sustain: 0,
+      range: 0,
+    }
     this.playstyle = [];
     this.heroButtonStyles = {};
 
