@@ -4,28 +4,28 @@ function load(hero) {
       heros: [hero.reinhardt, hero.zarya],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.strong,
-      description: `Zarya's Bubble enables Reinhards aggressive playstyle, and provides more proection from CC.`,
+      description: `Zarya's Bubble enables Reinhardt's aggressive playstyle, and provides more proection from stuns and debuffs.`,
     }),
 
     new HeroInteraction({
       heros: [hero.reinhardt, hero.zarya],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      description: `Zarya's builds charge well from bubbling Reinhardt.`,
+      description: `Zarya builds charge from bubbling Reinhardt.`,
     }),
 
     new HeroInteraction({
       heros: [hero.reinhardt, hero.zarya],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      description: `Zarya and Reinhard cycle Ultimates well.`,
+      description: `Zarya and Reinhardt cycle Ultimates well.`,
     }),
 
     new HeroInteraction({
       heros: [hero.winston, hero.zarya],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      description: `Zarya's Bubble enables Winston's mobility, and provides more proection from CC.`,
+      description: `Zarya's Bubble enables Winston's mobility, and provides more proection from stuns and debuffs.`,
     }),
 
     new HeroInteraction({
@@ -46,7 +46,7 @@ function load(hero) {
       heros: [hero.wreckingball, hero.zarya],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      description: `Zarya's Bubble enables Wrecking Ball's mobility, and provides proection from CC.`,
+      description: `Zarya's Bubble enables Wrecking Ball's mobility, and provides proection from stuns and debuffs.`,
     }),
 
     new HeroInteraction({
@@ -60,7 +60,7 @@ function load(hero) {
       heros: [hero.roadhog, hero.zarya],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.weak,
-      description: `Zarya's Bubble enables Roadhog to land hooks, and provides proection from CC.`,
+      description: `Zarya's Bubble enables Roadhog to land hooks, and provides proection from stuns and debuffs.`,
     }),
 
     new HeroInteraction({
@@ -74,14 +74,21 @@ function load(hero) {
       heros: [hero.sigma, hero.wreckingball],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      description: `Sigma is strong alone on the frontline, while Ball is strong alone in the enemy backline.`,
+      description: `Sigma is strong alone on the frontline.`,
+    }),
+
+    new HeroInteraction({
+      heros: [hero.sigma, hero.wreckingball],
+      type: attribute.interaction.synergy,
+      weight: HeroInteraction.weights.normal,
+      description: `Ball is strong alone in the enemy backline.`,
     }),
 
     new HeroInteraction({
       heros: [hero.doomfist, hero.zarya],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      description: `Zarya's Bubble enables Doomfist's Brawly aggression, and provides proection from CC.`,
+      description: `Zarya's Bubble enables Doomfist's Brawly aggression, and provides proection from stuns and debuffs.`,
     }),
 
     new HeroInteraction({
@@ -106,16 +113,10 @@ function load(hero) {
     }),
 
     new HeroInteraction({
-      heros: [hero.zarya, hero.lucio],
-      type: attribute.interaction.synergy,
-      weight: HeroInteraction.weights.strong,
-    }),
-
-    new HeroInteraction({
       heros: [hero.reinhardt, hero.lucio],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.strong,
-      description: `Lucio's speed boosts makes up for Reinhards low mobility.`,
+      description: `Lucio's speed boosts makes up for Reinhardt's low mobility and range.`,
     }),
 
     new HeroInteraction({
@@ -136,56 +137,56 @@ function load(hero) {
       heros: [hero.zarya, hero.hanzo],
       type: attribute.interaction.combo,
       weight: HeroInteraction.weights.strong,
-      descriptor: `Zarya's Graviton Surge combos with Hanzo's Dragonstrike.`,
+      description: `Zarya's Graviton Surge combos with Hanzo's Dragonstrike.`,
     }),
 
     new HeroInteraction({
       heros: [hero.zarya, hero.tracer],
       type: attribute.interaction.combo,
       weight: HeroInteraction.weights.normal,
-      descriptor: `Zarya's Graviton Surge combos with Tracers's Pulse Bomb.`,
+      description: `Zarya's Graviton Surge combos with Tracers's Pulse Bomb.`,
     }),
 
     new HeroInteraction({
       heros: [hero.zarya, hero.torbjorn],
       type: attribute.interaction.combo,
       weight: HeroInteraction.weights.weak,
-      descriptor: `Zarya's Graviton Surge combos with Torbjorn's Molten Core.`,
+      description: `Zarya's Graviton Surge combos with Torbjorn's Molten Core.`,
     }),
 
     new HeroInteraction({
       heros: [hero.zarya, hero.junkrat],
       type: attribute.interaction.combo,
       weight: HeroInteraction.weights.weak,
-      descriptor: `Zarya's Graviton Surge combos with Junkrats's Rip Tire.`,
+      description: `Zarya's Graviton Surge combos with Junkrats's Rip Tire.`,
     }),
 
     new HeroInteraction({
       heros: [hero.ana, hero.genji],
       type: attribute.interaction.combo,
       weight: HeroInteraction.weights.strong,
-      descriptor: `Anas's Nano Boost combos with Genji's Dragonblade.`,
+      description: `Anas's Nano Boost combos with Genji's Dragonblade.`,
     }),
 
     new HeroInteraction({
       heros: [hero.ana, hero.soldier],
       type: attribute.interaction.combo,
       weight: HeroInteraction.weights.strong,
-      descriptor: `Anas's Nano Boost combos with Soldiers's Tacticle Visor.`,
+      description: `Anas's Nano Boost combos with Soldiers's Tacticle Visor.`,
     }),
 
     new HeroInteraction({
       heros: [hero.ana, hero.winston],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      descriptor: `Ana's Nano Boost enables Winston.`,
+      description: `Ana's Nano Boost enables Winston.`,
     }),
 
     new HeroInteraction({
       heros: [hero.ana, hero.winston],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.normal,
-      descriptor: `Ana and Winston cycle Ultimates well.`,
+      description: `Ana and Winston cycle Ultimates well.`,
     }),
 
     new HeroInteraction({

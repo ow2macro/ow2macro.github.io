@@ -8,7 +8,14 @@ class HeroInteractionsTable extends Map {
   }
 
   add(interaction) {
-    for (const hero of interaction.heros)
-      this.set(hero, interaction);
+    for (const hero of interaction.heros) {
+      const item = this.get(hero);
+      item.push(interaction);
+      this.set(hero, item);
+    }
+  }
+
+  get(hero) {
+    return super.get(hero) || [];
   }
 }

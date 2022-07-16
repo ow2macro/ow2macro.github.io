@@ -5,7 +5,7 @@ class HeroInteraction extends Descriptor {
 
   constructor(options = {}) {
     for (const hero of options.heros) if (!hero) console.warn(options)
-    super(options.heros.map(hero=>hero.name).join('-'));
+    super(options.heros.map(hero=>hero.name).join(' - '));
     Object.assign(this, options);
   }
 

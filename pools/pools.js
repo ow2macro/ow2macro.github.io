@@ -56,7 +56,10 @@ class DataPool {
   hero = {};
   compositionSets = [];
   roles = [];
-  interactions = {};
+  interactions = {
+    allied: new HeroInteractionsTable(),
+    enemy: new HeroInteractionsTable(),
+  };
 
   constructor(obj) {
     if (obj) {

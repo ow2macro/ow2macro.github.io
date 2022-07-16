@@ -64,7 +64,7 @@ class TeamVue {
   }
 
   build() {
-    return new TeamComposition(this.name, this.roster);
+    return new TeamComposition(this.name, this.roster, this.datapool);
   }
 
   renderTeam(team) {
@@ -147,6 +147,7 @@ class TeamVue {
       mobile: 0,
       sustain: 0,
       range: 0,
+      interactionBins: {},
     }
     this.playstyle = [];
     this.heroButtonStyles = {};

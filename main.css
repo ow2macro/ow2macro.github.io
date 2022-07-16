@@ -7,7 +7,7 @@
 }
 
 .list-section-height {
-  min-height: 450px;
+  min-height: 300px;
 }
 
 .list-section-scroll {
@@ -52,4 +52,36 @@
 
 .roster .btn-clear {
   max-width: 64px;
+}
+
+.nav .nav-item {
+  background-color: inherit;
+}
+
+.nav .nav-link.active {
+  font-weight: 600;
+  background-color: inherit;
+
+  color: var(--vs-black) !important;
+  background-color: var(--vs-light);
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+a.active {
+  border-bottom: 2px solid var(--bs-primary);
+}
+
+.nav-link {
+  color: rgb(110, 110, 110);
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--bs-primary);
+}
+
+.card {
+  width: 100%;
+  min-width: 100%;
+  border-radius: 8px;
 }

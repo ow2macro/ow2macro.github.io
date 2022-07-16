@@ -30,9 +30,10 @@ class TeamComposition extends Descriptor {
    * @param {string} name
    * @param {Array | Set} members
    */
-  constructor(name, members) {
+  constructor(name, members, datapool) {
     super(name);
     this.members = new Set(members);
+    this.datapool = datapool;
     this.update();
   }
 
@@ -127,6 +128,31 @@ class TeamComposition extends Descriptor {
     }
 
     this.compositionName = this.#getCompositionName();
+    this.interactions = this.getInteractions(this.datapool);
+    this.interactionBins = this.binInteractions(this.interactions);
+  }
+
+  getInteractions(datapool) {
+    if (!datapool) return [];
+    const getInteractions = hero => datapool.interactions.allied.get(hero);
+    const testInteraction = interaction => interaction.heros.map(pair=>this.members.has(pair)).reduce(util.and);
+    const weight = interaction => interaction.weight || -1;
+    const roles = [
+      attribute.role.tank,
+      attribute.role.damage,
+      attribute.role.support,
+    ]
+    const roleSort = interaction => interaction.heros.map(hero=>roles.indexOf(hero.role)).reduce(util.add);
+    return _.sortBy(
+        _.sortBy(_.uniq(Array.from(this.members).map(getInteractions).flat().filter(testInteraction)), weight).reverse(),
+        roleSort
+      );
+  }
+
+  binInteractions(interactions) {
+    return _.mergeWith({}, ...interactions.map(
+      interaction => ({[interaction.name]: [interaction]})
+    ), util.arrayMerge);
   }
 
   #reset() {
@@ -252,7 +278,7 @@ class TeamComposition extends Descriptor {
   without(hero) {
     const members = new Set(this.members);
     members.delete(hero);
-    return new TeamComposition(this.name+'-without:'+hero.name, members);
+    return new TeamComposition(this.name+'-without:'+hero.name, members, this.datapool);
   }
 
   measureSynergy(hero) {
