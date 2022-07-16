@@ -1,9 +1,10 @@
 class HeroInteraction extends Descriptor {
   heros = [];
-  weight = Interaction.weights.none;
+  weight = HeroInteraction.weights.none;
   type = attribute.interaction.null;
 
   constructor(options = {}) {
+    for (const hero of options.heros) if (!hero) console.warn(options)
     super(options.heros.map(hero=>hero.name).join('-'));
     Object.assign(this, options);
   }

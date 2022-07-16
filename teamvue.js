@@ -4,6 +4,8 @@ class TeamVue {
   data = {};
   heroButtonStyles = {};
 
+  datapool;
+
   matchupRole;
   enemyComp;
 
@@ -16,11 +18,12 @@ class TeamVue {
 
   stats = [];
 
-  constructor(name, id) {
+  constructor(name, id, datapool) {
     this.name = name;
     this.defaultName = name;
-    this.resetView();
     this.id = id;
+    this.datapool = datapool;
+    this.resetView();
   }
 
   toggle(hero) {
@@ -65,9 +68,7 @@ class TeamVue {
   }
 
   renderTeam(team) {
-    const heroPool = window.appData? window.appData.heros : [];
-
-    this.genHeroStyles(team, heroPool);
+    this.genHeroStyles(team, this.datapool.heros);
     const n = team.normalizedMetrics();
 
     this.stats = [{name: 'Cohesion', value: 0}, {name: 'Balance', value: 0}];
@@ -142,21 +143,6 @@ class TeamVue {
 
   resetView() {
     this.enable = false;
-    this.matchupRole = '...';
-    this.enemyComp = '...';
-    this.data = {};
-    this.data.scores = {};
-    this.data.composition = '...';
-    this.data.mobility = 0;
-    this.data.scores.mobility = 0;
-    this.data.scores.power = 0;
-    this.data.heroWeights = {};
-    this.data.brawl = 0;
-    this.data.poke = 0;
-    this.data.dive = 0;
-    this.data.sustain = 0;
-    this.data.range = 0;
-    this.data.mobile = 0;
     this.playstyle = [];
     this.heroButtonStyles = {};
 

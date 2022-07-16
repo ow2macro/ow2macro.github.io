@@ -51,16 +51,24 @@ function listPools() {
   return Object.keys(pools);
 }
 
-function selectPool(name) {
-  const heros = pools[name].heros();
-  const hero = heroDictionary(heros);
-  const compositionSets = pools[name].compositionSets(hero);
-  const roles = herosByRole(heros);
+class DataPool {
+  heros = [];
+  hero = {};
+  compositionSets = [];
+  roles = [];
+  interactions = {};
 
-  return {
-    heros,
-    hero,
-    roles,
-    compositionSets,
-  };
+  constructor(obj) {
+    if (obj) {
+      this.heros = obj.heros();
+      this.hero = heroDictionary(this.heros);
+      this.compositionSets = obj.compositionSets(this.hero);
+      this.roles = herosByRole(this.heros);
+      this.interactions = obj.interactions(this.hero);
+    }
+  }
+
+  static load(name) {
+    return new DataPool(pools[name]);
+  }
 }

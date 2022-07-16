@@ -12,13 +12,11 @@ function render() {
 }
 
 function usePool(name) {
-  const data = selectPool(name);
-
-  window.appData.compositionSets = data.compositionSets;
-  window.appData.roles = data.roles;
-  window.appData.heros = data.heros;
-
-  for (const team of window.teams) team.reset();
+  window.appData.datapool = DataPool.load(name);
+  for (const team of window.teams) {
+    team.datapool = window.appData.datapool;
+    team.reset();
+  }
 }
 
 function ready(fn) {
@@ -30,24 +28,24 @@ function ready(fn) {
 }
 
 ready(()=>{
+  window.appData = {
+    datapool: new DataPool(),
+    version: getVersion(),
+  }
+
   const teams = window.teams = [
-    new TeamVue('Team 1', 0),
-    new TeamVue('Team 2', 1),
+    new TeamVue('Team 1', 0, window.appData.datapool),
+    new TeamVue('Team 2', 1, window.appData.datapool),
   ];
 
   teams[0].opponent = teams[1];
   teams[1].opponent = teams[0];
 
-  const data = window.appData = {
-    teams,
-    roles: {},
-    compositionSets: [],
-    version: getVersion(),
-  };
+  window.appData.teams = teams;
 
   var app = new Vue({
     el: '#teams',
-    data,
+    data: window.appData,
   });
 
   usePool(defaultPool);

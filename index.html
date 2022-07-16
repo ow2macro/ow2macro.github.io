@@ -37,9 +37,13 @@
     <script type="text/javascript" src="teamcomposition.js"></script>
 
     <script type="text/javascript" src="pools/hero.js"></script>
+    <script type="text/javascript" src="pools/interaction.js"></script>
     <script type="text/javascript" src="pools/pools.js"></script>
+    <script type="text/javascript" src="pools/interactions_table.js"></script>
+
     <script type="text/javascript" src="pools/overwatch_1/heros.js"></script>
     <script type="text/javascript" src="pools/overwatch_1/compositions.js"></script>
+    <script type="text/javascript" src="pools/overwatch_1/interactions.js"></script>
 
     <script type="text/javascript" src="vulnerabilities.js"></script>
     <script type="text/javascript" src="strengths.js"></script>
@@ -166,7 +170,7 @@
       <div class="row">
         <section v-for="team in teams" class="col">
 
-          <div v-for="(heros, role) in roles">
+          <div v-for="(heros, role) in datapool.roles">
             <h5 class="fs-6 fst-italic text-muted no-select"> {{ role }} </h5>
             <div class="container">
               <button
@@ -191,7 +195,7 @@
       <div class="row">
         <section v-for="team in teams" class="col">
 
-          <div v-for="(teamCompositionSet, name) in compositionSets">
+          <div v-for="(teamCompositionSet, name) in datapool.compositionSets">
             <h5 class="fs-6 fst-italic text-muted no-select"> {{ name }} </h5>
             <div class="container">
               <button
