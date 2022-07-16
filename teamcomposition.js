@@ -359,7 +359,7 @@ class TeamComposition extends Descriptor {
       [attribute.class.damage.flex]: 0,
 
       [attribute.class.support.utility]: 1,
-      [attribute.class.support.healing]: 0.5,
+      [attribute.class.support.healing]: 0,
     },
   }
 
