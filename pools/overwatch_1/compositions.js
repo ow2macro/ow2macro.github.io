@@ -154,8 +154,8 @@ function load(hero) {
       new TeamComposition('Hog Ball Torture', [
         hero.wreckingball,
         hero.roadhog,
-        hero.widowmaker,
-        hero.tracer,
+        hero.doomfist,
+        hero.reaper,
         hero.brigitte,
         hero.zenyatta,
       ]),

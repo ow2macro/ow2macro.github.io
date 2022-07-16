@@ -303,7 +303,7 @@ function load() {
       id: 'roadhog',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
-      playstyle: attribute.playstyle.brawlpoke_2x1,
+      playstyle: attribute.playstyle.pokebrawl,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
@@ -452,7 +452,7 @@ function load() {
       id: 'zarya',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
-      playstyle: attribute.playstyle.sustain,
+      playstyle: attribute.playstyle.brawlpoke_4x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [

@@ -220,7 +220,7 @@
                           <button
                             type="button"
                             @click="team.toggle(hero)"
-                            class="btn-sm m-1 skew"
+                            class="btn btn-sm m-1 skew"
                             v-for="hero in heros"
                             :style="team.heroButtonStyles[hero.id]"
                           > {{ hero.short }} </button>
@@ -235,7 +235,7 @@
                           <button
                             type="button"
                             @click="team.preset(teamcomp)"
-                            class="btn-sm btn-secondary m-1 skew"
+                            class="btn btn-sm btn-secondary m-1 skew"
                             v-for="teamcomp in teamCompositionSet"
                           > {{ teamcomp.full }} </button>
                         </div>

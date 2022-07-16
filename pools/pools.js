@@ -4,7 +4,7 @@ const pools = {
     version: {
       major: 3,
       minor: 1,
-      patch: 0,
+      patch: 1,
       tag: 'a',
     }
   },
