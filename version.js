@@ -1,7 +1,7 @@
 const version = {
   major: 0,
   minor: 8,
-  patch: 2,
+  patch: 3,
   tag: 'a',
 }
 

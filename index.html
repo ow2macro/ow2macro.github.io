@@ -201,7 +201,7 @@
             >
     
               <div class="flex-row d-flex align-items-stretch">
-                <section v-for="team in teams" class="col mx-1 my-2">
+                <section v-for="team in teams" class="col mx-1 mx-3-lg my-2">
                   <div class="card shadow h-100">
                     <div class="card-body">
     
@@ -254,7 +254,7 @@
             >
     
               <div class="flex-row d-flex align-items-stretch">
-                <section v-for="team in teams" class="col mx-1 my-2">
+                <section v-for="team in teams" class="col mx-1 mx-3-lg my-2" v-if="team.enable">
                   <div class="card shadow h-100">
     
                     <div class="card-body">
@@ -269,7 +269,7 @@
                       </h4>
                     </div>
     
-                    <div class="list-group list-group-flush">
+                    <div class="list-group list-group-flush" v-if="Object.keys(team.playstyle).length">
                       <template v-for="(rules, group) in team.playstyle"><template v-for="rule in rules">
                         <a
                           class="list-group-item list-group-item-action collapsed"
@@ -311,12 +311,12 @@
             >
     
               <div class="flex-row d-flex justify-content-center align-items-stretch">
-                <section v-for="team in teams" class="col mx-1 my-2">
+                <section v-for="team in teams" class="col mx-1 mx-3-lg my-2"  v-if="team.enable">
                   <div class="card shadow h-100">
                     <div class="card-body">
                       <h5>Synergy</h5>
                     </div>
-                    <div class="list-group list-group-flush pb-1">
+                    <div class="list-group list-group-flush pb-1"  v-if="team.data.interactions.length">
                       <div
                         v-for="(bin, name) in team.data.interactionBins"
                         class="list-group-item"
@@ -345,7 +345,7 @@
             >
     
               <div class="flex-row d-flex justify-content-center align-items-stretch">
-                <section v-for="team in teams" class="col mx-1 my-2">
+                <section v-for="team in teams" class="col mx-1 mx-3-lg my-2"  v-if="team.enable">
 
                   <div class="card shadow h-100">
                     <div class="card-body mt-2">

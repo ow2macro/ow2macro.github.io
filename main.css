@@ -63,11 +63,6 @@
   background-color: inherit;
 
   color: var(--vs-black) !important;
-  background-color: var(--vs-light);
-  border-radius: 0.5rem 0.5rem 0 0;
-}
-
-a.active {
   border-bottom: 2px solid var(--bs-primary);
 }
 
@@ -77,11 +72,21 @@ a.active {
 }
 
 .nav-link:hover {
-  color: var(--bs-primary);
+  color: var(--bs-primary) !important;
 }
 
 .card {
   width: 100%;
   min-width: 100%;
   border-radius: 8px;
+}
+
+.mx-3-lg {
+}
+
+@media only screen and (min-width: 992px) { 
+  .mx-3-lg {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+  }
 }
