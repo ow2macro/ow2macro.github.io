@@ -31,6 +31,7 @@ ready(()=>{
   window.appData = {
     datapool: new DataPool(),
     version: getVersion(),
+    versionShort: getShortVersion(),
   }
 
   const teams = window.teams = [

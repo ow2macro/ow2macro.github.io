@@ -23,3 +23,7 @@ function getVersion(short = false) {
 
   return base + '_' + poolVersions.join('_');
 }
+
+function getShortVersion() {
+  return `v${version.major}.${version.minor}`;
+}
