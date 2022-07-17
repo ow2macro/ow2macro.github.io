@@ -160,10 +160,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate(0px, 1px);
 }
 
-.x-scroll-box {
-  overflow-x: auto;
-}
-
 @media (hover: hover) {
   .btn.btn-sm:hover {
     transform: translate(0px, -1px);
@@ -191,13 +187,4 @@ h1, h2, h3, h4, h5, h6 {
   .progress-bar {
     transition: width 0.01s ease;
   }
-}
-
-.pad {
-  content: " ";
-
-  opacity: 0;
-
-  width: 1px;
-  height: 1px;
 }

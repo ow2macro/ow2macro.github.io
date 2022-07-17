@@ -1,0 +1,24 @@
+.x-scroll-box {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+}
+
+.x-scroll-box::-webkit-scrollbar {
+    display: none;
+}
+
+.teams::before,
+.teams::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    min-width: 10px;
+    height: 1px;
+}
+
+.teams {
+}
+
+.team {
+}
