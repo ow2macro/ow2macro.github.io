@@ -1,7 +1,6 @@
 .x-scroll-box {
     overflow-x: auto;
     scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
 }
 
 .x-scroll-box::-webkit-scrollbar {

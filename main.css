@@ -81,6 +81,8 @@ small {
   background-color: inherit;
 
   color: var(--vs-black) !important;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   border-bottom: 2px solid var(--bs-primary);
 }
 
