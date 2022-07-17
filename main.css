@@ -74,6 +74,15 @@ small {
 
 .nav .nav-item {
   background-color: inherit;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.nav-link {
+  border: none;
+  background-color: inherit;
+  color: rgb(110, 110, 110);
+  font-weight: 500;
 }
 
 .nav .nav-link.active {
@@ -81,14 +90,7 @@ small {
   background-color: inherit;
 
   color: var(--vs-black) !important;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
   border-bottom: 2px solid var(--bs-primary);
-}
-
-.nav-link {
-  color: rgb(110, 110, 110);
-  font-weight: 500;
 }
 
 .nav-link:hover {
@@ -101,19 +103,12 @@ small {
   border-radius: 8px;
 }
 
-.mx-3-lg {
-}
-
 .sm-1 {
   font-size: 1rem;
 }
 
 .sm-2 {
   font-size: 1.25rem;
-}
-
-.sm-nopad-x {
-
 }
 
 .text-string {
@@ -175,9 +170,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (prefers-reduced-motion) {
-  .btn.btn-sm {
-  }
-
   .btn.btn-sm:hover {
     transform: none;
   }
