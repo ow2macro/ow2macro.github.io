@@ -14,6 +14,19 @@
     .sm-2 {
         font-size: 1rem;
     }
+
+    ul {
+        list-style-type: '-';
+        list-style-position: outside;
+      }
+      
+      ul {
+        padding-left: 1em;
+      }
+      
+      ul li {
+        padding-left: 0.25em;
+      }
 }
 
 @media only screen and (max-width: 991.98px) {
@@ -33,10 +46,16 @@
     br.responsive {
         display: none;
     }
+
+    .justify-content-center-sm {
+        justify-content: safe center;
+    }
 }
 
 @media only screen and (min-width: 767.98px) {
-
+    .justify-content-center-md {
+        justify-content: safe center;
+    }
 }
 
 @media only screen and (min-width: 991.98px) {

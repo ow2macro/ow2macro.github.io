@@ -1,15 +1,26 @@
+strong {
+  color: var(--bs-dark);
+  font-weight: bolder;
+}
+
+.bg-soft-gray {
+  background-color: #e9ecef;
+}
+
+small {
+  color: var(--bs-gray);
+}
+
+.text-soft {
+  color: var(--bs-gray);
+}
+
 .no-select {
   user-select: none;
 }
 
-.list-section-height {
-  min-height: 300px;
-}
-
-.list-section-scroll {
-  max-height: 360px;
-  overflow: auto;
-  overflow-y: auto;
+.bg-dim {
+  background-color: #fcfcfc;
 }
 
 .sustain {
@@ -25,12 +36,16 @@
 }
 
 .focus-bar {
-  height: 3em;
-  margin: 2em;
+  height: 2rem;
 }
 
 .progress {
   user-select: none;
+}
+
+.progress-bar {
+  transition: background-color 0.125s, width 0.125s ease;
+  font-weight: normal;
 }
 
 .card-header .collapsed .fa {
@@ -38,7 +53,14 @@
 }
 
 .roster {
+  height: 2rem;
+
   width: 100%;
+  min-height: 32px;
+
+  border-radius: 0.25rem;
+
+  transition: background-color 0.125s ease;
 }
 
 .roster .btn-remove:hover {
@@ -88,16 +110,8 @@
   font-size: 1.25rem;
 }
 
-.bg-dim {
-  background-color: #f6f6f6;
-}
-
 .sm-nopad-x {
 
-}
-
-.progress-bar {
-  transition: width 0.125s ease;
 }
 
 .text-string {
@@ -112,6 +126,78 @@
   min-height: 100vh;
 }
 
+.vw {
+  min-width: 100vw;
+}
+
 .vh-half {
   min-height: 50vh;
+}
+
+ul {
+  list-style-type: '–';
+  list-style-position: outside;
+}
+
+ul {
+  padding-left: 2em;
+}
+
+ul li {
+  padding-left: 0.5em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: inherit;
+}
+
+.btn.btn-sm {
+  border-radius: 1;
+  transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+.btn.btn-sm:active {
+  transform: translate(0px, 1px);
+}
+
+.x-scroll-box {
+  overflow-x: auto;
+}
+
+@media (hover: hover) {
+  .btn.btn-sm:hover {
+    transform: translate(0px, -1px);
+  }
+}
+
+@media (pointer: fine) {
+  body {
+    overflow: scroll;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .btn.btn-sm {
+  }
+
+  .btn.btn-sm:hover {
+    transform: none;
+  }
+  
+  .btn.btn-sm:active {
+    transform: none;
+  }
+
+  .progress-bar {
+    transition: width 0.01s ease;
+  }
+}
+
+.pad {
+  content: " ";
+
+  opacity: 0;
+
+  width: 1px;
+  height: 1px;
 }
