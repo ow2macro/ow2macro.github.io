@@ -3,6 +3,10 @@ strong {
   font-weight: bolder;
 }
 
+button {
+  font-weight: inherit;
+}
+
 .bg-soft-gray {
   background-color: #e9ecef;
 }
@@ -89,7 +93,7 @@ small {
   font-weight: 600;
   background-color: inherit;
 
-  color: var(--vs-black) !important;
+  color: var(--bs-dark) !important;
   border-bottom: 2px solid var(--bs-primary);
 }
 
@@ -149,18 +153,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn.btn-sm {
-  border-radius: 1;
+  border-radius: 3px;
   transition: background-color 0.1s ease, transform 0.1s ease;
-}
+  font-weight: bolder;
+  text-rendering: optimizeLegibility;
+  border-color: black;
+  border-width: 0;
 
-.btn.btn-sm:active {
-  transform: translate(0px, 1px);
+  --hover: scale(1);
+  --active: translate(0px, 2px);
 }
 
 @media (hover: hover) {
   .btn.btn-sm:hover {
-    transform: translate(0px, -1px);
+    --hover: scale(1.05);
   }
+}
+
+.btn.btn-sm:hover {
+  transform: var(--hover);
+}
+
+.btn.btn-sm:active {
+  transform: var(--hover) var(--active);
 }
 
 @media (pointer: fine) {

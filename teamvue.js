@@ -124,8 +124,6 @@ class TeamVue {
       this.heroButtonStyles[hero.id] = {
         color: 'white',
         backgroundColor: color,
-        borderColor: color,
-        fontWeight: 600,
       }
     }
   }
