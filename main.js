@@ -19,14 +19,6 @@ function usePool(name) {
   }
 }
 
-function ready(fn) {
-  if (document.readyState !== 'loading'){
-    fn();
-  } else {
-    document.addEventListener('DOMContentLoaded', fn);
-  }
-}
-
 ready(()=>{
   window.appData = {
     datapool: new DataPool(),
@@ -47,6 +39,10 @@ ready(()=>{
   var app = new Vue({
     el: '#teams',
     data: window.appData,
+
+    components: {
+      placeholder,
+    }
   });
 
   usePool(defaultPool);
