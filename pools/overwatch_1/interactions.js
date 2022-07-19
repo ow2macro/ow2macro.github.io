@@ -190,6 +190,20 @@ function load(hero) {
     }),
 
     new HeroInteraction({
+      heros: [hero.ana, hero.winston],
+      type: attribute.interaction.synergy,
+      weight: HeroInteraction.weights.normal,
+      description: `Ana's ranged healing is well suited to sustaining Winston when he is further from the team core.`,
+    }),
+
+    new HeroInteraction({
+      heros: [hero.ana, hero.wreckingball],
+      type: attribute.interaction.synergy,
+      weight: HeroInteraction.weights.weak,
+      description: `Ana's ranged healing is well suited to sustaining Wrecking Ball when he is further from the team core.`,
+    }),
+
+    new HeroInteraction({
       heros: [hero.brigitte, hero.zenyatta],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.weak,
@@ -249,7 +263,14 @@ function load(hero) {
       heros: [hero.sombra, hero.tracer],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.weak,
-      description: `Sombra's hack disrupts threats to tracer.`,
+      description: `Sombra's hack disrupts threats to Tracer allowing her to safely confirm kills.`,
+    }),
+
+    new HeroInteraction({
+      heros: [hero.sombra, hero.doomfist],
+      type: attribute.interaction.synergy,
+      weight: HeroInteraction.weights.weak,
+      description: `Sombra's hack disrupts threats to Doomfist allowing him to safely confirm kills.`,
     }),
 
     new HeroInteraction({
@@ -278,6 +299,20 @@ function load(hero) {
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.strong,
       description: `Orisa and Sigma can alternate shields for very high sustain, or shield multiple angles at once.`,
+    }),
+
+    new HeroInteraction({
+      heros: [hero.tracer, hero.zenyatta],
+      type: attribute.interaction.synergy,
+      weight: HeroInteraction.weights.normal,
+      description: `Zenyatta's low HPS + high consistency/flexibility healing pair well with Tracers low health pool and small hitbox.`,
+    }),
+
+    new HeroInteraction({
+      heros: [hero.tracer, hero.zenyatta],
+      type: attribute.interaction.synergy,
+      weight: HeroInteraction.weights.weak,
+      description: `Tracer's high mobility and burst make her an excellent choice for following up on Zenyatta's discord orb.`,
     }),
   ]);
 
