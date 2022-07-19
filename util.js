@@ -1,6 +1,6 @@
 const util = {
   epsilon: Number.EPSILON * 2,
-  significance: -6,
+  epsilon_significance: -6,
 
   is: {
     equal(a,b, epsilon = util.epsilon) {
@@ -16,11 +16,11 @@ const util = {
     },
 
     significantly: {
-      greaterThan(a, b, significance = util.significance) {
+      greaterThan(a, b, significance = util.epsilon_significance) {
         return util.is.greaterThan(a, b, util.significance(significance));
       },
 
-      lessThan(a, b, significance = util.significance) {
+      lessThan(a, b, significance = util.epsilon_significance) {
         return util.is.lessThan(a, b, util.significance(significance));
       },
     },

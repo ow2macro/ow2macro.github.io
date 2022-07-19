@@ -54,7 +54,7 @@ class TeamComposition extends Descriptor {
 
   update() {
     this.#reset();
-    if (this.members.length === 0) return;
+    if (this.members.size < 1) return;
 
     let total = 0;
 
@@ -108,23 +108,17 @@ class TeamComposition extends Descriptor {
     // calculate mobility score
     this.mobility = this.mobile - this.sustain;
 
-    const weights = _.sortBy(_.toPairs({
-      sustain: this.sustain,
-      range: this.range,
-      mobile: this.mobile,
-    }), x=>x[1]).reverse();
+    const values = this.normalizedMetrics();
+    const weights = _.sortBy(Object.keys(values).map(metric=>({metric, value: values[metric]})), x=>x.value);
+    this.composition = weights.map(x=>x.metric).reverse();
 
-    let n = 0;
-    let acc = 0;
-    let focus;
+    const target = 2/3;
 
-    // select team composition
-    for (const weight of weights) {
-      n++;
-      this.composition.push(weight[0]);
-      acc += weight[1];
-      const ratio = (n+1)/(n+2);
-      if (util.is.approximately.greaterThan(acc, ratio, TeamComposition.significance)) break;
+    // pop compositions that are less-than target % of the largest composition
+    for (let n = 0; n < weights.length; n++) {
+      const current = weights[n];
+      if (util.is.greaterThan(current.value, target)) break;
+      this.composition.pop();
     }
 
     this.compositionName = this.#getCompositionName();
@@ -388,6 +382,4 @@ class TeamComposition extends Descriptor {
       [attribute.class.support.healing]: 0,
     },
   }
-
-  static significance = -6;
 }
