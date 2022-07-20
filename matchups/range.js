@@ -32,3 +32,26 @@ matchups.push(new Rule({
     playbook.get('Counter Rotate'),
   ],
 }));
+
+matchups.push(new Rule({
+  name: 'range v range',
+  focus: 'range',
+  role: 'frontline',
+  team: TeamCompositionSelector.range,
+  enemy: TeamCompositionSelector.range,
+  plays: [
+    playbook.get('Continous Pressure'),
+  ],
+}));
+
+matchups.push(new Rule({
+  name: 'range v range',
+  focus: 'range',
+  role: 'angles',
+  team: TeamCompositionSelector.range,
+  enemy: TeamCompositionSelector.range,
+  plays: [
+    playbook.get('Burst Targets'),
+    playbook.get('Soft Flank'),
+  ],
+}));

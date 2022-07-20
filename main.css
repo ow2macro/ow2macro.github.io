@@ -167,6 +167,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (hover: hover) {
   .btn.btn-sm:hover {
     --hover: scale(1.05);
+    text-rendering: geometricPrecision;
   }
 }
 
@@ -176,6 +177,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn.btn-sm:active {
   transform: var(--hover) var(--active);
+  text-rendering: geometricPrecision;
 }
 
 @media (pointer: fine) {

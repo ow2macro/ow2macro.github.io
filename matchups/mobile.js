@@ -6,6 +6,7 @@ matchups.push(new Rule({
   enemy: [
     TeamCompositionSelector.sustain,
     TeamCompositionSelector.range,
+    TeamCompositionSelector.mobile,
   ],
   plays: [
     playbook.get('Burst Targets'),
