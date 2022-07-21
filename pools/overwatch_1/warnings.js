@@ -35,7 +35,7 @@ function load(hero) {
                 const anti = team.getMembers().filter(hero=>hero.archetypes.includes(attribute.archetype.antidive));
 
                 return [
-                    {paragraph: `This team has significantly more dive targets than antidive heros, which may leave it more vulneralbe to a Dive.`},
+                    {paragraph: `This team has significantly more dive targets than antidive heros, which may leave it more vulnerable to a Dive.`},
                     {
                         string: `Dive Targets include:`,
                         list: targets.map(hero=>hero.full),

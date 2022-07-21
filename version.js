@@ -2,7 +2,7 @@ const version = {
   major: 0,
   minor: 12,
   patch: 0,
-  tag: 'a',
+  tag: 'b',
 }
 
 function makeVersion(version, short = false, delim = '.') {
