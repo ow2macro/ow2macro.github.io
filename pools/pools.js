@@ -2,7 +2,7 @@ const pools = {
   'overwatch_1': {
     id: 1,
     version: {
-      major: 3,
+      major: 4,
       minor: 1,
       patch: 1,
       tag: 'a',
