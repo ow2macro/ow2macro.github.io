@@ -1,0 +1,2 @@
+class Warning extends DescriptorObject {
+}

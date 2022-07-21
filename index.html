@@ -19,14 +19,16 @@
 
     <script type="text/javascript" src="components/placeholder.js"></script>
     <script type="text/javascript" src="components/footer.js"></script>
+    <script type="text/javascript" src="components/render.js"></script>
 
     <script type="text/javascript" src="descriptor.js"></script>
+    <script type="text/javascript" src="descriptor_object.js"></script>
+    <script type="text/javascript" src="descriptor_map.js"></script>
     <script type="text/javascript" src="role.js"></script>
-    <script type="text/javascript" src="vulnerability.js"></script>
-    <script type="text/javascript" src="strength.js"></script>
     <script type="text/javascript" src="playstyle.js"></script>
     <script type="text/javascript" src="archetype.js"></script>
     <script type="text/javascript" src="attributes.js"></script>
+    <script type="text/javascript" src="warning.js"></script>
 
     <script type="text/javascript" src="playbook/playbook.js"></script>
     <script type="text/javascript" src="playbook/win_conditions.js"></script>
@@ -49,9 +51,7 @@
     <script type="text/javascript" src="pools/overwatch_1/heros.js"></script>
     <script type="text/javascript" src="pools/overwatch_1/compositions.js"></script>
     <script type="text/javascript" src="pools/overwatch_1/interactions.js"></script>
-
-    <script type="text/javascript" src="vulnerabilities.js"></script>
-    <script type="text/javascript" src="strengths.js"></script>
+    <script type="text/javascript" src="pools/overwatch_1/warnings.js"></script>
 
     <script type="text/javascript" src="compare.js"></script>
   </head>
@@ -152,7 +152,7 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link text-sm-center active"
-                id="#heros`"
+                id="#heros_nav"
                 data-bs-toggle="tab"
                 data-bs-target="#heros"
                 type="button"
@@ -164,7 +164,7 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link text-sm-center"
-                id="#playstyle"
+                id="#playstyle_nav"
                 data-bs-toggle="tab"
                 data-bs-target="#playstyle"
                 type="button"
@@ -176,7 +176,7 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link text-sm-center"
-                id="#synergy"
+                id="#synergy_nav"
                 data-bs-toggle="tab"
                 data-bs-target="#synergy"
                 type="button"
@@ -188,7 +188,7 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link text-sm-center"
-                id="#stats"
+                id="#stats_nav"
                 data-bs-toggle="tab"
                 data-bs-target="#stats"
                 type="button"
@@ -206,9 +206,10 @@
 
         <div class="tab-content px-0">
           <div
-          class="tab-pane active"
-          id="heros"
-          role="tabpanel">
+            class="tab-pane active"
+            id="heros"
+            role="tabpanel"
+          >
             <div class="d-flex flex-row justify-content-center-sm align-items-start teams">
               <section v-for="team in teams" class="col-10 col-sm-6 col-xl-5 px-1 px-md-3 team">
                 <div class="card shadow h-100">
@@ -256,74 +257,75 @@
           </div>
 
           <div
-          class="tab-pane"
-          id="playstyle"
-          role="tabpanel">
+            class="tab-pane"
+            id="playstyle"
+            role="tabpanel"
+          >
 
-          <placeholder text="Add heros to both teams to see playstyle suggestions." v-if="!teams[0].enable || !teams[1].enable"></placeholder>
+            <placeholder text="Add heros to both teams to see playstyle suggestions." v-if="!teams[0].enable || !teams[1].enable"></placeholder>
     
-          <div class="d-flex flex-row justify-content-center-sm align-items-start teams" v-else>
-            <section v-for="team in teams" class="col-10 col-sm-6 col-xl-5 px-1 px-md-3 team">
-              <div class="card shadow h-100">
-    
-                <div class="card-header">
-                  <h4 class="no-select">
-                    <small class="fs-6 fst-italic fw-lighter">
-                      Prefers
-                    </small>
-                    <strong> {{ team.matchupRole }} </strong>
-                    <small class="fs-6 fst-italic fw-lighter">
-                      against {{ team.enemyComp }}
-                    </small>
-                  </h4>
-                </div>
-                
-                <div class="accordion accordion-flush" :id="`plays-t${team.id}`">
-    
-                  <template v-for="(rules, group) in team.playstyle"><template v-for="rule in rules">
-                    <div class="accordion-item">
-                      <div class="accordion-header"
-                        :id="`header-r${rule.id}-${team.id}`"
-                      >
-                        <button
-                          class="accordion-button collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          :data-bs-target="`#r${rule.id}-${team.id}`"
-                          aria-expanded="true"
-                          :aria-controls="`#r${rule.id}-${team.id}`"
-                        > 
-                          <div class="d-flex flex-column">
-                            <h6>
-                              <strong class="text-primary"> {{ rule.name }} </strong>
-                              <small> ({{ group }}) </small>
-                            </h6>
-                            <span class="fw-lighter"> {{ rule.description }} </span>
+            <div class="d-flex flex-row justify-content-center-sm align-items-start teams" v-else>
+              <section v-for="team in teams" class="col-10 col-sm-6 col-xl-5 px-1 px-md-3 team">
+                <div class="card shadow h-100">
+      
+                  <div class="card-header">
+                    <h4 class="no-select">
+                      <small class="fs-6 fst-italic fw-lighter">
+                        Prefers
+                      </small>
+                      <strong> {{ team.matchupRole }} </strong>
+                      <small class="fs-6 fst-italic fw-lighter">
+                        against {{ team.enemyComp }}
+                      </small>
+                    </h4>
+                  </div>
+                  
+                  <div class="accordion accordion-flush" :id="`plays-t${team.id}`">
+      
+                    <template v-for="(rules, group) in team.playstyle"><template v-for="rule in rules">
+                      <div class="accordion-item">
+                        <div class="accordion-header"
+                          :id="`header-r${rule.id}-${team.id}`"
+                        >
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            :data-bs-target="`#r${rule.id}-${team.id}`"
+                            aria-expanded="true"
+                            :aria-controls="`#r${rule.id}-${team.id}`"
+                          > 
+                            <div class="d-flex flex-column">
+                              <h6>
+                                <strong class="text-primary"> {{ rule.name }} </strong>
+                                <small> ({{ group }}) </small>
+                              </h6>
+                              <span class="fw-lighter"> {{ rule.description }} </span>
+                            </div>
+                          </button>
+                        </div>
+                        <div
+                          :id="`r${rule.id}-${team.id}`"
+                          class="accordion-collapse collapse"
+                          :aria-labelledby="`#plays-t${team.id}`"
+                          :data-bs-parent="`#plays-t${team.id}`"
+                        >
+                          <div class="accordion-body">
+                            <ul class="mb-0">
+                              <li v-for="detail in rule.details"> {{ detail }} </li>
+                            </ul>
                           </div>
-                        </button>
-                      </div>
-                      <div
-                        :id="`r${rule.id}-${team.id}`"
-                        class="accordion-collapse collapse"
-                        :aria-labelledby="`#plays-t${team.id}`"
-                        :data-bs-parent="`#plays-t${team.id}`"
-                      >
-                        <div class="accordion-body">
-                          <ul class="mb-0">
-                            <li v-for="detail in rule.details"> {{ detail }} </li>
-                          </ul>
                         </div>
                       </div>
-                    </div>
-                  </template></template>
-    
+                    </template></template>
+      
+                  </div>
+                  
+                  <div class="card-footer h-100"></div>
+      
                 </div>
-                
-                <div class="card-footer h-100"></div>
-    
-              </div>
-            </section>
-          </div>
+              </section>
+            </div>
     
           </div>
     
@@ -337,26 +339,30 @@
     
             <div class="d-flex flex-row justify-content-center-sm align-items-start teams">
               <section v-for="team in teams" class="col-10 col-sm-6 col-xl-5 px-1 px-md-3 team"  v-if="team.enable">
-                <div class="card shadow h-100">
-                  <div class="card-header">
-                    <h4><em>Synergy</em></h4>
+
+                <template v-for="(bin, name) in team.data.interactionBins">
+                  <div class="card shadow mb-3" v-if="team.data.interactions.length">
+                    <div class="card-header">
+                      <em>{{ name }}</em>
+                    </div>
+                    <ul class="list-group list-group-flush slim-bullets">
+                      <li class="list-group-item fw-lighter" v-for="interaction in bin"> {{ interaction.description }} </li>
+                    </ul>
+                    <div class="card-footer"></div>
                   </div>
-                  <div class="list-group list-group-flush pb-1"  v-if="team.data.interactions.length">
-                    <div
-                      v-for="(bin, name) in team.data.interactionBins"
-                      class="list-group-item"
-                    >
-                    
-                      <div class="text-primary">
-                        <strong class="text-primary"> {{ name }} </strong>
-                      </div>
-                      <ul class="slim-bullets mb-0">
-                        <li class="fw-lighter" v-for="interaction in bin"> {{ interaction.description }} </li>
-                      </ul>
+                </template>
+
+                <template v-for="warning in datapool.warnings">
+                  <div class="card text-white bg-danger shadow mb-3" v-if="warning.test(team.data)">
+                    <div class="card-header">
+                      <em> {{ warning.name }} </em>
+                    </div>
+                    <div class="card-body">
+                      <rendercontent :elements="warning.getDetails(team.data)"></rendercontent>
                     </div>
                   </div>
-                  <div class="card-footer h-100"></div>
-                </div>
+                </template>
+                
               </section>
             </div>
     
@@ -368,7 +374,7 @@
             role="tabpanel"
           >
 
-          <placeholder text="Add heros to a team to see team statistics." v-if="!teams[0].enable && !teams[1].enable"></placeholder>
+            <placeholder text="Add heros to a team to see team statistics." v-if="!teams[0].enable && !teams[1].enable"></placeholder>
     
             <div class="d-flex flex-row justify-content-center-sm teams">
               <section v-for="team in teams" class="col-10 col-sm-6 col-xl-5 px-1 px-md-3 team"  v-if="team.enable">

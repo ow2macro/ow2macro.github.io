@@ -94,6 +94,7 @@ class TeamComposition extends Descriptor {
 
       // add archetypes
       for (const archetype of member.archetypes) {
+        if (!archetype) console.warn('unset archetype', member)
         this.archetypes.add(archetype);
         this.count[archetype] ??= 0;
         this.count[archetype]++;
@@ -182,7 +183,20 @@ class TeamComposition extends Descriptor {
 
     this.flags = [];
     this.archetypes = new Set();
-    this.count = {};
+    this.count = {
+      [attribute.role.tank]: 0,
+      [attribute.role.damage]: 0,
+      [attribute.role.support]: 0,
+
+      [attribute.class.tank.main]: 0,
+      [attribute.class.tank.off]: 0,
+
+      [attribute.class.damage.hitscan]: 0,
+      [attribute.class.damage.flex]: 0,
+
+      [attribute.class.support.utility]: 0,
+      [attribute.class.support.healing]: 0,
+    };
   }
 
   #getCompositionName() {
@@ -311,6 +325,10 @@ class TeamComposition extends Descriptor {
       if (!team.members.has(hero)) return false;
     }
     return true;
+  }
+
+  getMembers() {
+    return Array.from(this.members);
   }
 
   static weights = {

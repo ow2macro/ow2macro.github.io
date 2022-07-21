@@ -6,7 +6,7 @@ class Hero extends Descriptor {
   playstyle = attribute.playstyle.null;
   healing = attribute.playstyle.null;
   utility = attribute.playstyle.null;
-  archetype = [];
+  archetypes = [];
 
   constructor(options = {}) {
     super(options.name ?? options.full ?? `${options.focus}/${options.role}`, options.short);

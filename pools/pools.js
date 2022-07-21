@@ -68,6 +68,7 @@ class DataPool {
       this.compositionSets = obj.compositionSets(this.hero);
       this.roles = herosByRole(this.heros);
       this.interactions = obj.interactions(this.hero);
+      this.warnings = obj.warnings(this.hero);
     }
   }
 

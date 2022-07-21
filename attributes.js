@@ -60,6 +60,7 @@ const attribute = {
 
     damage: {
       sniper: new HeroArchetype('Sniper DPS', 'Sniper'),
+      ranged: new HeroArchetype('Ranged DPS'),
       flanker: new HeroArchetype('Flanker DPS', 'Flanker'),
       buster: new HeroArchetype('Shield/Tank Buster DPS', 'Shield/Tank Buster'),
       brawl: new HeroArchetype('Brawl DPS'),
@@ -77,6 +78,8 @@ const attribute = {
     pick: new HeroArchetype('Pick'),
     rush: new HeroArchetype('Rush'),
     dive: new HeroArchetype('Dive'),
+    pick: new HeroArchetype('Pick'),
+    highdps: new HeroArchetype('High DPS'),
 
     antidive: new HeroArchetype('Antidive'),
     dive_target: new HeroArchetype('Dive Target'),

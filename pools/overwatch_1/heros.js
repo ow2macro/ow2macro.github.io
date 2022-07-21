@@ -26,6 +26,7 @@ function load() {
       archetypes: [
         attribute.archetype.damage.sniper,
         attribute.archetype.dive_target,
+        attribute.archetype.damage.ranged,
       ],
     }),
 
@@ -57,8 +58,10 @@ function load() {
       archetypes: [
         attribute.archetype.spam,
         attribute.archetype.damage.buster,
+        attribute.archetype.highdps,
         attribute.archetype.damage.flanker,
         attribute.archetype.dive_target,
+        attribute.archetype.damage.ranged,
       ],
     }),
 
@@ -88,9 +91,10 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
-        attribute.archetype.damage.buster,
+        attribute.archetype.highdps,
         attribute.archetype.damage.brawl,
         attribute.archetype.antidive,
+        attribute.archetype.damage.ranged,
       ],
     }),
 
@@ -161,6 +165,7 @@ function load() {
       archetypes: [
         attribute.archetype.damage.sniper,
         attribute.archetype.damage.buster,
+        attribute.archetype.highdps,
       ],
     }),
 
@@ -175,6 +180,7 @@ function load() {
       archetypes: [
         attribute.archetype.spam,
         attribute.archetype.damage.buster,
+        attribute.archetype.highdps,
         attribute.archetype.antidive,
       ],
     }),
@@ -214,7 +220,7 @@ function load() {
       name: 'Mercy',
       id: 'mercy',
       role: attribute.role.support,
-      class: attribute.class.support.healing,
+      class: attribute.class.support.utility,
       playstyle: attribute.playstyle.null,
       healing: attribute.playstyle.mobile,
       utility: attribute.playstyle.range,
@@ -247,7 +253,6 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.range,
       archetypes: [
-        attribute.archetype.tank.poke,
         attribute.archetype.tank.mitigation,
       ],
     }),
@@ -256,7 +261,7 @@ function load() {
       name: 'Pharah',
       id: 'pharah',
       role: attribute.role.damage,
-      class: attribute.class.damage.hitscan,
+      class: attribute.class.damage.flex,
       playstyle: attribute.playstyle.pokedive,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
@@ -276,7 +281,7 @@ function load() {
       utility: attribute.playstyle.null,
       archetypes: [
         attribute.archetype.damage.buster,
-        attribute.archetype.damage.hitscan,
+        attribute.archetype.highdps,
         attribute.archetype.damage.flanker,
       ],
     }),
@@ -291,7 +296,6 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
-        attribute.archetype.tank.brawl,
         attribute.archetype.antidive,
         attribute.archetype.tank.mitigation,
       ],
@@ -307,8 +311,6 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
-        attribute.archetype.tank.brawl,
-        attribute.archetype.tank.poke,
         attribute.archetype.antidive,
       ],
     }),
@@ -323,8 +325,6 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.range,
       archetypes: [
-        attribute.archetype.tank.poke,
-        attribute.archetype.tank.dive,
         attribute.archetype.tank.mitigation,
         attribute.archetype.dive_target,
       ],
@@ -340,9 +340,10 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
-        attribute.archetype.damage.buster,
+        attribute.archetype.highdps,
         attribute.archetype.damage.flanker,
         attribute.archetype.dive_target,
+        attribute.archetype.damage.ranged,
       ],
     }),
 
@@ -357,7 +358,6 @@ function load() {
       archetypes: [
         attribute.archetype.dive,
         attribute.archetype.damage.flanker,
-        attribute.archetype.defensiveUlt,
       ],
     }),
 
@@ -371,6 +371,7 @@ function load() {
       utility: attribute.playstyle.mobile,
       archetypes: [
         attribute.archetype.damage.buster,
+        attribute.archetype.highdps,
         attribute.archetype.antidive,
       ],
     }),
@@ -385,8 +386,9 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
-        attribute.archetype.damage.buster,
+        attribute.archetype.highdps,
         attribute.archetype.antidive,
+        attribute.archetype.damage.ranged,
       ],
     }),
 
@@ -416,6 +418,7 @@ function load() {
       archetypes: [
         attribute.archetype.damage.sniper,
         attribute.archetype.dive_target,
+        attribute.archetype.damage.ranged,
       ],
     }),
 
@@ -428,7 +431,7 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
-        attribute.archetype.tank.dive,
+        attribute.archetype.tank.mitigation,
       ],
     }),
 
@@ -442,7 +445,6 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
-        attribute.archetype.tank.dive,
         attribute.archetype.tank.mitigation,
       ],
     }),
@@ -456,7 +458,6 @@ function load() {
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
-        attribute.archetype.tank.brawl,
         attribute.archetype.tank.mitigation,
       ],
     }),
@@ -475,6 +476,7 @@ function load() {
         attribute.archetype.support.range,
         attribute.archetype.defensiveUlt,
         attribute.archetype.dive_target,
+        attribute.archetype.highdps,
       ],
     }),
   ];
