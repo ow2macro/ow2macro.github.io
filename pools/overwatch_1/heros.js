@@ -36,7 +36,7 @@ function load() {
       id: 'baptiste',
       role: attribute.role.support,
       class: attribute.class.support.healing,
-      playstyle: attribute.playstyle.pokebrawl,
+      playstyle: attribute.playstyle.range_sustain,
       healing: attribute.playstyle.sustain,
       utility: attribute.playstyle.sustain,
       archetypes: [
@@ -87,7 +87,7 @@ function load() {
       id: 'cassidy',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.brawlpoke_3x1,
+      playstyle: attribute.playstyle.sustain_range_3x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
@@ -118,7 +118,7 @@ function load() {
       id: 'doomfist',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
-      playstyle: attribute.playstyle.divebrawl_3x1,
+      playstyle: attribute.playstyle.mobile_sustain_3x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -131,7 +131,7 @@ function load() {
       id: 'echo',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
-      playstyle: attribute.playstyle.pokedive,
+      playstyle: attribute.playstyle.range_mobile,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -174,7 +174,7 @@ function load() {
       id: 'junkrat',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
-      playstyle: attribute.playstyle.pokebrawl_3x1,
+      playstyle: attribute.playstyle.range_sustain_3x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -234,7 +234,7 @@ function load() {
       id: 'moria',
       role: attribute.role.support,
       class: attribute.class.support.healing,
-      playstyle: attribute.playstyle.brawldive_2x1,
+      playstyle: attribute.playstyle.sustain_mobile_2x1,
       healing: attribute.playstyle.sustain,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -262,7 +262,7 @@ function load() {
       id: 'pharah',
       role: attribute.role.damage,
       class: attribute.class.damage.flex,
-      playstyle: attribute.playstyle.pokedive,
+      playstyle: attribute.playstyle.range_mobile,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -276,7 +276,7 @@ function load() {
       id: 'reaper',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.brawldive,
+      playstyle: attribute.playstyle.sustain_mobile,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -307,7 +307,7 @@ function load() {
       id: 'roadhog',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
-      playstyle: attribute.playstyle.pokebrawl,
+      playstyle: attribute.playstyle.range_sustain,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
@@ -321,7 +321,7 @@ function load() {
       id: 'sigma',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
-      playstyle: attribute.playstyle.pokedive_2x1,
+      playstyle: attribute.playstyle.range_mobile_2x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.range,
       archetypes: [
@@ -336,7 +336,7 @@ function load() {
       id: 'soldier',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.pokedive_2x1,
+      playstyle: attribute.playstyle.range_mobile_2x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -352,7 +352,7 @@ function load() {
       id: 'sombra',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.divepoke_2x1,
+      playstyle: attribute.playstyle.mobile_range_2x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
@@ -382,7 +382,7 @@ function load() {
       id: 'torbjorn',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.pokebrawl,
+      playstyle: attribute.playstyle.range_sustain,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
@@ -397,7 +397,7 @@ function load() {
       id: 'tracer',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.pokedive,
+      playstyle: attribute.playstyle.range_mobile,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -427,7 +427,7 @@ function load() {
       id: 'winston',
       role: attribute.role.tank,
       class: attribute.class.tank.main,
-      playstyle: attribute.playstyle.divebrawl_4x1,
+      playstyle: attribute.playstyle.mobile_sustain_4x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -441,7 +441,7 @@ function load() {
       id: 'wreckingball',
       role: attribute.role.tank,
       class: attribute.class.tank.main,
-      playstyle: attribute.playstyle.divepoke_4x1,
+      playstyle: attribute.playstyle.mobile_range_4x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [
@@ -454,7 +454,7 @@ function load() {
       id: 'zarya',
       role: attribute.role.tank,
       class: attribute.class.tank.off,
-      playstyle: attribute.playstyle.brawlpoke_4x1,
+      playstyle: attribute.playstyle.sustain_range_4x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.sustain,
       archetypes: [
