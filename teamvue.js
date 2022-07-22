@@ -82,6 +82,10 @@ class TeamVue {
         {
           name: 'Balance',
           value: util.unlinear(1/2, 1, util.rms([n.sustain, n.range, n.mobile])),
+        },
+        {
+          name: 'Synergy',
+          value: team.interactions.map(x=>x.weight).reduce(util.add, 0) / (3*team.members.size) + Math.max(team.sustain, team.range, team.mobile)/2,
         }
       ];
 

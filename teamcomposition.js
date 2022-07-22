@@ -26,6 +26,10 @@ class TeamComposition extends Descriptor {
   count;
   heroWeights;
 
+  interactions;
+  interactionBins;
+  synergyScore;
+
   /**
    * @param {string} name
    * @param {Array | Set} members
@@ -111,6 +115,7 @@ class TeamComposition extends Descriptor {
 
     const values = this.normalizedMetrics();
     const weights = _.sortBy(Object.keys(values).map(metric=>({metric, value: values[metric]})), x=>x.value);
+    this.weights = weights;
     this.composition = weights.map(x=>x.metric).reverse();
 
     const target = 2/3;
@@ -137,11 +142,13 @@ class TeamComposition extends Descriptor {
       attribute.role.damage,
       attribute.role.support,
     ]
+
     const roleSort = interaction => interaction.heros.map(hero=>roles.indexOf(hero.role)).reduce(util.add);
+
     return _.sortBy(
-        _.sortBy(_.uniq(Array.from(this.members).map(getInteractions).flat().filter(testInteraction)), weight).reverse(),
-        roleSort
-      );
+      _.sortBy(_.uniq(Array.from(this.members).map(getInteractions).flat().filter(testInteraction)), weight).reverse(),
+      roleSort
+    );
   }
 
   binInteractions(interactions) {
