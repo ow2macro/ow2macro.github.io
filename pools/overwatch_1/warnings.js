@@ -28,7 +28,7 @@ function load(hero) {
         name: 'Dive Targets',
         test(team) {
           if (!team.archetypes.has(attribute.archetype.antidive)) return false;
-          return team.count[attribute.archetype.dive_target]??0 > team.count[attribute.archetype.antidive]??0;
+          return (team.count[attribute.archetype.dive_target]??0)-1 > (team.count[attribute.archetype.antidive]??0);
         },
         getDetails(team) {
           const targets = team.getMembers().filter(hero=>hero.archetypes.includes(attribute.archetype.dive_target));
