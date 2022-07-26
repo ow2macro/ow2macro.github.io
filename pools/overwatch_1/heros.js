@@ -6,7 +6,7 @@ function load() {
       role: attribute.role.support,
       class: attribute.class.support.healing,
       playstyle: attribute.playstyle.range,
-      healing: attribute.playstyle.mobile,
+      healing: attribute.playstyle.mobile_sustain_2x1,
       utility: attribute.playstyle.sustain,
       archetypes: [
         attribute.archetype.support.flex,
@@ -234,7 +234,7 @@ function load() {
       id: 'moria',
       role: attribute.role.support,
       class: attribute.class.support.healing,
-      playstyle: attribute.playstyle.sustain_mobile_2x1,
+      playstyle: attribute.playstyle.sustain_mobile_3x1,
       healing: attribute.playstyle.sustain,
       utility: attribute.playstyle.null,
       archetypes: [

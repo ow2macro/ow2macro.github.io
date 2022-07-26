@@ -58,3 +58,15 @@ matchups.push(new Rule({
     playbook.get('Scout & Stage'),
   ],
 }));
+
+matchups.push(new Rule({
+  name: 'mobile v mobile',
+  focus: 'mobile',
+  role: 'frontline',
+  team: TeamCompositionSelector.mobile,
+  enemy: TeamCompositionSelector.mobile,
+  plays: [
+    playbook.get('Continous Pressure'),
+    playbook.get('Force Midfight'),
+  ],
+}));
