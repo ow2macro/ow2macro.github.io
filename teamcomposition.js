@@ -60,8 +60,6 @@ class TeamComposition extends Descriptor {
     this.#reset();
     if (this.members.size < 1) return;
 
-    let total = 0;
-
     for (const member of this.members) {
       // add member to lookup tables
       this.roleMembers[member.role].push(member);
@@ -74,27 +72,8 @@ class TeamComposition extends Descriptor {
       this.count[member.class]++;
 
       // weights for how much the playstyle and healing-playstyle impact the team stats
-      const playstyleWeight = TeamComposition.weights.playstyle[member.class] * member.playstyle.factor();
-      const utilityWeight = TeamComposition.weights.utility[member.class] * member.utility.factor();
-      const healingWeight = TeamComposition.weights.healing[member.class] * member.healing.factor();
-
-      // increment totals by playstyle
-      this.sustain += member.playstyle.sustain * playstyleWeight;
-      this.range += member.playstyle.range * playstyleWeight;
-      this.mobile += member.playstyle.mobile * playstyleWeight;
-
-      // increment totals by healing
-      this.sustain += member.utility.sustain * utilityWeight;
-      this.range += member.utility.range * utilityWeight;
-      this.mobile += member.utility.mobile * utilityWeight;
-
-      // increment totals by healing
-      this.sustain += member.healing.sustain * healingWeight;
-      this.range += member.healing.range * healingWeight;
-      this.mobile += member.healing.mobile * healingWeight;
-
-      // total for normalizing later
-      total += playstyleWeight + healingWeight + utilityWeight;
+      const weights = TeamComposition.getWeights(TeamComposition.weights, member);
+      this.accumulate(weights, member);
 
       // add archetypes
       for (const archetype of member.archetypes) {
@@ -105,10 +84,7 @@ class TeamComposition extends Descriptor {
       }
     }
 
-    // normalize so sum of sustain range and mobile is 1
-    this.sustain /= total;
-    this.range /= total;
-    this.mobile /= total;
+    this.normalize();
 
     // calculate mobility score
     this.mobility = this.mobile - this.sustain;
@@ -132,6 +108,28 @@ class TeamComposition extends Descriptor {
     this.interactionBins = this.binInteractions(this.interactions);
   }
 
+  accumulate(weights, hero) {
+    this.sustain += hero.playstyle.sustain * weights.playstyle;
+    this.range += hero.playstyle.range * weights.playstyle;
+    this.mobile += hero.playstyle.mobile * weights.playstyle;
+
+    this.sustain += hero.utility.sustain * weights.utility;
+    this.range += hero.utility.range * weights.utility;
+    this.mobile += hero.utility.mobile * weights.utility;
+
+    this.sustain += hero.healing.sustain * weights.healing;
+    this.range += hero.healing.range * weights.healing;
+    this.mobile += hero.healing.mobile * weights.healing;
+
+    this.total += weights.total;
+  }
+
+  normalize() {
+    this.sustain /= this.total;
+    this.range /= this.total;
+    this.mobile /= this.total;
+  }
+
   getInteractions(datapool) {
     if (!datapool) return [];
     const getInteractions = hero => datapool.interactions.allied.get(hero);
@@ -146,7 +144,7 @@ class TeamComposition extends Descriptor {
     const roleSort = interaction => interaction.heros.map(hero=>roles.indexOf(hero.role)).reduce(util.add);
 
     return _.sortBy(
-      _.sortBy(_.uniq(Array.from(this.members).map(getInteractions).flat().filter(testInteraction)), weight).reverse(),
+      _.sortBy(_.uniq(this.getMembers().map(getInteractions).flat().filter(testInteraction)), weight).reverse(),
       roleSort
     );
   }
@@ -161,10 +159,7 @@ class TeamComposition extends Descriptor {
     this.sustain = 0;
     this.range = 0;
     this.mobile = 0;
-
-    this.brawl = 0;
-    this.poke = 0;
-    this.dive = 0;
+    this.total = 0;
 
     this.composition = [];
     this.compositionName = '';
@@ -293,7 +288,7 @@ class TeamComposition extends Descriptor {
   without(hero) {
     const members = new Set(this.members);
     members.delete(hero);
-    return new TeamComposition(this.name+'-without:'+hero.name, members, this.datapool);
+    return new TeamComposition(this.name + '-without:' + hero.name, members, this.datapool);
   }
 
   measureSynergy(hero) {
@@ -313,13 +308,11 @@ class TeamComposition extends Descriptor {
     const normalized = this.normalizedMetrics();
     const capped = this.normalizedCappedMetrics();
 
-    const playstyleWeight = TeamComposition.measure.playstyle[hero.class] * hero.playstyle.factor();
-    const utilityWeight = TeamComposition.measure.utility[hero.class] * hero.utility.factor();
-    const healingWeight = TeamComposition.measure.healing[hero.class] * hero.healing.factor();
+    const weights = TeamComposition.getWeights(TeamComposition.measure, hero);
 
-    const playstyle = this.similarity(normalized, hero.playstyle.normalizedMetrics()) * playstyleWeight;
-    const utility = this.similarity(normalized, this.rotate(hero.utility.normalizedMetrics())) * utilityWeight;
-    const healing = this.similarity(normalized, hero.healing.normalizedMetrics()) * healingWeight;
+    const playstyle = this.similarity(normalized, hero.playstyle.normalizedMetrics()) * weights.playstyle;
+    const utility = this.similarity(normalized, this.rotate(hero.utility.normalizedMetrics())) * weights.utility;
+    const healing = this.similarity(normalized, hero.healing.normalizedMetrics()) * weights.healing;
 
     const scores = [playstyle, utility, healing];
 
@@ -336,6 +329,36 @@ class TeamComposition extends Descriptor {
 
   getMembers() {
     return Array.from(this.members);
+  }
+
+  static getWeights(from, hero) {
+    const result = {
+      playstyle: from.playstyle[hero.class] * hero.playstyle.factor(),
+      utility: from.utility[hero.class] * hero.utility.factor(),
+      healing: from.healing[hero.class] * hero.healing.factor(),
+    }
+
+    result.total = [
+      result.playstyle,
+      result.utility,
+      result.healing,
+    ].reduce(util.add);
+
+    return result;
+  }
+
+  static getFactors(hero) {
+    const result = {
+      playstyle: hero.playstyle.factor(),
+      utility: hero.utility.factor(),
+      healing: hero.healing.factor(),
+    }
+
+    result.total = [
+      result.playstyle,
+      result.utility,
+      result.healing,
+    ].reduce(util.add);
   }
 
   static weights = {
