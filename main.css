@@ -116,11 +116,11 @@ small {
 }
 
 .text-string {
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
   text-overflow: ellipsis;
-  text-overflow: ellipsis ""; 
+  text-overflow: ellipsis "";
 }
 
 .vh {
@@ -181,16 +181,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (pointer: fine) {
-  body {
-    overflow: scroll;
-  }
+
 }
 
 @media (prefers-reduced-motion) {
   .btn.btn-sm:hover {
     transform: none;
   }
-  
+
   .btn.btn-sm:active {
     transform: none;
   }
