@@ -397,7 +397,7 @@ function load() {
       id: 'tracer',
       role: attribute.role.damage,
       class: attribute.class.damage.hitscan,
-      playstyle: attribute.playstyle.range_mobile,
+      playstyle: attribute.playstyle.mobile_sustain_4x1,
       healing: attribute.playstyle.null,
       utility: attribute.playstyle.null,
       archetypes: [

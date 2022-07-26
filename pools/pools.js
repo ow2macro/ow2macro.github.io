@@ -1,23 +1,6 @@
 const pools = {
-  'overwatch_1': {
-    id: 1,
-    version: {
-      major: 4,
-      minor: 1,
-      patch: 1,
-      tag: 'a',
-    }
-  },
-
-  'overwatch_2': {
-    id: 2,
-    version: {
-      major: 1,
-      minor: 0,
-      patch: 0,
-      tag: 'a',
-    }
-  },
+  'overwatch_1': {},
+  'overwatch_2': {},
 };
 
 function herosByRole(pool) {

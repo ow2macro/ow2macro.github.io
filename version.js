@@ -13,15 +13,8 @@ function makeVersion(version, short = false, delim = '.') {
   return segments.join(delim);
 }
 
-function getVersion(short = false) {
-  const base = makeVersion(version);
-  const poolVersions = [];
-
-  for (const pool of Object.values(pools)) {
-    poolVersions.push(`${pool.id}-${makeVersion(pool.version, short)}`);
-  }
-
-  return base + '_' + poolVersions.join('_');
+function getVersion() {
+  return makeVersion(version);
 }
 
 function getShortVersion() {
