@@ -85,7 +85,9 @@ class TeamVue {
         },
         {
           name: 'Synergy',
-          value: team.interactions.map(x=>x.weight).reduce(util.add, 0) / (3*team.members.size) + Math.max(team.sustain, team.range, team.mobile)/2,
+          value:
+            team.interactions.map(x=>x.weight).reduce(util.add, 0) / (3*team.members.size)
+            + Math.max(team.sustain, team.range, team.mobile)/3,
         }
       ];
 
