@@ -8,10 +8,11 @@ const footer_content = {
                         <a href="links.html" class="px-2">Related Links</a>
                         <a href="https://github.com/ow2macro/ow2macro.github.io" class="px-2">GitHub Project Page</a>
                     </footer>
-                    <p class="text-center text-muted">Made by <a href="https://github.com/ajzat34">ajzat34</a></p>
+                    <p class="text-center text-muted">
+                      Made by PizzaBlu (<a href="https://github.com/ajzat34">ajzat34</a>)
+                    </p>
                 </div>
             </div>
         </div>
     `
   }
-  
