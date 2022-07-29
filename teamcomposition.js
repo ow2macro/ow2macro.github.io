@@ -15,6 +15,11 @@ class TeamComposition extends Descriptor {
   range;
   mobile;
 
+  // phases
+  poke;
+  engage;
+  mid;
+
   // members by role
   roleMembers = {};
 
@@ -121,10 +126,20 @@ class TeamComposition extends Descriptor {
     this.range += hero.healing.range * weights.healing;
     this.mobile += hero.healing.mobile * weights.healing;
 
+    this.poke += hero.phases.poke;
+    this.engage += hero.phases.engage;
+    this.mid += hero.phases.mid;
+
     this.total += weights.total;
   }
 
   normalize() {
+
+    const total = [this.poke, this.engage, this.mid].reduce(util.add);
+    this.poke /= total;
+    this.engage /= total;
+    this.mid /= total;
+
     this.sustain /= this.total;
     this.range /= this.total;
     this.mobile /= this.total;
@@ -160,6 +175,10 @@ class TeamComposition extends Descriptor {
     this.range = 0;
     this.mobile = 0;
     this.total = 0;
+
+    this.poke = 0;
+    this.engage = 0;
+    this.mid = 0;
 
     this.composition = [];
     this.compositionName = '';

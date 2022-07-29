@@ -43,6 +43,7 @@ ready(()=>{
     components: {
       placeholder,
       rendercontent,
+      timeline,
     }
   });
 

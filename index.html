@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="responsive.css">
 
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.2/dist/chart.min.js"></script>
 
     <script type="text/javascript" src="util.js"></script>
 
@@ -23,13 +24,14 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      
+
       gtag('config', 'G-6JVT8NG03W');
     </script>
 
     <script type="text/javascript" src="components/placeholder.js"></script>
     <script type="text/javascript" src="components/footer.js"></script>
     <script type="text/javascript" src="components/render.js"></script>
+    <script type="text/javascript" src="components/timeline.js"></script>
 
     <script type="text/javascript" src="descriptor.js"></script>
     <script type="text/javascript" src="descriptor_object.js"></script>
@@ -39,6 +41,7 @@
     <script type="text/javascript" src="archetype.js"></script>
     <script type="text/javascript" src="attributes.js"></script>
     <script type="text/javascript" src="warning.js"></script>
+    <script type="text/javascript" src="phases.js"></script>
 
     <script type="text/javascript" src="playbook/playbook.js"></script>
     <script type="text/javascript" src="playbook/win_conditions.js"></script>
@@ -174,6 +177,18 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link text-sm-center"
+                id="#stats_nav"
+                data-bs-toggle="tab"
+                data-bs-target="#timeline"
+                type="button"
+                role="tab"
+              >
+                Timeline
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-sm-center"
                 id="#playstyle_nav"
                 data-bs-toggle="tab"
                 data-bs-target="#playstyle"
@@ -193,18 +208,6 @@
                 role="tab"
               >
                 Synergy
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link text-sm-center"
-                id="#stats_nav"
-                data-bs-toggle="tab"
-                data-bs-target="#stats"
-                type="button"
-                role="tab"
-              >
-                Stats
               </button>
             </li>
             <li class="col-1 d-none d-xl-block"></li>
@@ -380,38 +383,16 @@
 
           <div
             class="tab-pane"
-            id="stats"
+            id="timeline"
             role="tabpanel"
           >
 
-            <placeholder text="Add heros to a team to see team statistics." v-if="!teams[0].enable && !teams[1].enable"></placeholder>
+            <placeholder text="Add heros to a team to see timeline." v-if="!teams[0].enable && !teams[1].enable"></placeholder>
 
             <div class="d-flex flex-row justify-content-center-sm teams">
-              <section v-for="team in teams" class="col-10 col-sm-6 col-xl-5 px-1 px-md-3 team"  v-if="team.enable">
-                <div class="card shadow h-100">
-                  <div class="card-header">
-                    <h4><em>Statisics</em></h4>
-                  </div>
-                  <div class="card-body mt-2">
-                    <template v-for="stat in team.stats">
-                      <h6 class="text-muted fst-italic">{{ stat.name }}</h6>
-                      <p>
-                        <div class="progress normal-bar">
-                          <div
-                            class="progress-bar"
-                            role="progressbar"
-                            :style="{width: `${100 * stat.value}%`}"
-                            :aria-valuenow="100 * stat.value"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-                      </p>
-                    </template>
-                  </div>
-                  <div class="card-footer h-100"></div>
-                </div>
-              </section>
+              <div class="col-10 col-xl-8">
+                <timeline :teams="teams"></timeline>
+              </div>
             </div>
 
           </div>
