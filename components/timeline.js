@@ -81,7 +81,12 @@ const timeline = {
               },
               beginAtZero: true,
               suggestedMin: 0,
-              suggestedMax: 80,
+              suggestedMax: 66,
+            }
+          },
+          layout: {
+            padding: {
+              top: 10,
             }
           },
           plugins: {
