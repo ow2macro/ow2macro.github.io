@@ -253,13 +253,6 @@ function load(hero) {
     }),
 
     new HeroInteraction({
-      heros: [hero.zenyatta, hero.mercy],
-      type: attribute.interaction.synergy,
-      weight: HeroInteraction.weights.weak,
-      description: `Mercy's damage boost amplifies Zenyatta's high damage.`,
-    }),
-
-    new HeroInteraction({
       heros: [hero.sombra, hero.tracer],
       type: attribute.interaction.synergy,
       weight: HeroInteraction.weights.weak,
