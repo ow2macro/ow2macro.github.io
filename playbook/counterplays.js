@@ -4,7 +4,7 @@ playbook.add(new Play(
   `Take advantage of enemy committment and split attention.`,
   [
     `Disrupt tanks and antidive heros with cooldowns like hack or boop.`,
-    `Take advantage of lower peel and flank enemy supports.`,
+    `Take advantage of lower peel by flanking enemy backline.`,
   ],
 ));
 
@@ -16,7 +16,7 @@ playbook.add(new Play(
     `Lanes being pushed kite.`,
     `Uncontested lanes trade aggression by pushing or flanking.`,
   ],
-))
+));
 
 playbook.add(new Play(
   'Peel',
@@ -37,5 +37,16 @@ playbook.add(new Play(
   [
     `Kite towards cover or allies suited to handle the threat.`,
     `Buys time to execute win condition.`,
+  ],
+));
+
+playbook.add(new Play(
+  'Counter Dive',
+  'Counterplay',
+  `Allow the enemy to dive allied tanks, then punish the divers while they lack resources.`,
+  [
+    `Squishies position safely to prevent getting dove.`,
+    `Tanks bait a dive in range of their allies.`,
+    `Once enemy team commits to a dive, use resource advantage to win the fight.`,
   ],
 ));

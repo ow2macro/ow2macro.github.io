@@ -60,6 +60,17 @@ matchups.push(new Rule({
 }));
 
 matchups.push(new Rule({
+  name: 'dive v range',
+  focus: 'mobile',
+  role: 'angles',
+  team: TeamCompositionSelector.dive,
+  enemy: TeamCompositionSelector.range,
+  plays: [
+    playbook.get('Scout & Stage'),
+  ],
+}));
+
+matchups.push(new Rule({
   name: 'mobile v mobile',
   focus: 'mobile',
   role: 'frontline',
@@ -68,5 +79,6 @@ matchups.push(new Rule({
   plays: [
     playbook.get('Continous Pressure'),
     playbook.get('Force Midfight'),
+    playbook.get('Counter Dive'),
   ],
 }));
